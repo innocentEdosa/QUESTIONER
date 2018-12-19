@@ -18,15 +18,29 @@ body {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 .u-marginBottom-sm {
     margin-bottom: 2rem;
 }
+.u-marginTop-sm {
+    margin-top: 1rem;
+}
+.u-marginTop-md {
+    margin-top: 4rem;
+}
+.u-marginTop-lg{
+    margin-top: 8rem;
+}
+.paddingSide-sm {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
 
 .heading--primary {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 900;
     text-transform: uppercase;
 }
@@ -154,10 +168,15 @@ a {
     background-color:rgb(5, 196, 107);
     font-size: 1.7rem;
     text-transform: uppercase;
+    transition: all .3s;
 }
 
 .form__btn:hover {
     background-color: rgb(0, 157, 84);
+}
+
+.form__btn-sm{
+    padding: 1rem 1rem;
 }
 
 
@@ -292,6 +311,7 @@ top: 2%;
 right: 10%;
 z-index: 2000;
 cursor: pointer;
+box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
 }
 
 .navigation__checkbox {
@@ -304,7 +324,7 @@ cursor: pointer;
     width: 4rem;
     border-radius: 50%;
     position: fixed;
-    top: 1%;
+    top: 2%;
     right: 11%;
     z-index: 1000;
     transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
@@ -449,11 +469,6 @@ sections */
     border: 1px solid #999;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0,.2);
     overflow: hidden;
-    animation-name: moveInBottom;
-    animation-duration: .8s;
-    animation-timing-function: ease-in-out;
-    /* animation-delay: .4s; */
-    animation-fill-mode: backwards;
 }
 
 .card > * {
@@ -544,6 +559,102 @@ sections */
     font-size: 1.3rem;
 }
 
+.card__sub {
+        width: 100%;
+        background-color: #f4f4f4;
+        border: 1px solid #999;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0,.2);
+        overflow: hidden;
+}
+
+.card__sub:not(:last-child){
+    margin-bottom: 2rem;
+}
+
+/* section post styling */
+
+.section__post {
+    padding: 2rem 0rem;
+}
+
+.post {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.post__textarea {
+    overflow:hidden;
+    height: 5.8rem;
+    width: 100%;
+}
+
+.post__figure{
+    width: 40rem;
+    height: 20rem;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    transform: scale(.9);
+    outline: 2px solid rgb(32, 32, 56);
+    outline-offset: 1rem;
+    transition: all .3s;
+    margin-bottom: 3rem;
+}
+
+.post__figure:hover {
+    outline-offset: 2rem;
+}
+
+.post__heading {
+    text-transform: uppercase;
+    color: rgb(32,32,56);
+}
+
+.post__img {
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    transition: all .5s;
+   
+}
+
+.more__meetup {
+    border: 1px solid #d1d1d1;
+    padding: 2rem;
+}
+
+.post__questions {
+    border: 1px solid #d1d1d1;
+    padding: 1rem;
+}
+
+.questions {
+    background-color: #f4f4f4;
+    padding: .5rem;
+    font-family: 'Lato' sans-serif;
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+.questions:not(:last-child){
+    margin-bottom: 1.5rem;
+}
+
+.question__btnlist {
+    text-align: right;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: rgb(5, 196, 107);
+}
+.question__btnlistitem {
+    list-style: none;
+    display: inline-block;
+}
+
+.question__btnlistitem:not(:last-child) {
+    margin-right: 1rem;
+}
+
 /* footer styling */
     
 .footer {
@@ -598,6 +709,16 @@ sections */
         transform: translateX(0rem);
     }
 }
+
+.moveInBottom {
+    animation-name: moveInBottom;
+    animation-duration: .8s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+ }
+
+
+
  /* 1200px */
  @media (max-width: 75em) {
      html {
@@ -612,15 +733,7 @@ sections */
       border: .1rem solid #999;
   }
 
-        
-
-
-    }
-
-
-
-
-
+}
 
 
 
@@ -641,6 +754,7 @@ sections */
     [class^=col-] {
         width: 100%;
         float: none;
+        margin-bottom: 4rem;
         /* display: block; */
     }
 
@@ -651,6 +765,8 @@ sections */
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0,.2);
         overflow: unset;
         height: 100%;
+        padding: 1rem;
+
     }
 
     .card__figure {
@@ -691,7 +807,6 @@ sections */
         color: rgb(32, 32, 56);
         font-size: 1.6rem;
         text-align: left;
-        padding-left: 2rem;
     }
 
     .section__meetup {
@@ -718,15 +833,16 @@ sections */
     }
 
     .section__signup {
-       height: auto;
+       height: 100vh;
        padding: 0rem;
-       min-height: 95vh;
+       /* min-height: 95vh; */
        background-image: none;
        background-color: #f2f2f2;
        backface-visibility: hidden;
     }
 
     .signup {
+       height: 100%;
        width: 100%;
        position: absolute;
        top: 0%;
@@ -746,20 +862,6 @@ sections */
 
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  /* 600px */
 
  @media (max-width: 37.5em){
@@ -769,6 +871,13 @@ sections */
      .card__btn {
         padding: 1.7rem 7rem;
         font-size: 1.8rem;
+    }
+
+    .post__figure{
+        width: 100%;
+        transform: scale(1);
+        outline: 2px solid rgb(32, 32, 56);
+        outline-offset: 1rem;
     }
 
      .section__signup {
