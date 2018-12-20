@@ -19,10 +19,42 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
+
+
+
+/* animation classes */
+
+.moveInBottom {
+    animation-name: moveInBottom;
+    animation-duration: .8s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+ }
+
+ .moveInLeft {
+    animation-name: moveInLeft;
+    animation-duration: .8s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+ }
+
+ .moveInRight {
+    animation-name: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+ }
+
+
+/* utility classes */
 
 .u-marginBottom-sm {
     margin-bottom: 2rem;
+}
+.u-marginBottom-md{
+    margin-bottom: 4rem;
 }
 .u-marginTop-sm {
     margin-top: 1rem;
@@ -37,15 +69,47 @@ a {
     padding-right: 2rem;
     padding-left: 2rem;
 }
+.u-paddingRight-sm {
+    padding-right: 2rem;
+}
+
+.u-text-center {
+    text-align: center
+}
+
+.padding-df {
+    padding: 3rem;
+}
+
+.close {
+    font-size: 1.8rem;
+    text-align: right;
+}
+
+
+/* typography classes */
 
 .heading--primary {
     font-family: 'Poppins', sans-serif;
     font-size: 2rem;
     font-weight: 900;
     text-transform: uppercase;
+    color: rgb(32,32,56);
 }
 
-.btn, .btn:link, .btn:visited,.btn-1,.btn-1:link, .btn-1:visited{
+.heading--secondary{
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+
+/* btn classes */
+
+
+.btn, .btn:link, .btn:visited,.btn-1,.btn-1:link, .btn-1:visited, button{
     display: inline-block;
     padding: 2rem 1.5rem;
     text-align: center;
@@ -55,7 +119,15 @@ a {
     border-radius: .3rem;
     transition: all .4s;
     backface-visibility: hidden;
+    border: none;
+    cursor: pointer;
+    outline: none;
 }
+
+button:active {
+    transform: translateY(.5rem);
+}
+
 
 .btn-1 {
     border: .1rem solid #999;
@@ -67,11 +139,14 @@ a {
 }
 
 .emp {
+    display: inline-block;
     font-style: italic;
     color: rgb(5, 196, 107);
 }
 
-/* grid */
+
+
+/* grid  classes*/
 
 .row {
     width: 80%;
@@ -122,6 +197,7 @@ a {
 }
 
 
+
 /* form styling */
 
 .form:not(:last-child){
@@ -133,7 +209,7 @@ a {
 
 .form__label {
     display: block;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     text-transform: capitalize;
     margin-bottom: 1rem;
     letter-spacing: .1rem;
@@ -179,17 +255,42 @@ a {
     padding: 1rem 1rem;
 }
 
-
-.signup__form {
-    width: 50%;
-    background-color: #ffffff;
-    margin: 0 auto;
-    padding: 2rem 2rem;
-    border-radius: .4rem;
-    border: .1rem solid #999;
+.form__logobox {
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
-/* navigation */
+.form__logo {
+    height: 6rem;
+}
+
+.form__heading {
+    color: rgb(32, 32, 56);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    
+}
+
+.form__group--inline {
+    width: 50%;
+    float: left;
+
+}
+
+.form__group--inline:after {
+    display: inline-block;
+    content: "";
+    clear: both;
+}
+
+.form__group--inline:not(:last-child) {
+    padding-right: 1rem;
+}
+
+
+/* navigation  classes*/
+
 .navigation {
     background-color: rgb(32, 32, 56);
     padding: 1.5rem 0rem;
@@ -411,10 +512,108 @@ box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
  }
 
 
+ /*  */
+
+ .header{
+    position: relative;
+    min-height: 85vh;
+    background-color: rgb(32, 32, 56);
+    background-image: linear-gradient(to right bottom,rgba(20, 20, 37, 0.9),rgba(0,0,0,.9)),url("../img/bg1.jpg");
+    background-position: top;
+    background-size: cover;
+}
+
+.header__wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 70%;
+    text-align: center;
+
+}
+
+.header__text--main {
+    display: block;
+    color: white;
+    text-shadow: 0 .4rem .5rem rgba(0,0,0,.8);
+    font-size: 5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+
+}
+
+.header__text--sub {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: .1rem;
+    animation: moveInRight 1s ease-out;
+    width: 55%;
+    text-align: center;
+    margin: 0 auto;
+    color: #dbd7d7;
+}
+
+
+ /* showcase styling */
+
+.showcase {
+    text-align: center;
+    padding: 3rem;
+    background-color: rgb(32,32,56);
+    background-image: linear-gradient(to right bottom, rgba(32,32,56,.95),rgba(0,0,0,.95)), url("../img/bg2.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.showcase__text--main {
+    display: block;
+    color: #fff;
+    line-height: 1;
+    display: block;
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 .4rem .5rem rgba(0, 0, 0, .8);
+}
+
+.showcase__text--sub {
+    display: block;
+    color: #9eadaf;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    letter-spacing: .2rem;
+    padding-right: 4rem;
+    padding-left: 4rem;
+}
+
+.showcase__btnwrapper {
+    display: block;
+    width: 50%;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.showcase__btn, .showcase__btn:link, .showcase__btn:visited{
+    background-color:rgb(5, 196, 107);
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #f4f4f4;
+}
+
+.showcase__btn:hover {
+    background-color: rgb(0, 157, 84);
+    color: #fff;
+}
+
+
+
 
 
 /* 
-sections */
+sections styling */
+
+/* signup section */
 .section__signup {
     padding: 2rem 5rem;
     min-height: 100vh;
@@ -438,28 +637,136 @@ sections */
      border-radius: .6rem;
      box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
  }
+
  
- .signup__logobox {
-     margin-bottom: 2rem;
-     text-align: center;
- }
+.signup__form {
+    width: 50%;
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+    border-radius: .4rem;
+    border: .1rem solid #999;
+}
  
- .signup__logo {
-     height: 6rem;
- }
- 
- .signup__heading {
-     color: rgb(32, 32, 56);
-     margin-bottom: 2rem;
-     text-align: center;
-     
- }
+
 
  /* section meetup styling */
 
  .section__meetup {
     padding: 10rem 0rem;
  }
+
+
+ /*section records  */
+
+ .section__record {
+     padding: 7rem 0rem;
+     background-color: #f4f4f4;
+ }
+
+ .record__table {
+     table-layout: fixed;
+     width: 100%;
+     white-space: none;
+     border: 1px solid #cacaca;
+     padding: 1rem;
+     border-radius: .3rem;
+     animation-duration: .8s;
+     animation-delay: .5s;
+     animation-fill-mode: backwards;
+ }
+
+ .record__caption {
+     color: rgb(32, 32, 56);
+     text-align: left;
+     animation-duration: .9s;
+     animation-delay: .2s;
+     animation-fill-mode: backwards;
+ }
+ .record__row,
+ .record__heading,
+ .record__data {
+     padding: 1rem 1.5rem;
+     text-align: center;
+     border-spacing: .8rem;
+ }
+
+ .record__heading {
+     background-color: rgb(32, 32, 56);
+     color: #f4f4f4;
+     text-transform: capitalize;
+ }
+
+
+
+ /* create post modal */
+
+ .create__post {
+     position: fixed;
+     background-image: linear-gradient(to right bottom,rgba(32,32,56,.8),rgba(0,0,0,.8));
+     top: 0%;
+     left: 0%;
+     height: 100vh;
+     opacity: 0;
+     width:100%;
+     display: none;
+  
+ }
+
+ .create__post--popup {
+     background-color: #f2f2f2;
+     padding: 5rem;
+     width: 90%;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-50%) scale(.7);
+     backface-visibility: hidden;
+     border-radius: .6rem;
+     box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
+ }
+
+
+ .create__form {
+    width: 90%;
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+    border-radius: .4rem;
+    border: .1rem solid #999;
+}
+
+
+.meetup__btnwrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+ .row__No {
+     width: 7%;
+ }
+ .row__title {
+     width: 67%;
+ }
+ .row__date {
+     width: 13%;
+ }
+ .row__action {
+     width: 13%;
+ }
+
+
+ .record__row:nth-child(even) {
+     background-color: #e0e0e0;
+ }
+
+ .record__data {
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+
+ 
 
  /* meetup card styling */
  .card {
@@ -510,6 +817,8 @@ sections */
     line-height: inherit;
     margin-bottom: 2.5rem;
 }
+
+
 
 .card__btn {
     padding: .6rem 2rem;
@@ -664,7 +973,7 @@ sections */
 }
 
  
-/* animations */
+/* animations  keyframes*/
 
 @keyframes moveInRight {
     0%{
@@ -710,19 +1019,11 @@ sections */
     }
 }
 
-.moveInBottom {
-    animation-name: moveInBottom;
-    animation-duration: .8s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: backwards;
- }
-
-
 
  /* 1200px */
  @media (max-width: 75em) {
      html {
-         font-size: 56.25%;
+         font-size: 53%;
      }
    
  .signup__form {
@@ -739,9 +1040,9 @@ sections */
 
  /* 900px */
 
- @media (max-width: 56.25em){
+ @media (max-width: 62em){
     html {
-        font-size: 50%;
+        font-size: 51%;
     }
 
     .row {
@@ -860,11 +1161,45 @@ sections */
 
    }
 
+   .create__post {
+    position: fixed;
+    background-image: linear-gradient(to right bottom,rgba(32,32,56,.8),rgba(0,0,0,.8));
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100vh;
+}
+
+.create__post--popup {
+    background-color: #f2f2f2;
+    padding: 10rem 0rem;
+    width: 100%;
+    position: absolute;
+    top:  0%;
+    left: 0%;
+    transform: translate(0%,0%) scale(1);
+    backface-visibility: hidden;
+    border-radius: .6rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
+}
+
+
+.create__form {
+   width: 100%;
+   background-color: #ffffff;
+   margin: 0 auto;
+   padding: 2rem 2rem;
+   border-radius: .4rem;
+   border: .1rem solid #999;
+}
+
+
+
  }
 
  /* 600px */
 
- @media (max-width: 37.5em){
+ @media (max-width: 48em){
      html {
          font-size: 50%;
      }
@@ -912,6 +1247,105 @@ sections */
         text-align: center;
         
     }
+
+    .section__record {
+        padding: 3rem 0rem;
+        background-color: #f4f4f4;
+    }
+   
+    .record__table {
+        position: relative;
+        width: 100%
+    }
+
+   
+
+    .record__row,
+    .record__data {
+        /* border: .1rem solid red; */
+        /* border-collapse: collapse; */
+        display: block;
+        padding: 1rem 1.5rem;
+        text-align: left;
+        border-spacing: .8rem;
+        font-size: 2rem;
+    }
+
+    .record__data {
+        position: relative;
+        padding-left: 40%;
+    }
+
+    .record__data::before {
+        position: absolute;
+        top: .6rem;
+        left: .6rem;
+        width: 45%;
+        white-space: nowrap;
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        text-transform: capitalize;
+        font-weight: 700;
+        color: rgb(32,32,56)
+    }
+
+    td:nth-of-type(1):before {
+        content: "No";
+    }
+    td:nth-of-type(2):before {
+        content: "Meetup Title";
+    }
+    td:nth-of-type(3):before {
+        content: "Date created";
+    }
+    td:nth-of-type(4):before {
+        content: "Action";
+    }
+
+    .record__heading {
+        display: none;
+    }
+   
+    .record__delete,
+    .record__edit {
+        padding-right: 1em;
+    }
+   
+    .create__post--popup {
+        background-color: #f2f2f2;
+        padding: 1rem;
+        width: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        transform: translate(0%,-5%) scale(.8);
+        backface-visibility: hidden;
+        border-radius: .6rem;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
+        overflow: scroll;
+    }
+   
+   
+ }
+
+
+
+
+
+ @media (max-width: 36em){
+     html {
+         font-size: 35%;
+     }
+
+     .admin__showcase {
+         min-height: 40vh;
+     }
+
+     .form__group--inline {
+        width: 100%;
+        float: none;
+     
+     }
  }
 
 
