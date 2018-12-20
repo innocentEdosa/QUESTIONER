@@ -12,7 +12,7 @@
     <nav class="navigation">
         <div class="row nav__mobile ">
                 <div class="navigation__mobilelogobox">
-                        <img src="img/logo.png" alt="logo" class="navigation__logo">
+                        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
                 </div>
                 <input type="checkbox" name="checkBox" id="checkBox" class="navigation__checkbox">
                 <label for="checkBox" class="navigation__toggle" id="navtoggle">
@@ -22,8 +22,11 @@
 
                 <div class="navigation__mobile">
                     <ul class="navigation__listmobile">
-                         <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Log out</a></li>
-                         <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Your profile</a></li>
+                         <li class="navigation__listitem--mobile"><a href="index.html" class="navigation__listlink--mobile">Log out</a></li>
+                         <li class="navigation__listitem--mobile"><a href="profile.html" class="navigation__listlink--mobile">Your profile</a></li>
+                         <li class="navigation__listitem">
+                             <a href="admin.html" class="navigation__listlink less">create meetup</a>
+                        </li>
                         <li class="navigation__listitem">
                              <input type="text" class="navigation__listsearch">
                             <a href="#" class="navigation__listlink">
@@ -38,7 +41,7 @@
 
         <div class="row nav__desktop" >
             <div class="navigation__logobox">
-                <img src="img/logo.png" alt="logo" class="navigation__logo">
+               <a href="index.html"> <img src="img/logo.png" alt="logo" class="navigation__logo"></a>
             </div>
             <ul class="navigation__list">
                 <li class="navigation__listitem">
@@ -49,7 +52,10 @@
                     
                 </li>
                 <li class="navigation__listitem">
-                    <a href="profile.html" class="navigation__listlink">Log out</a>
+                     <a href="admin.html" class="navigation__listlink less">create meetup</a>
+                </li>
+                <li class="navigation__listitem">
+                    <a href="index.html" class="navigation__listlink">Log out</a>
                 </li>
                 <li class="navigation__listitem">
                     <a href="profile.html" class="navigation__imglink"><img src="img/user (1).png" class="navigation__profileimg" alt="profile"></a>

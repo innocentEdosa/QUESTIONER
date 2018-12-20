@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questioner | Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/main.js"></script>
+
+</head>
+<body>
+        <nav class="navigation">
+                <div class="row nav__mobile ">
+                        <div class="navigation__mobilelogobox">
+                                <img src="img/logo.png" alt="logo" class="navigation__logo">
+                        </div>
+                        <input type="checkbox" name="checkBox" id="checkBox" class="navigation__checkbox">
+                        <label for="checkBox" class="navigation__toggle" id="navtoggle">
+                            <span class="navigation__icon" id="navigation__icon"></span>
+                        </label>
+                        <div class="navigation__background">&nbsp</div>
+        
+                        <div class="navigation__mobile">
+                            <ul class="navigation__listmobile">
+                                 <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Log out</a></li>
+                                 <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Your profile</a></li>
+                                <li class="navigation__listitem">
+                                     <input type="text" class="navigation__listsearch">
+                                    <a href="#" class="navigation__listlink">
+                                         <span class="navigation__listsearch-btn">Search</span>
+                                    </a> 
+                                </li>
+                           
+                            </ul>
+                      </div>
+                </div>
+              
+        
+                <div class="row nav__desktop" >
+                    <div class="navigation__logobox">
+                        <img src="img/logo.png" alt="logo" class="navigation__logo">
+                    </div>
+                    <ul class="navigation__list">
+                        <li class="navigation__listitem">
+                            <input type="text" class="navigation__listsearch">
+                            <a href="#" class="navigation__listlink">
+                             <span class="navigation__listsearch-btn">Search</span>
+                            </a>
+                            
+                        </li>
+                        <li class="navigation__listitem">
+                            <a href="profile.html" class="navigation__listlink">Log out</a>
+                        </li>
+                        <li class="navigation__listitem">
+                            <a href="profile.html" class="navigation__imglink"><img src="img/user (1).png" class="navigation__profileimg" alt="profile"></a>
+                        </li>
+                    </ul>
+               </div>
+        </nav>
+        <header class="admin__showcase">
+            <div class="row padding-df">
+                    <h2 class="showcase__text u-marginBottom-md">
+                         <span class=" heading--secondary showcase__text--main moveInLeft">
+                             welcome organiser
+                         </span>
+                         <span class="showcase__text--sub moveInRight">
+                             Create some awesome meetup
+                         </span>
+                    </h2>
+                    <div class="showcase__btnwrapper">
+                        <button  class="btn showcase__btn  moveInBottom" id='createlink1'>create meetup</button>
+                    </div>
+            </div>
+        </header>
+        <main>
+            <section class="section__record">
+                <div class="row">
+                    <table class="record__table moveInBottom">
+                        <caption class="record__caption u-marginBottom-sm moveInBottom"><h2 class="heading--secondary">Records</h2></caption>
+                        <tr class="record__row">
+                            <th class=" row__No record__heading ">No</th>
+                            <th class=" row__title record__heading ">MeetUp</th>
+                            <th class=" row__date record__heading ">Date Created</th>
+                            <th class=" row__action record__heading ">action</th>
+                        </tr>
+                        <tr class="record__row">
+                           <td class="record__data">1</td>
+                           <td class="record__data">this is the meet up title</td>
+                           <td class="record__data">13/09/2019</td>
+                           <td class="record__data">
+                               <a href="#" class="record__delete emp">delete</a>
+                               <a href="#" class="record__edit emp">edit</a>
+                           </td>
+                        </tr>
+                        <tr class="record__row">
+                                <td class="record__data">2</td>
+                                <td class="record__data">this is the meet up title</td>
+                                <td class="record__data">14/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                        </tr>
+                        <tr class="record__row">
+                                <td class="record__data">3</td>
+                                <td class="record__data">Andela development challenge 2018 fellowship 40</td>
+                                <td class="record__data">15/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                         </tr>
+                         <tr class="record__row">
+                                <td class="record__data">4</td>
+                                <td class="record__data">The meeting of kings</td>
+                                <td class="record__data">15/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                         </tr>
+                         <tr class="record__row">
+                                <td class="record__data">5</td>
+                                <td class="record__data">Coronation of the angry monarch..lol</td>
+                                <td class="record__data">15/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                         </tr>
+                         <tr class="record__row">
+                                <td class="record__data">6</td>
+                                <td class="record__data">Andela Hackatoon 1984</td>
+                                <td class="record__data">15/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                         </tr>
+                         <tr class="record__row">
+                                <td class="record__data">4</td>
+                                <td class="record__data">The meeting of kings</td>
+                                <td class="record__data">15/09/2019</td>
+                                <td class="record__data">
+                                    <a href="#" class="record__delete emp">delete</a>
+                                    <a href="#" class="record__edit emp">edit</a>
+                                </td>
+                         </tr>
+
+
+                    </table>
+                </div>
+                <div class="row">
+                        <div class="showcase__btnwrapper">
+                                <button href="#" class="btn showcase__btn  moveInBottom">create meetup</button>
+                        </div>
+                </div>
+            </section>
+            <!-- <div class="create__post moveInLeft" id="popup">
+                <div class="create__post--popup">
+                                <div class="form__logobox ">
+                                    <a href="index.html"><img src="img/logo1.png" alt="logo" class="form__logo"></a>
+                                </div>
+                                <div class="form__heading heading--primary">
+                                    Create Meetup
+                                </div>  
+                                <div class="close">&times;</div>
+                         <form action="#" class="form create__form">
+                                    <div class="form__group">
+                                        <label for="meetup__title" class="form__label">Topic/Title of meetup</label>
+                                        <input type="text" class="form__input" required placeholder="Pick a topic" id="meetup__title" name="meetup__title">
+                                    </div>
+                                    <div class="form__group--inline">
+                                        <label for="meetup__date" class="form__label">Date of meetup</label>
+                                        <input type="date" class="form__input" required placeholder="13/01/2019" id="meetup__date" name="meetup__date">
+                                    </div>
+                                    <div class="form__group--inline">
+                                            <label for="meetup__img" class="form__label">Meetup picture (optional)</label>
+                                            <input type="file" class="form__input" required placeholder="13/01/2019" id="meetup__img" name="meetup__img">
+                                    </div>
+
+                                    <div class="form__group">
+                                        <label for="meetup__tag" class="form__label">tags</label>
+                                        <input type="text" class="form__input" placeholder="tags (tags must be seperated with comma)" id="meetup__tag" name="meetup__tag">
+                                    </div>
+                                    <div class="form__group">
+                                            <label for="meetup__location" class="form__label">Location</label>
+                                            <input type="text" class="form__input" placeholder="Where is the meetup holding" id="meetup__tag" name="meetup__location">
+                                    </div>
+                                    <div class="form__group">
+                                        <div class="meetup__btnwrapper">
+                                                <button class="btn form__btn" id="createlink2">Create meetup</button>
+                                        </div>
+                                    </div>
+                                    
+                        </form>
+                </div> -->
+            </div>
+           
+
+       
+        </main>
+        <footer class="footer">
+                <h2 class="heading__primary">
+                    Questionaire &copy; 2018
+                </h2>
+                <p>All rights reserved</p>
+        </footer>
+</body>
+</html>
