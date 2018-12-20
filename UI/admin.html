@@ -13,7 +13,7 @@
         <nav class="navigation">
                 <div class="row nav__mobile ">
                         <div class="navigation__mobilelogobox">
-                                <img src="img/logo.png" alt="logo" class="navigation__logo">
+                                <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
                         </div>
                         <input type="checkbox" name="checkBox" id="checkBox" class="navigation__checkbox">
                         <label for="checkBox" class="navigation__toggle" id="navtoggle">
@@ -23,8 +23,8 @@
         
                         <div class="navigation__mobile">
                             <ul class="navigation__listmobile">
-                                 <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Log out</a></li>
-                                 <li class="navigation__listitem--mobile"><a href="#" class="navigation__listlink--mobile">Your profile</a></li>
+                                 <li class="navigation__listitem--mobile"><a href="index.html" class="navigation__listlink--mobile">Log out</a></li>
+                                 <li class="navigation__listitem--mobile"><a href="profile.html" class="navigation__listlink--mobile">Your profile</a></li>
                                 <li class="navigation__listitem">
                                      <input type="text" class="navigation__listsearch">
                                     <a href="#" class="navigation__listlink">
@@ -39,7 +39,7 @@
         
                 <div class="row nav__desktop" >
                     <div class="navigation__logobox">
-                        <img src="img/logo.png" alt="logo" class="navigation__logo">
+                        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
                     </div>
                     <ul class="navigation__list">
                         <li class="navigation__listitem">
@@ -50,7 +50,7 @@
                             
                         </li>
                         <li class="navigation__listitem">
-                            <a href="profile.html" class="navigation__listlink">Log out</a>
+                            <a href="index.html" class="navigation__listlink">Log out</a>
                         </li>
                         <li class="navigation__listitem">
                             <a href="profile.html" class="navigation__imglink"><img src="img/user (1).png" class="navigation__profileimg" alt="profile"></a>
@@ -58,7 +58,7 @@
                     </ul>
                </div>
         </nav>
-        <header class="admin__showcase">
+        <header class="showcase">
             <div class="row padding-df">
                     <h2 class="showcase__text u-marginBottom-md">
                          <span class=" heading--secondary showcase__text--main moveInLeft">
@@ -90,7 +90,6 @@
                            <td class="record__data">13/09/2019</td>
                            <td class="record__data">
                                <a href="#" class="record__delete emp">delete</a>
-                               <a href="#" class="record__edit emp">edit</a>
                            </td>
                         </tr>
                         <tr class="record__row">
@@ -99,7 +98,6 @@
                                 <td class="record__data">14/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                         </tr>
                         <tr class="record__row">
@@ -108,7 +106,6 @@
                                 <td class="record__data">15/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                          </tr>
                          <tr class="record__row">
@@ -117,7 +114,6 @@
                                 <td class="record__data">15/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                          </tr>
                          <tr class="record__row">
@@ -126,7 +122,6 @@
                                 <td class="record__data">15/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                          </tr>
                          <tr class="record__row">
@@ -135,7 +130,6 @@
                                 <td class="record__data">15/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                          </tr>
                          <tr class="record__row">
@@ -144,7 +138,6 @@
                                 <td class="record__data">15/09/2019</td>
                                 <td class="record__data">
                                     <a href="#" class="record__delete emp">delete</a>
-                                    <a href="#" class="record__edit emp">edit</a>
                                 </td>
                          </tr>
 
@@ -153,11 +146,11 @@
                 </div>
                 <div class="row">
                         <div class="showcase__btnwrapper">
-                                <button href="#" class="btn showcase__btn  moveInBottom">create meetup</button>
+                                <button href="#" class="btn showcase__btn  moveInBottom" id="createlink2">create meetup</button>
                         </div>
                 </div>
             </section>
-            <!-- <div class="create__post moveInLeft" id="popup">
+            <div class="create__post moveInLeft" id="popup">
                 <div class="create__post--popup">
                                 <div class="form__logobox ">
                                     <a href="index.html"><img src="img/logo1.png" alt="logo" class="form__logo"></a>
@@ -165,7 +158,7 @@
                                 <div class="form__heading heading--primary">
                                     Create Meetup
                                 </div>  
-                                <div class="close">&times;</div>
+                                <div class="close"><button id="close">&times;</button></div>
                          <form action="#" class="form create__form">
                                     <div class="form__group">
                                         <label for="meetup__title" class="form__label">Topic/Title of meetup</label>
@@ -190,12 +183,12 @@
                                     </div>
                                     <div class="form__group">
                                         <div class="meetup__btnwrapper">
-                                                <button class="btn form__btn" id="createlink2">Create meetup</button>
+                                                <button class="btn form__btn" >Create meetup</button>
                                         </div>
                                     </div>
                                     
                         </form>
-                </div> -->
+                </div>
             </div>
            
 
