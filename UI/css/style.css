@@ -23,6 +23,94 @@ a {
 }
 
 
+.section__profile {
+    padding: 8rem;
+    background-color: #eeeeee;
+}
+
+.profile__info {
+     table-layout: fixed;
+     width: 100%;
+     white-space: none;
+     border: 1px solid #cacaca;
+     padding: 1rem;
+     border-collapse: collapse;
+     box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
+
+.profile__row,
+.profile__heading,
+.profile__data {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border: 1px solid #cacaca;
+
+}
+
+.profile__data {
+    color: rgb(5, 196, 107);
+    font-style: italic;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.profile__heading {
+    background-color: rgb(32, 32, 56);
+    color: #f4f4f4;
+    text-transform: capitalize;
+}
+
+.profile__row-1 {
+    width: 30%
+}
+.profile__row-2{
+    width: 70%;
+}
+
+.meetup__info {
+    table-layout: fixed;
+    width: 100%;
+    white-space: none;
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    border-spacing: 1rem;
+    border-collapse: collapse;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
+
+.meetup__row,
+.meetup__data {
+   padding: 1rem 1.5rem;
+   text-align: left;
+   border: 1px solid #cacaca;
+
+}
+
+.meetup__row:nth-child(even) {
+    background-color: #e0e0e0;
+}
+
+.meetup__data {
+   color: rgb(5, 196, 107);
+   font-style: italic;
+   text-overflow: ellipsis;
+   overflow: hidden;
+}
+.meetup__heading {
+   background-color: rgb(32, 32, 56);
+   color: #f4f4f4;
+   text-transform: capitalize;
+   text-align: center;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   padding: 1rem 1.5rem;
+}
+
+.profile__row-1 {
+   width: 30%
+}
+.profile__row-2{
+   width: 70%;
+}
 
 /* animation classes */
 
@@ -73,6 +161,13 @@ a {
     padding-right: 2rem;
 }
 
+.less {
+    color: #555;
+    border: none;
+    padding: none;
+    background-color: transparent;
+}
+
 .u-text-center {
     text-align: center
 }
@@ -82,9 +177,19 @@ a {
 }
 
 .close {
-    font-size: 1.8rem;
+    padding: 1rem;
     text-align: right;
+    display: inline-block;
+    font-size: 6rem;
+    color: inherit;
+    color: rgb(32,32,56);
+    cursor: pointer;
+    position: absolute;
+    top: 2rem;
+    right: 4rem;
 }
+
+
 
 
 /* typography classes */
@@ -102,6 +207,8 @@ a {
     font-size: 3rem;
     font-weight: 900;
     text-transform: uppercase;
+    color: rgb(32,32,56);
+
 }
 
 
@@ -126,6 +233,7 @@ a {
 
 button:active {
     transform: translateY(.5rem);
+    backface-visibility: hidden;
 }
 
 
@@ -555,7 +663,12 @@ box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
     color: #dbd7d7;
 }
 
-
+.less {
+    color: #555;
+    border: none;
+    padding: none;
+    background-color: transparent;
+}
  /* showcase styling */
 
 .showcase {
@@ -710,6 +823,8 @@ sections styling */
      opacity: 0;
      width:100%;
      display: none;
+     overflow: scroll;
+     z-index: 500;
   
  }
 
@@ -1324,6 +1439,14 @@ sections styling */
         box-shadow: 0 1rem 2rem rgba(0, 0, 0,.2);
         overflow: scroll;
     }
+
+    
+.header__wrapper{
+   
+    width: 95%;
+    text-align: center;
+
+}
    
    
  }
