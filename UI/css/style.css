@@ -432,6 +432,10 @@ button:active {
     display: inline-block;
 }
 
+.navigation__listitem:not(:last-child) {
+    margin-right: .5rem;
+}
+
 .navigation__listsearch {
     padding: .5rem 2rem;
     width: 70%;
@@ -888,7 +892,7 @@ sections styling */
     width: 100%;
     height: 18rem;
     background-color: #f4f4f4;
-    border: 1px solid #999;
+    border: 1px solid #dbdbdb;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0,.2);
     overflow: hidden;
 }
@@ -914,12 +918,13 @@ sections styling */
 .card__img {
     object-fit: contain;
     height: 100%;
-    /* transform: scale(1.5); */
+    transform: scale(1.5);
+    width: 100%;
 }
 
 .card__description {
     height: 18rem;
-    padding: 1rem .5rem;
+    padding: 1rem 2rem;
 }
 
 .card__title {
@@ -966,6 +971,7 @@ sections styling */
     width: 100%;
     border-radius: .3rem;
     transition: all .3s;
+    margin-bottom: 1.5rem;
 }
 
 .card__question--link:hover {
@@ -995,6 +1001,17 @@ sections styling */
     margin-bottom: 2rem;
 }
 
+.showmore {
+    border: 1px solid rgb(5, 196, 107);
+    padding: 1.5rem;
+    border-radius: 2px;
+    transition: all .3s;
+}
+
+.showmore:hover {
+    background-color: rgb(5, 196, 107);
+    color: #fff;
+}
 /* section post styling */
 
 .section__post {
@@ -1082,7 +1099,7 @@ sections styling */
 /* footer styling */
     
 .footer {
-    padding: 10rem;
+    padding: 5rem;
     text-align: center;
     background-color:rgb(32, 32, 56);
 }
