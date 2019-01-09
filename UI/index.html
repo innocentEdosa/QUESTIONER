@@ -1,335 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Questioner</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Questioner</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<nav class="navigation">
-                <div class="row nav__mobile ">
-                        <div class="navigation__mobilelogobox">
-                                <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
-                        </div>
-                        <input type="checkbox" name="checkBox" id="checkBox" class="navigation__checkbox">
-                        <label for="checkBox" class="navigation__toggle" id="navtoggle">
-                                <span class="navigation__icon" id="navigation__icon"></span>
-                        </label>
-                        <div class="navigation__background">&nbsp</div>
-                        <div class="navigation__mobile">
-                        <ul class="navigation__listmobile">
-                                <li class="navigation__listitem--mobile"><a href="signup.html" class="navigation__listlink--mobile">Sign up</a></li>
-                                <li class="navigation__listitem--mobile"><a href="login.html" class="navigation__listlink--mobile">Sign in</a></li>
-                                <li class="navigation__listitem">
-                                        <input type="text" class="navigation__listsearch">
-                                        <a href="#" class="navigation__listlink">
-                                                <span class="navigation__listsearch-btn">Search</span>
-                                        </a> 
-                                </li>
-                        </ul>
-                        </div>
-                </div>
-                
-
-                <div class="row nav__desktop" >
-                        <div class="navigation__logobox">
-                                        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
-                        </div>
-                        <ul class="navigation__list">
-                                <li class="navigation__listitem">
-                                        <input type="text" class="navigation__listsearch" placeholder="search for meetups">
-                                        <a href="#" class="navigation__listlink">
-                                        <span class="navigation__listsearch-btn">Search</span>
-                                        </a>
-                                </li>
-                                <li class="navigation__listitem">
-                                                <a href="admin.html" class="navigation__listlink less">create meetup</a>
-                                </li>
-                                <li class="navigation__listitem">
-                                        <a href="login.html" class="navigation__listlink">Sign in</a>
-                                </li>
-                                <li class="navigation__listitem">
-                                        <a href="signup.html" class="navigation__listlink">Sign up</a>
-                                </li>
-                        </ul>
-                </div>
-</nav>
- <header class="header">
-            <div class="header__wrapper">
-                <h1 class="header__text">
-                    <span class="header__text--main moveInLeft">
-                        Crowd Source Questions
-                    </span>
-                    <span class="header__text--sub">
-                        Join Questioner, Ask the right questions and help organiser plan better for your next meetup
-                    </span>
-                </h1>
-                <div class="showcase__btnwrapper u-marginTop-lg">
-                    <a href="signup.html" class="btn showcase__btn">sign up for questioner</a>
-                </div>
+  <body>
+    <nav class="navigation">
+      <div class="row nav-mobile ">
+          <div class="navigation-mobilelogobox">
+              <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+          </div>
+          <input type="checkbox" name="checkBox" id="checkBox" class="navigation-checkbox">
+          <label for="checkBox" class="navigation-toggle" id="navtoggle">
+              <span class="navigation-icon" id="navigation-icon"></span>
+          </label>
+          <div class="navigation-background">&nbsp</div>
+        <div class="navigation-mobile">
+          <ul class="navigation-listmobile">
+            <li class="navigation-listitem-mobile"><a href="signup.html" class="navigation-listlink-mobile">Sign up</a></li>
+            <li class="navigation-listitem-mobile"><a href="login.html" class="navigation-listlink-mobile">Sign in</a></li>
+            <li class="navigation-listitem">
+              <input type="text" class="navigation-listsearch">
+              <a href="#" class="navigation-listlink">
+                  <span class="navigation-listsearch-btn">Search</span>
+              </a> 
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row nav-desktop" >
+        <div class="navigation-logobox">
+                <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+        </div>
+        <ul class="navigation-list">
+          <li class="navigation-listitem">
+              <input type="text" class="navigation-listsearch">
+              <a href="#" class="navigation-listlink">
+              <span class="navigation-listsearch-btn">Search</span>
+              </a>
+          </li>
+          <li class="navigation-listitem">
+                  <a href="admin.html" class="navigation-listlink less">create meetup</a>
+          </li>
+          <li class="navigation-listitem">
+              <a href="login.html" class="navigation-listlink">Sign in</a>
+          </li>
+          <li class="navigation-listitem">
+              <a href="signup.html" class="navigation-listlink">Sign up</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <header class="header">
+      <div class="header-wrapper">
+        <h1 class="header-text">
+          <span class="header-text-main moveInLeft">
+            Crowd Source Questions
+          </span>
+          <span class="header-text-sub">
+            Join Questioner, Ask the right questions and help organiser plan better for your next meetup
+          </span>
+        </h1>
+        <div class="showcase-btnwrapper u-marginTop-lg">
+          <a href="signup.html" class="btn showcase-btn">sign up for questioneer</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="section-meetup">
+        <div class="row">
+          <h2 class="heading-primary">
+          Top meetup
+          </h2>
+      </div>
+      <div class="row">
+        <div class="card moveInBottom">
+          <div class="col-1-of-5">
+            <div class="card-figure">
+            <img src="img/meetup(3).jpg" alt="meet up image" class="card-img">
             </div>
-</header>
- <main>
-        <section class="section__meetup">
-                        <div class="row">
-                        <h2 class="heading--primary">
-                                Top meetup
-                        </h2>
-                        </div>
-                
-                        <div class="row">
-                                        <div class="card moveInBottom">
-                                        <div class="col-1-of-5">
-                                                        <div class="card__figure">
-                                                        <img src="img/meetup(3).jpg" alt="meet up image" class="card__img">
-                                                        </div>
-                                        </div>
-                                        <div class="col-3-of-5">
-                                        <div class="card__description">
-                                                <div class="card__text">
-                                                        <h2 class="card__title heading--primary">
-                                                                this is the title
-                                                        </h2>
-                                                        <p>
-                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                        </p>
-                                                </div>
-                                                <div class="card__description--btn">
-                                                        <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                                </div>
-                                        </div>      
-                                        </div>
-                                        <div class="col-1-of-5">
-                                                <div class="card__description2">
-                                                        <a href="post.html" class="card__question--link">
-                                                        <span class="card__question--number">
-                                                                22
-                                                        </span>
-                                                        questions already
-                                                </a>
-                                                <div class="card__created">
-                                                        created by osaro two days ago
-                                                        </div>   
-                                                </div>
-                                        </div>
-                                        </div>
-                                        <div class="card moveInBottom">
-                                        <div class="col-1-of-5">
-                                                <div class="card__figure">
-                                                        <img src="img/meetup (2).jpg" alt="meet up image" class="card__img">
-                                                </div>
-                                        </div>
-                                <div class="col-3-of-5">
-                                <div class="card__description">
-                                        <div class="card__text">
-                                                <h2 class="card__title heading--primary">
-                                                        Andela development challenge
-                                                </h2>
-                                                <p class>
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                </p>
-                                        </div>
-                                        <div class="card__description--btn">
-                                                <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                        </div>
-                                </div>      
-                                </div>
-                                <div class="col-1-of-5">
-                                        <div class="card__description2">
-                                                <a href="post.html" class="card__question--link">
-                                                <span class="card__question--number">
-                                                        22
-                                                </span>
-                                                        questions already
-                                                </a>
-                                                <div class="card__created">
-                                                created by osaro two days ago
-                                                </div>   
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="card moveInBottom">
-                                <div class="col-1-of-5">
-                                        <div class="card__figure">
-                                                <img src="img/meetup (1).jpg" alt="meet up image" class="card__img">
-                                        </div>
-                                </div>
-                                <div class="col-3-of-5">
-                                        <div class="card__description">
-                                                <div class="card__text">
-                                                        <h2 class="card__title heading--primary">
-                                                                the golf club benin
-                                                        </h2>
-                                                        <p>
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                        </p>
-                                                </div>
-                                                <div class="card__description--btn">
-                                                        <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                                </div>
-                                        </div>      
-                                </div>
-                                <div class="col-1-of-5">
-                                        <div class="card__description2">
-                                                <a href="post.html" class="card__question--link">
-                                                        <span class="card__question--number">
-                                                        22
-                                                        </span>
-                                                        questions already
-                                                </a>
-                                                <div class="card__created">
-                                                        created by osaro two days ago
-                                                </div>   
-                                                </div>
-                                </div>
-                                </div>
+          </div>
+          <div class="col-3-of-5">
+            <div class="card-description">
+              <div class="card-text">
+                <h2 class="card-title heading-primary">
+                    this is the title
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                </p>
+              </div>
+              <div class="card-description-btn">
+                  <a href="post.html" class="card-btn">Post question &rarr;</a>
+              </div>
+            </div>      
+          </div>
+          <div class="col-1-of-5">
+            <div class="card-description2">
+              <a href="post.html" class="card-question-link">
+                <span class="card-question-number">
+                    22
+                </span>
+                questions already
+              </a>
+              <div class="card-created">
+                  created by osaro two days ago
+              </div>   
+            </div>
+          </div>
+        </div>
+        <div class="card moveInBottom">
+            <div class="col-1-of-5">
+              <div class="card-figure">
+              <img src="img/meetup(3).jpg" alt="meet up image" class="card-img">
+              </div>
+            </div>
+            <div class="col-3-of-5">
+              <div class="card-description">
+                <div class="card-text">
+                  <h2 class="card-title heading-primary">
+                      this is the title
+                  </h2>
+                  <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                  </p>
                 </div>
-                <div class="row u-text-center">
-                        <a href="meetup.html" class="showmore emp u-marginTop-md ">show more meetup &rarr;</a>
-                </div>       
-        </section>
-
-             <div class="showcase">
-                    <div class="row padding-df">
-                            <h2 class="showcase__text u-marginBottom-md">
-                                 <span class=" header__text--main moveInLeft">
-                                     Still have'nt decided
-                                 </span>
-                                 <span class="header__text--sub moveInRight">
-                                     You can finally get the right answers from the organiser of meetups, if you ask the right questions
-                                 </span>
-                            </h2>
-                            <div class="showcase__btnwrapper">
-                                <a href="signup.html" class="btn showcase__btn  moveInBottom" >Join Questioner</a>
-                            </div>
-                    </div>
-             </div>
-             <section class="section__meetup">
-                    <div class="row">
-                            <h2 class="heading--primary">
-                                    More meetup
-                            </h2>
-                    </div>
-                    
-                        <div class="row">
-                            <div class="card moveInBottom">
-                                <div class="col-1-of-5">
-                                        <div class="card__figure">
-                                                <img src="img/meetup(3).jpg" alt="meet up image" class="card__img">
-                                        </div>
-                                </div>
-                                <div class="col-3-of-5">
-                                    <div class="card__description">
-                                            <div class="card__text">
-                                                    <h2 class="card__title heading--primary">
-                                                        this is the title
-                                                    </h2>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                    </p>
-                                            </div>
-                                            <div class="card__description--btn">
-                                                    <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                            </div>
-                                    </div>      
-                                </div>
-                                <div class="col-1-of-5">
-                                        <div class="card__description2">
-                                                <a href="post.html" class="card__question--link">
-                                                   <span class="card__question--number">
-                                                        22
-                                                    </span>
-                                                       questions already
-                                               </a>
-                                               <div class="card__created">
-                                                    created by osaro two days ago
-                                                </div>   
-                                         </div>
-                                </div>
-                            </div>
-                            <div class="card moveInBottom">
-                                    <div class="col-1-of-5">
-                                            <div class="card__figure">
-                                                    <img src="img/meetup (2).jpg" alt="meet up image" class="card__img">
-                                            </div>
-                                    </div>
-                                    <div class="col-3-of-5">
-                                        <div class="card__description">
-                                                <div class="card__text">
-                                                        <h2 class="card__title heading--primary">
-                                                            Andela development challenge
-                                                        </h2>
-                                                        <p class>
-                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                        </p>
-                                                </div>
-                                                <div class="card__description--btn">
-                                                        <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                                </div>
-                                        </div>      
-                                    </div>
-                                    <div class="col-1-of-5">
-                                            <div class="card__description2">
-                                                    <a href="post.html" class="card__question--link">
-                                                       <span class="card__question--number">
-                                                            22
-                                                        </span>
-                                                           questions already
-                                                   </a>
-                                                   <div class="card__created">
-                                                        created by osaro two days ago
-                                                    </div>   
-                                             </div>
-                                    </div>
-                                </div>
-                                <div class="card moveInBottom">
-                                        <div class="col-1-of-5">
-                                                <div class="card__figure">
-                                                        <img src="img/meetup (1).jpg" alt="meet up image" class="card__img">
-                                                </div>
-                                        </div>
-                                        <div class="col-3-of-5">
-                                            <div class="card__description">
-                                                    <div class="card__text">
-                                                            <h2 class="card__title heading--primary">
-                                                                    the golf club benin
-                                                            </h2>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
-                                                            </p>
-                                                    </div>
-                                                    <div class="card__description--btn">
-                                                            <a href="post.html" class="card__btn">Post question &rarr;</a>
-                                                    </div>
-                                            </div>      
-                                        </div>
-                                        <div class="col-1-of-5">
-                                                <div class="card__description2">
-                                                        <a href="post.html" class="card__question--link">
-                                                           <span class="card__question--number">
-                                                                22
-                                                            </span>
-                                                               questions already
-                                                       </a>
-                                                       <div class="card__created">
-                                                            created by osaro two days ago
-                                                        </div>   
-                                                 </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="row u-text-center ">
-                                    <a href="meetup.html" class="showmore emp u-marginTop-md">show more meetup &rarr;</a>
-                            </div>       
-             </section>
- </main>
- <footer class="footer">
-        <h2 class="heading__primary">
-                Questionaire &copy; 2018
-        </h2>
-        <p>All rights reserved</p>
-</footer>
-</body>
+                <div class="card-description-btn">
+                    <a href="post.html" class="card-btn">Post question &rarr;</a>
+                </div>
+              </div>      
+            </div>
+            <div class="col-1-of-5">
+              <div class="card-description2">
+                <a href="post.html" class="card-question-link">
+                  <span class="card-question-number">
+                      22
+                  </span>
+                  questions already
+                </a>
+                <div class="card-created">
+                    created by osaro two days ago
+                </div>   
+              </div>
+            </div>
+          </div>
+          <div class="card moveInBottom">
+              <div class="col-1-of-5">
+                <div class="card-figure">
+                <img src="img/meetup (2).jpg" alt="meet up image" class="card-img">
+                </div>
+              </div>
+              <div class="col-3-of-5">
+                <div class="card-description">
+                  <div class="card-text">
+                    <h2 class="card-title heading-primary">
+                        this is the title
+                    </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                    </p>
+                  </div>
+                  <div class="card-description-btn">
+                      <a href="post.html" class="card-btn">Post question &rarr;</a>
+                  </div>
+                </div>      
+              </div>
+              <div class="col-1-of-5">
+                <div class="card-description2">
+                  <a href="post.html" class="card-question-link">
+                    <span class="card-question-number">
+                        22
+                    </span>
+                    questions already
+                  </a>
+                  <div class="card-created">
+                      created by osaro two days ago
+                  </div>   
+                </div>
+              </div>
+          </div>     
+      </div>
+      <div class="row u-text-center">
+        <a href="meetup.html" class="emp u-marginTop-md ">show more meetup &rarr;</a>
+      </div>       
+    </section>
+    <div class="showcase">
+      <div class="row padding-df">
+        <h2 class="showcase-text u-marginBottom-md">
+          <span class=" header-text-main moveInLeft">
+            Still have'nt decided
+          </span>
+          <span class="header-text-sub moveInRight">
+            You can finally get the right answers from the organiser of meetups, if you ask the right questions
+          </span>
+            </h2>
+          <div class="showcase-btnwrapper">
+            <a href="signup.html" class="btn showcase-btn  moveInBottom" >Join Questioner</a>
+          </div>
+      </div>
+    </div>
+    <section class="section-meetup">
+        <div class="row">
+          <h2 class="heading-primary">
+          Top meetup
+          </h2>
+      </div>
+      <div class="row">
+        <div class="card moveInBottom">
+          <div class="col-1-of-5">
+            <div class="card-figure">
+            <img src="img/meetup(3).jpg" alt="meet up image" class="card-img">
+            </div>
+          </div>
+          <div class="col-3-of-5">
+            <div class="card-description">
+              <div class="card-text">
+                <h2 class="card-title heading-primary">
+                    this is the title
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                </p>
+              </div>
+              <div class="card-description-btn">
+                  <a href="post.html" class="card-btn">Post question &rarr;</a>
+              </div>
+            </div>      
+          </div>
+          <div class="col-1-of-5">
+            <div class="card-description2">
+              <a href="post.html" class="card-question-link">
+                <span class="card-question-number">
+                    22
+                </span>
+                questions already
+              </a>
+              <div class="card-created">
+                  created by osaro two days ago
+              </div>   
+            </div>
+          </div>
+        </div>
+        <div class="card moveInBottom">
+            <div class="col-1-of-5">
+              <div class="card-figure">
+              <img src="img/meetup(3).jpg" alt="meet up image" class="card-img">
+              </div>
+            </div>
+            <div class="col-3-of-5">
+              <div class="card-description">
+                <div class="card-text">
+                  <h2 class="card-title heading-primary">
+                      this is the title
+                  </h2>
+                  <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                  </p>
+                </div>
+                <div class="card-description-btn">
+                    <a href="post.html" class="card-btn">Post question &rarr;</a>
+                </div>
+              </div>      
+            </div>
+            <div class="col-1-of-5">
+              <div class="card-description2">
+                <a href="post.html" class="card-question-link">
+                  <span class="card-question-number">
+                      22
+                  </span>
+                  questions already
+                </a>
+                <div class="card-created">
+                    created by osaro two days ago
+                </div>   
+              </div>
+            </div>
+          </div>
+          <div class="card moveInBottom">
+              <div class="col-1-of-5">
+                <div class="card-figure">
+                <img src="img/meetup (2).jpg" alt="meet up image" class="card-img">
+                </div>
+              </div>
+              <div class="col-3-of-5">
+                <div class="card-description">
+                  <div class="card-text">
+                    <h2 class="card-title heading-primary">
+                        this is the title
+                    </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit, ea neque error veniam expedita voluptatibus 
+                    </p>
+                  </div>
+                  <div class="card-description-btn">
+                      <a href="post.html" class="card-btn">Post question &rarr;</a>
+                  </div>
+                </div>      
+              </div>
+              <div class="col-1-of-5">
+                <div class="card-description2">
+                  <a href="post.html" class="card-question-link">
+                    <span class="card-question-number">
+                        22
+                    </span>
+                    questions already
+                  </a>
+                  <div class="card-created">
+                      created by osaro two days ago
+                  </div>   
+                </div>
+              </div>
+          </div>     
+      </div>
+      <div class="row u-text-center">
+        <a href="meetup.html" class="emp u-marginTop-md ">show more meetup &rarr;</a>
+      </div>       
+    </section>
+  </main>
+  <footer class="footer">
+      <h2 class="heading-primar">
+          Questionaire &copy; 2018
+      </h2>
+      <p>All rights reserved</p>
+  </footer>
+  </body>
 </html>
