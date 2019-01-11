@@ -143,4 +143,21 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
         done();
       });
   });
-})
+
+  /**
+   * Testing PATCH/api/v1/questions/questionid/upvote endpoint
+   */
+  it('IT SHOULD UPVOTE A QUESTION', (done) => {
+    server
+      .patch('/api/v1/questions/1/upvote')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 200);
+        done();
+      });
+  });
+});
