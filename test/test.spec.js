@@ -50,4 +50,34 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
         done();
       });
   });
+  /**
+   * Testing GET/api/v1/meetups/meetupid endpoint
+   */
+  it('IT SHOULD RETURN A SPECIFIC MEETUP', (done) => {
+    server
+      .get('/api/v1/meetups/3')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 200);
+        done();
+      });
+  });
+
+  it('IT SHOULD THROW AN ERROR WHEN REQUEST PARAM IS INVALID', (done) => {
+    server
+      .get('/api/v1/meetups/bod')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 404);
+        done();
+      });
+  });
 });

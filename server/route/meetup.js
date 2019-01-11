@@ -11,6 +11,9 @@ const router = Router();
 router.post('/', meetupController.createMeetup);
 /** This router handles request to get all meetups */
 router.get('/', meetupController.getMeetups);
+/** This router handles requests to get a specific meetup */
+router.get('/:meetupId', meetupController.getMeetup);
+
 
 /**
  * @export router
