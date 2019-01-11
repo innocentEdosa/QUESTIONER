@@ -1,5 +1,7 @@
+import { validationResult } from 'express-validator/check';
 import Question from '../models/questions';
 import Meetup from '../models/meetup';
+import util from '../helper/util';
 
 /**
  * create a question controller class
@@ -20,6 +22,8 @@ export default class questionController {
         error: 'Meetup does not exist',
       });
     }
+    const error = validationResult(req);
+    util.errorCheck(error, res);
     const question = new Question();
     question.create(createdBy, meetup, title, body);
     return res.status(201).json({ status: 201, data: question });

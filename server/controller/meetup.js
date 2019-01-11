@@ -1,4 +1,8 @@
+import { validationResult } from 'express-validator/check';
+
 import Meetup from '../models/meetup';
+
+import util from '../helper/util';
 
 /**
  * create a meetup controller class
@@ -12,6 +16,8 @@ export default class meetupController {
     const {
       location, images, topic, happeningOn, tags, description, createdBy,
     } = req.body;
+    const error = validationResult(req);
+    util.errorCheck(error, res);
     const meetup = new Meetup();
     meetup.create(location, images, topic, happeningOn, tags, description, createdBy);
     return res.status(201).json({ status: 201, data: meetup });
