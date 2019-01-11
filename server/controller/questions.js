@@ -33,4 +33,13 @@ export default class questionController {
     }
     return res.status(200).json({ status: 200, data: upvote });
   }
+
+  static downvote(req, res) {
+    const { questionId } = req.params;
+    const downvote = Question.downvote(questionId);
+    if (downvote < 0) {
+      return res.status(404).json({ status: 404, error: 'This question does not exist' });
+    }
+    return res.status(200).json({ status: 200, data: downvote });
+  }
 }

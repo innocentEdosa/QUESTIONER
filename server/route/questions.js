@@ -13,4 +13,7 @@ router.post('/', questionController.createQuestion);
 /** This routes handles request to upvote a question */
 router.patch('/:questionId/upvote', questionController.upvote);
 
+/** This route handles request to downvote a question */
+router.patch('/:questionId/downvote', questionController.downvote);
+
 export default router;
