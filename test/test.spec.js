@@ -203,3 +203,28 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
       });
   });
 });
+
+describe('TEST ALL RSVP ENDPOINT', () => {
+  /**
+   * Testing POST/api/v1/meetups/meetupid/rsvp endpoint
+   */
+  it('IT SHOULD CREATE A NEW RSVP', (done) => {
+    server
+      .post('/api/v1/meetups/3/rsvp')
+      .send({
+        user: 'innocent',
+        response: 'maybe',
+        meetup: 3,
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 201);
+        res.body.should.have.property('data');
+        done();
+      });
+  });
+});
