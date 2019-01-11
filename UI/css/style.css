@@ -251,17 +251,7 @@ button:active {
     font-style: italic;
     color: rgb(5, 196, 107);
 }
-.more {
-    border: 1px solid rgb(5, 196, 107);
-    border-radius: .2rem;
-    padding: 2rem;
-    transition: .3s;
-}
 
-.more:hover {
-    background-color: rgb(5, 196, 107);
-    color: white;
-}
 
 
 /* grid  classes*/
@@ -938,7 +928,7 @@ sections styling */
 
 .card-description {
     height: 18rem;
-    padding: 1rem 2rem;
+    padding: 1rem .5rem;
 }
 
 .card-title {
@@ -1000,7 +990,6 @@ sections styling */
 .card-created {
     color: rgb(32, 32, 56);
     font-size: 1.3rem;
-    margin-top: 1rem;
 }
 
 .card-sub {
@@ -1033,17 +1022,21 @@ sections styling */
 }
 
 .post-figure{
-    width: 100%;
-    height: 50rem;
+    width: 40rem;
+    height: 20rem;
     position: relative;
     overflow: hidden;
     margin: 0 auto;
     transform: scale(.9);
+    outline: 2px solid rgb(32, 32, 56);
     outline-offset: 1rem;
     transition: all .3s;
     margin-bottom: 3rem;
 }
 
+.post-figure:hover {
+    outline-offset: 2rem;
+}
 
 .post-heading {
     text-transform: uppercase;
@@ -1057,11 +1050,6 @@ sections styling */
     transition: all .5s;
    
 }
-.post-description {
-    text-align: justify;
-    text-overflow: ellipsis;
-}
-
 
 .more-meetup {
     border: 1px solid #d1d1d1;
@@ -1103,7 +1091,7 @@ sections styling */
 /* footer styling */
     
 .footer {
-    padding: 5rem;
+    padding: 10rem;
     text-align: center;
     background-color:rgb(32, 32, 56);
 }
