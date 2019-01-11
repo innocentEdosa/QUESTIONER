@@ -160,4 +160,46 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
         done();
       });
   });
+
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN A NON EXISTING MEETUP', (done) => {
+    server
+      .patch('/api/v1/questions/BOY/upvote')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 404);
+        done();
+      });
+  });
+
+  it('IT SHOULD DOWNVOTE A QUESTION', (done) => {
+    server
+      .patch('/api/v1/questions/1/downvote')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 200);
+        done();
+      });
+  });
+
+  it('IT SHOULD THROW AN ERROR WHEN SENT NON EXISTING MEETUP', (done) => {
+    server
+      .patch('/api/v1/questions/wrong/downvote')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 404);
+        done();
+      });
+  });
 });
