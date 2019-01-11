@@ -50,6 +50,28 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
         done();
       });
   });
+
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', (done) => {
+    server
+      .post('/api/v1/meetups')
+      .send({
+        location: 'rttg ',
+        topic: 'this is a topic',
+        tags: ['business'],
+        description: 'this is anohter',
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(422)
+      .end((err, res) => {
+        res.status.should.equal(422);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 422);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
   /**
    * Testing GET/api/v1/meetups/meetupid endpoint
    */
@@ -144,6 +166,26 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
       });
   });
 
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', (done) => {
+    server
+      .post('/api/v1/questions')
+      .send({
+        createdBy: 2,
+        meetup: 3,
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(422)
+      .end((err, res) => {
+        res.status.should.equal(422);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 422);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
+
   /**
    * Testing PATCH/api/v1/questions/questionid/upvote endpoint
    */
@@ -224,6 +266,44 @@ describe('TEST ALL RSVP ENDPOINT', () => {
         res.body.should.be.an('object');
         res.body.should.have.property('status', 201);
         res.body.should.have.property('data');
+        done();
+      });
+  });
+
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUPPARAMS', (done) => {
+    server
+      .post('/api/v1/meetups/3/rsvp')
+      .send({
+        response: 'maybe',
+        user: 2,
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 404);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', (done) => {
+    server
+      .post('/api/v1/meetups/3/rsvp')
+      .send({
+        response: 'maybe',
+        meetup: 3,
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(422)
+      .end((err, res) => {
+        res.status.should.equal(422);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 422);
+        res.body.should.have.property('error');
         done();
       });
   });
