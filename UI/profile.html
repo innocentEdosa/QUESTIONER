@@ -1,194 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Questioner | meetup</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,900|Poppins:400,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Questioner | meetup</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,900|Poppins:400,700,800" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <nav class="navigation">
-        <div class="row nav__mobile ">
-                <div class="navigation__mobilelogobox">
-                        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation__logo"></a>
-                </div>
-                <input type="checkbox" name="checkBox" id="checkBox" class="navigation__checkbox">
-                <label for="checkBox" class="navigation__toggle" id="navtoggle">
-                    <span class="navigation__icon" id="navigation__icon"></span>
-                </label>
-                <div class="navigation__background">&nbsp</div>
+  <nav class="navigation">
+    <div class="row nav-mobile ">
+      <div class="navigation-mobilelogobox">
+        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+      </div>
+      <input type="checkbox" name="checkBox" id="checkBox" class="navigation-checkbox">
+      <label for="checkBox" class="navigation-toggle" id="navtoggle">
+        <span class="navigation-icon" id="navigation-icon"></span>
+      </label>
+      <div class="navigation-background">&nbsp</div>
 
-                <div class="navigation__mobile">
-                    <ul class="navigation__listmobile">
-                         <li class="navigation__listitem--mobile"><a href="index.html" class="navigation__listlink--mobile">Log out</a></li>
-                         <li class="navigation__listitem--mobile"><a href="profile.html" class="navigation__listlink--mobile">Your profile</a></li>
-                        <li class="navigation__listitem">
-                             <input type="text" class="navigation__listsearch">
-                            <a href="#" class="navigation__listlink">
-                                 <span class="navigation__listsearch-btn">Search</span>
-                            </a> 
-                        </li>
-                   
-                    </ul>
-              </div>
-        </div>
-      
+      <div class="navigation-mobile">
+        <ul class="navigation-listmobile">
+          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile">Log out</a></li>
+          <li class="navigation-listitem-mobile"><a href="profile.html" class="navigation-listlink-mobile">Your profile</a></li>
+          <li class="navigation-listitem">
+            <input type="text" class="navigation-listsearch">
+            <a href="#" class="navigation-listlink">
+              <span class="navigation-listsearch-btn">Search</span>
+            </a>
+          </li>
 
-        <div class="row nav__desktop" >
-            <div class="navigation__logobox">
-               <a href="index.html"> <img src="img/logo.png" alt="logo" class="navigation__logo"></a>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="row nav-desktop">
+      <div class="navigation-logobox">
+        <a href="index.html"> <img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+      </div>
+      <ul class="navigation-list">
+        <li class="navigation-listitem">
+          <input type="text" class="navigation-listsearch">
+          <a href="#" class="navigation-listlink">
+            <span class="navigation-listsearch-btn">Search</span>
+          </a>
+
+        </li>
+        <li class="navigation-listitem">
+          <a href="index.html" class="navigation-listlink">Log out</a>
+        </li>
+        <li class="navigation-listitem">
+          <a href="profile.html" class="navigation-imglink"><img src="img/user (1).png" class="navigation-profileimg"
+              alt="profile"></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    <section class="section-profile">
+      <div class="profile">
+        <div class="row">
+          <div class="col-3-of-5">
+            <div class="profile-text u-marginBottom-md">
+              <h2 class="heading-secondary">
+                Welcome user
+              </h2>
             </div>
-            <ul class="navigation__list">
-                <li class="navigation__listitem">
-                    <input type="text" class="navigation__listsearch">
-                    <a href="#" class="navigation__listlink">
-                     <span class="navigation__listsearch-btn">Search</span>
-                    </a>
-                    
-                </li>
-                <li class="navigation__listitem">
-                    <a href="index.html" class="navigation__listlink">Log out</a>
-                </li>
-                <li class="navigation__listitem">
-                    <a href="profile.html" class="navigation__imglink"><img src="img/user (1).png" class="navigation__profileimg" alt="profile"></a>
-                </li>
-            </ul>
-       </div>
-    </nav>
-    <main>
-        <section class="section__profile">
-        <div class="profile">
-            <div class="row">
-                <div class="col-3-of-5">
-                    <div class="profile__text u-marginBottom-md">
-                        <h2 class="heading--secondary">
-                            Welcome user
-                        </h2>
-                    </div>
-                    <table class="profile__info">
-                        <tr class="profile__row">
-                            <th class=" profile__row-1 profile__heading">Name</th>
-                            <td class=" profile__row-2 profile__data">innocent edosa ilegbinijie</td>
-                        </tr>
-                        <tr class="profile__row">
-                            <th class="profile__heading">Email</th>
-                            <td class="profile__data">ilegbinijieinnocentcareer@gmail.com</td>
-                        </tr>
-                        <tr class="profile__row">
-                            <th class="profile__heading">Phone number</th>
-                            <td class="profile__data">0807656565656</td>
-                        </tr>
-                        <tr class="profile__row">
-                            <th class="profile__heading">No of questions posted</th>
-                            <td class="profile__data">1000 questions</td>
-                        </tr>
-                        <tr class="profile__row">
-                            <th class="profile__heading">No of questions commented on</th>
-                            <td class="profile__data">50 questions</td>
-                        </tr>
-                    </table>
-                    <div class="profile__text u-marginTop-md u-marginBottom-sm">
-                        <h2 class="heading--primary">
-                                Top questions from scheduled meetup
-                         </h2>
-                    </div>
-                    <table class="meetup__info">
-                        <tr class="meetup__row">
-                            <th class="meetup__heading">
-                                this is the title of the meet up
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="meetup__data"> this is question one</td>
-                        </tr>
-                        <tr>
-                            <td class="meetup__data"> this is question one</td>
-                        </tr>
-                        <tr>
-                             <td class="meetup__data"> this is question one</td>
-                        </tr>
-                        <tr class="meetup__row">
-                                <th class="meetup__heading">
-                                    this is the title of the meet up
-                                </th>
-                            </tr>
-                            <tr>
-                                <td class="meetup__data"> this is question one</td>
-                            </tr>
-                            <tr>
-                                <td class="meetup__data"> this is question one</td>
-                            </tr>
-                            <tr>
-                                 <td class="meetup__data"> this is question one</td>
-                            </tr>
-                    </table>
-
-                </div>
-                <div class="col-2-of-5">
-                        <div class="more__meetup">
-                                <h2 class="heading__primary post__heading u-marginBottom-sm">
-                                        More meetup
-                                 </h2>
-                            <a href="meetup.html">
-                                <div class="card__sub paddingSide-sm u-marginBottom-sm">
-                                        <div class="card__date u-marginTop-sm">
-                                            present date
-                                        </div>
-                                        <div class="card__text">
-                                            <h2 class="card__title heading--primary">
-                                                the golf club benin
-                                            </h2>
-                                          <div class="card__created u-marginBottom-sm">
-                                                created by osaro two days ago
-                                          </div>  
-                                    </div>
-                                 </div> 
-                                </a> 
-                                <a href="meetup.html">
-                                        <div class="card__sub paddingSide-sm u-marginBottom-sm">
-                                                <div class="card__date u-marginTop-sm">
-                                                    present date
-                                                </div>
-                                                <div class="card__text">
-                                                    <h2 class="card__title heading--primary">
-                                                       meeting in outer space
-                                                    </h2>
-                                                  <div class="card__created u-marginBottom-sm">
-                                                        created by osaro two days ago
-                                                  </div>  
-                                            </div>
-                                         </div> 
-                                </a>
-                                <a href="meetup.html">
-                                        <div class="card__sub paddingSide-sm u-marginBottom-sm">
-                                                <div class="card__date u-marginTop-sm">
-                                                    present date
-                                                </div>
-                                                <div class="card__text">
-                                                    <h2 class="card__title heading--primary">
-                                                        the coven
-                                                    </h2>
-                                                  <div class="card__created u-marginBottom-sm">
-                                                        created by osaro two days ago
-                                                  </div>  
-                                                </div>
-                                      </div> 
-                                </a>        
-                        </div>     
-                </div>
+            <table class="profile-info">
+              <tr class="profile-row">
+                <th class=" profile-row-1 profile-heading">Name</th>
+                <td class=" profile-row-2 profile-data">innocent edosa ilegbinijie</td>
+              </tr>
+              <tr class="profile-row">
+                <th class="profile-heading">Email</th>
+                <td class="profile-data">ilegbinijieinnocentcareer@gmail.com</td>
+              </tr>
+              <tr class="profile-row">
+                <th class="profile-heading">Phone number</th>
+                <td class="profile-data">0807656565656</td>
+              </tr>
+              <tr class="profile-row">
+                <th class="profile-heading">No of questions posted</th>
+                <td class="profile-data">1000 questions</td>
+              </tr>
+              <tr class="profile-row">
+                <th class="profile-heading">No of questions commented on</th>
+                <td class="profile-data">50 questions</td>
+              </tr>
+            </table>
+            <div class="profile-text u-marginTop-md u-marginBottom-sm">
+              <h2 class="heading-primary">
+                Top questions from scheduled meetup
+              </h2>
             </div>
+            <table class="meetup-info">
+              <tr class="meetup-row">
+                <th class="meetup-heading">
+                  this is the title of the meet up
+                </th>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+              <tr class="meetup-row">
+                <th class="meetup-heading">
+                  this is the title of the meet up
+                </th>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+              <tr>
+                <td class="meetup-data"> this is question one</td>
+              </tr>
+            </table>
 
+          </div>
+          <div class="col-2-of-5">
+            <div class="more-meetup">
+              <h2 class="heading-primary post-heading u-marginBottom-sm">
+                More meetup
+              </h2>
+              <a href="meetup.html">
+                <div class="card-sub paddingSide-sm u-marginBottom-sm">
+                  <div class="card-date u-marginTop-sm">
+                    present date
+                  </div>
+                  <div class="card-text">
+                    <h2 class="card-title heading-primary">
+                      the golf club benin
+                    </h2>
+                    <div class="card-created u-marginBottom-sm">
+                      created by osaro two days ago
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="meetup.html">
+                <div class="card-sub paddingSide-sm u-marginBottom-sm">
+                  <div class="card-date u-marginTop-sm">
+                    present date
+                  </div>
+                  <div class="card-text">
+                    <h2 class="card-title heading-primary">
+                      meeting in outer space
+                    </h2>
+                    <div class="card-created u-marginBottom-sm">
+                      created by osaro two days ago
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="meetup.html">
+                <div class="card-sub paddingSide-sm u-marginBottom-sm">
+                  <div class="card-date u-marginTop-sm">
+                    present date
+                  </div>
+                  <div class="card-text">
+                    <h2 class="card-title heading-primary">
+                      the coven
+                    </h2>
+                    <div class="card-created u-marginBottom-sm">
+                      created by osaro two days ago
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
-           
-        </section>
-    </main>
-    <footer class="footer">
-            <h2 class="heading__primary">
-                Questionaire &copy; 2018
-            </h2>
-            <p>All rights reserved</p>
-    </footer>
+
+      </div>
+
+    </section>
+  </main>
+  <footer class="footer">
+    <h2 class="heading-primary">
+      Questionaire &copy; 2018
+    </h2>
+    <p>All rights reserved</p>
+  </footer>
 </body>
 </html>
