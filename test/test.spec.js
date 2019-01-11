@@ -80,4 +80,21 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
         done();
       });
   });
+  /**
+   * Testing GET/api/v1/meetups/upcoming endpoint
+   */
+  it('IT SHOULD RETURN ALL UPCOMING MEETUPS', (done) => {
+    server
+      .get('/api/v1/meetups/3')
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 200);
+        res.body.should.have.property('data');
+        done();
+      });
+  });
 });
