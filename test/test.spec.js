@@ -98,3 +98,49 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
       });
   });
 });
+
+describe('TEST ALL QUESTION ENDPOINTS', () => {
+  /**
+   * Testing POST/api/v1/questions endpoint
+   */
+  it('IT SHOULD CREATE A NEW QUESTION', (done) => {
+    server
+      .post('/api/v1/questions')
+      .send({
+        createdBy: 2,
+        title: 'the fouth question',
+        meetup: 3,
+        body: 'this is the body',
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 201);
+        res.body.should.have.property('data');
+        done();
+      });
+  });
+
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUP PARAMS', (done) => {
+    server
+      .post('/api/v1/questions')
+      .send({
+        createdBy: 2,
+        title: 'this is the title of a question',
+        body: 'this is the body of a question',
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-type', /json/)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status', 404);
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+})
