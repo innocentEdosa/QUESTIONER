@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
-    "test": "nyc jasmine babel-node spec/test.spec.js",
+    "test": " nyc mocha --require babel-register --reporter spec --exit",
     "build": "babel server -d dist",
     "serve": "npm run build && nodemon dist/app.js",
     "start": "node dist/app.js"
@@ -22,9 +22,12 @@
   "homepage": "https://github.com/innocentEdosa/QUESTIONER#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
-    "request": "^2.88.0"
+    "mocha": "^5.2.0",
+    "request": "^2.88.0",
+    "rewire": "^4.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -35,6 +38,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
     "jasmine": "^3.3.1",
-    "nyc": "^13.1.0"
+    "nyc": "^13.1.0",
+    "supertest": "^3.3.0"
   }
 }
