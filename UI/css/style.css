@@ -1091,9 +1091,9 @@ sections styling */
 /* footer styling */
     
 .footer {
-    padding: 10rem;
+    padding: 5rem;
     text-align: center;
-    background-color:rgb(32, 32, 56);
+    background-color:rgb(22, 22, 34);
 }
 
  
@@ -1167,6 +1167,9 @@ sections styling */
  @media (max-width: 62em){
     html {
         font-size: 51%;
+    }
+    body {
+        font-size: 3.8rem;
     }
 
     .row {
@@ -1317,11 +1320,76 @@ sections styling */
    border: .1rem solid #999;
 }
 
+.header__wrapper{
+   
+    width: 95%;
+    text-align: center;
+}
+   
+
+
+.heading--primary {
+    font-size: 5rem;
+}
+
+.heading--secondary{
+    font-size: 6rem;
+}
+
+.card__created {
+    font-size: 3rem;
+}
+
+.questions {
+    font-size: 3.8rem;
+}
+
+.question__btnlist {
+    font-size: 3.5rem;
+ 
+}
+
+.card__btn {
+    padding: 1.7rem 7rem;
+    font-size: 3rem;
+}
+
+.form__btn{
+     font-size: 3.8rem;
+}
+
+
+.header__text--main {
+    font-size: 8rem;
+}
+
+.header__text--sub {
+    font-size: 4rem;
+    width: 80%;
+}
+
+.btn, .btn:link, .btn:visited,.btn-1,.btn-1:link, .btn-1:visited, button{
+    padding: 3rem 1.5rem;
+}
+.showcase__btn, .showcase__btn:link, .showcase__btn:visited{
+    font-size: 3rem;
+}
+.card__text {
+    font-size: 3rem;
+}
+
+.record__heading{
+    font-size: 2rem;
+}
+.showcase__text--sub {
+    font-size: 3rem;
+}
 
 
  }
 
  /* 600px */
+
 
  @media (max-width: 48em){
      html {
@@ -1329,8 +1397,16 @@ sections styling */
      }
      .card-btn {
         padding: 1.7rem 7rem;
-        font-size: 1.8rem;
+        font-size: 1.8rem
     }
+body {
+    font-size: 2.5rem;
+    line-height: 1.7;
+}
+.card__btn {
+padding: 1.7rem 7rem;
+font-size: 2.5rem;
+}
 
     .post-figure{
         width: 100%;
@@ -1413,18 +1489,10 @@ sections styling */
         color: rgb(32,32,56)
     }
 
-    td:nth-of-type(1):before {
-        content: "No";
-    }
-    td:nth-of-type(2):before {
-        content: "Meetup Title";
-    }
-    td:nth-of-type(3):before {
-        content: "Date created";
-    }
-    td:nth-of-type(4):before {
-        content: "Action";
-    }
+.record__heading {
+    display: none;
+}
+
 
     .record-heading {
         display: none;
@@ -1450,14 +1518,57 @@ sections styling */
     }
 
     
-.header-wrapper{
-   
+.header-wrapper{  
     width: 95%;
     text-align: center;
-
 }
-   
-   
+.heading--primary {
+    font-size: 4rem;
+}
+.heading--secondary{
+    font-size: 5rem;
+}
+.card__created {
+    font-size: 2.5rem;
+}
+
+.questions {
+    font-size: 2.5rem;
+}
+
+.question__btnlist {
+    font-size: 2.5rem;
+}
+.header__wrapper{  
+    width: 95%;
+    text-align: center;
+}
+.form__btn{
+     font-size: 3.8rem;
+}
+.header__text--main {
+    font-size: 5rem;
+}
+.header__text--sub {
+    font-size: 2.5rem;
+    width: 80%;
+}
+.btn, .btn:link, .btn:visited,.btn-1,.btn-1:link, .btn-1:visited, button{
+    padding: 3rem 1.5rem;
+}
+.showcase__btn, .showcase__btn:link, .showcase__btn:visited{
+    font-size: 2.3rem;
+}
+.card__text {
+    font-size: 2.5rem;
+}
+
+.record__heading{
+    font-size: 2rem;
+}
+.showcase__text--sub {
+    font-size: 3rem;
+}
  }
 
 
