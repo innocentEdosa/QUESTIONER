@@ -8,4 +8,4 @@ vote on asked questions and questions bubble to the top or bottom based on vote
 
 [![Coverage Status](https://coveralls.io/repos/github/innocentEdosa/QUESTIONER/badge.svg?branch=develop)](https://coveralls.io/github/innocentEdosa/QUESTIONER?branch=develop)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d924ca34755d0f465fa7/test_coverage)](https://codeclimate.com/github/innocentEdosa/QUESTIONER/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d924ca34755d0f465fa7/maintainability)](https://codeclimate.com/github/innocentEdosa/QUESTIONER/maintainability)
