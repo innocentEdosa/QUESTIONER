@@ -1,4 +1,5 @@
 import { body } from 'express-validator/check';
+import pool from '../models/dbConfig';
 
 export default class validator {
   static validateMeetup() {
@@ -23,6 +24,29 @@ export default class validator {
     return [body('user', 'user cannot be undefined').trim().exists(),
       body('response', 'response must be at least 3 characters long').trim().exists().isLength({ min: 3 }),
       body('meetup', 'meetup cannot be undefined').trim().exists().isNumeric(),
+    ];
+  }
+
+  static validateSignup() {
+    return [
+      body('email').isEmail().withMessage('Please enter a valid email')
+        .custom((value) => {
+          const query = 'SELECT email FROM users WHERE email = ($1)';
+          const useremail = [value];
+          return pool.query(query, useremail)
+            .then((response) => {
+              if (response.rows[0]) {
+                return Promise.reject('E-mail Address already exists!');
+              }
+              return true;
+            });
+        })
+        .normalizeEmail(),
+      body('username').exists().trim()
+        .not()
+        .isEmpty()
+        .withMessage('Please enter a valid username'),
+      body('password').trim().isLength({ min: 5 }),
     ];
   }
 }
