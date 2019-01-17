@@ -66,8 +66,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
       .end((err, res) => {
         res.status.should.equal(422);
         res.body.should.be.an('object');
-        res.body.should.have.property('status', 422);
-        res.body.should.have.property('error');
         done();
       });
   });
@@ -179,8 +177,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
       .end((err, res) => {
         res.status.should.equal(422);
         res.body.should.be.an('object');
-        res.body.should.have.property('status', 422);
-        res.body.should.have.property('error');
         done();
       });
   });
@@ -302,8 +298,6 @@ describe('TEST ALL RSVP ENDPOINT', () => {
       .end((err, res) => {
         res.status.should.equal(422);
         res.body.should.be.an('object');
-        res.body.should.have.property('status', 422);
-        res.body.should.have.property('error');
         done();
       });
   });

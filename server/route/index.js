@@ -7,6 +7,7 @@ import { Router } from 'express';
 import meetupRouter from './meetup';
 import questionsRouter from './questions';
 import rsvpRouter from './rsvp';
+import authRouter from './auth';
 
 const router = Router();
 
@@ -18,5 +19,7 @@ router.use('/questions', questionsRouter)
 
 /** This router handles rsvp requests */
 router.use('/meetups/:meetupId/rsvp', rsvpRouter);
+
+router.use('/auth', authRouter);
 
 export default router;
