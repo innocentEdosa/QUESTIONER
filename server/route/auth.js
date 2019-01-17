@@ -4,7 +4,7 @@ import { body } from 'express-validator/check';
 /** import
  * @module controller/auth
 */
-import pool from '../models/dbConfig';
+import databaseConnection from '../models/dbConfig';
 
 import authController from '../controller/auth';
 
@@ -14,6 +14,7 @@ const router = Router();
 
 router.post('/signup', validator.validateSignup(), authController.Signup);
 
+router.post('/login', authController.Login);
 /**
  * @export router
  */

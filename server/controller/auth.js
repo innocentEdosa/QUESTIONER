@@ -36,7 +36,7 @@ export default class authController {
               const token = jwt.sign(
                 { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isAdmin },
                 'thisismyusersecretsecret',
-                { expiresIn: '1h' }
+                { expiresIn: '1h' },
               );
               return res.status(201).json({ data: [{ token, user: response.rows[0] }] });
             }
@@ -44,5 +44,37 @@ export default class authController {
           .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
       })
       .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
+  }
+
+  static Login(req, res) {
+    const {
+      password, email,
+    } = req.body;
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const value = [email];
+    let loadeduser;
+    databaseConnection.query(query, value)
+      .then((user) => {
+        if (!user) {
+          return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
+        }
+        loadeduser = user;
+        return bcrypt.compare(password, user.rows[0].password);
+      })
+      .then((isEqual) => {
+        if (!isEqual) {
+          return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
+        }
+        const token = jwt.sign({
+          email: loadeduser.rows[0].email,
+          userId: loadeduser.rows[0].user_id,
+        }, 'thisismysecretsecret',
+        { expiresIn: '1h' });
+        return res.status(200).json({ data: [{ token, user: loadeduser.rows[0], msg: 'login successful' }] });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: 'server error!!! Try again later' })
+      } );
   }
 }
