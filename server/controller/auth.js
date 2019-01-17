@@ -6,6 +6,10 @@ import jwt from 'jsonwebtoken';
 
 import databaseConnection from '../models/dbConfig';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import util from '../helper/util';
 
 
@@ -35,8 +39,8 @@ export default class authController {
             if (response) {
               const token = jwt.sign(
                 { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isAdmin },
-                'thisismyusersecretsecret',
-                { expiresIn: '1h' },
+                process.env.SECRET,
+                { expiresIn: '1h' }
               );
               return res.status(201).json({ data: [{ token, user: response.rows[0] }] });
             }
@@ -68,13 +72,13 @@ export default class authController {
         const token = jwt.sign({
           email: loadeduser.rows[0].email,
           userId: loadeduser.rows[0].user_id,
-        }, 'thisismysecretsecret',
+        }, process.env.SECRET,
         { expiresIn: '1h' });
         return res.status(200).json({ data: [{ token, user: loadeduser.rows[0], msg: 'login successful' }] });
       })
       .catch((err) => {
         console.log(err);
         res.status(500).json({ error: 'server error!!! Try again later' })
-      } );
+      });
   }
 }
