@@ -45,3 +45,36 @@ describe('POST /auth/signup', () => {
     }
   });
 });
+
+describe('POST /auth/login', () => {
+  it('SHOULD CONFIRM THAT A USER EXISTS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/login')
+        .send({ email: 'ilegbinijieinnocentcareer@gmail.com', password: 'andelabootcamp' })
+        .expect(200);
+      result.status.should.equal(200);
+      result.body.should.be.an('object');
+      result.body.should.have.property('data');
+      result.body.data[0].msg.should.equal('login successful');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+
+  it('SHOULD RESPOND WITH 401 AND ERROR MESSAGE IF USER RECORD IS NOT FOUND', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/login')
+        .send({ email: 'ilegbinijeer@gmail.com', password: 'andelabootcamp' })
+        .expect(401);
+      result.status.should.equal(401);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+
