@@ -42,11 +42,27 @@ export default class validator {
             });
         })
         .normalizeEmail(),
-      body('username').exists().trim()
+      body('username').exists().trim().custom((value) => {
+        const query = 'SELECT username FROM users WHERE username = ($1)';
+        const userName = [value];
+        return pool.query(query, userName)
+          .then((response) => {
+            if (response.rows[0]) {
+              return Promise.reject('Username already exists!');
+            }
+            return true;
+          });
+      })
         .not()
         .isEmpty()
         .withMessage('Please enter a valid username'),
-      body('password').trim().isLength({ min: 5 }),
+      body('password').trim().isLength({ min: 5 }).not()
+        .isEmpty()
+        .withMessage('Password should be more than five characters'),
+      body('firstname').isAlpha().isLength({ min: 3 }).withMessage('Please enter a valid firstname. Firstname must be more than 2 letters'),
+      body('lastname').isAlpha().isLength({ min: 3 }).withMessage('Please enter a valid lastname. lastname must be more than 2 letters'),
+      body('phonenumber').isNumeric().isLength({ min: 11, max: 11 }).withMessage('Please enter a valid Phonenumber.'),
+      body('othername').isAlpha().optional(),
     ];
   }
 }
