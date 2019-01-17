@@ -10,6 +10,10 @@ const mock = {
   email: 'ilegbinijieinnocentcareer@gmail.com',
   username: 'innocent',
   password: 'andelabootcamp',
+  "firstname": "inndfco",
+  "lastname": "jdisssdfjip",
+  "othername": "mather",
+  "phonenumber": "07077427084"
 };
 
 describe('POST /auth/signup', () => {

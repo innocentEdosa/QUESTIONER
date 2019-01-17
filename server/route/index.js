@@ -11,6 +11,14 @@ import authRouter from './auth';
 
 const router = Router();
 
+/** fix cors errors */
+router.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 /** This router handles all requests to /meetups endpoint */
 router.use('/meetups', meetupRouter);
 
