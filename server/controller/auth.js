@@ -32,7 +32,7 @@ export default class authController {
     } = req.body;
     bcrypt.hash(password, 3)
       .then((hashedpw) => {
-        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *';
+        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, email, firstname, lastname, othername, phonenumber';
         const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
         return databaseConnection.query(query, values)
           .then((response) => {
@@ -40,7 +40,7 @@ export default class authController {
               const token = jwt.sign(
                 { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isadmin },
                 process.env.SECRET,
-                { expiresIn: '1h' }
+                { expiresIn: '10h' }
               );
               return res.status(201).json({ data: [{ token, user: response.rows[0] }] });
             }
@@ -54,12 +54,12 @@ export default class authController {
     const {
       password, email,
     } = req.body;
-    const query = 'SELECT * FROM users WHERE email = $1';
+    const query = 'SELECT username, firstname, lastname, othername, email, phonenumber,password FROM users WHERE email = $1';
     const value = [email];
     let loadeduser;
     databaseConnection.query(query, value)
       .then((user) => {
-        if (!user) {
+        if (!user.rows[0]) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
         loadeduser = user;
@@ -74,7 +74,7 @@ export default class authController {
           userId: loadeduser.rows[0].user_id,
         }, process.env.SECRET,
         { expiresIn: '10h' });
-        return res.status(200).json({ data: [{ token, user: loadeduser.rows[0], msg: 'login successful' }] });
+        return res.status(200).json({ data: [{ token, user: { token: loadeduser.rows[0].token, lastname: loadeduser.rows[0].lastname, username: loadeduser.rows[0].username, email: loadeduser.rows[0].email, phonenumber: loadeduser.rows[0].phonenumber, othername: loadeduser.rows[0].othername }, msg: 'login successful' }] });
       })
       .catch((err) => {
         console.log(err);

@@ -30,4 +30,11 @@ router.use('/meetups/:meetupId/rsvp', rsvpRouter);
 
 router.use('/auth', authRouter);
 
+router.use('/', (req, res, next) => {
+  res.status(404).json({error: 'Resource not found'});
+})
+router.use('/api/v1/', (req, res, next) => {
+  res.status(404).json({ error: 'Resource not found' });
+})
+
 export default router;
