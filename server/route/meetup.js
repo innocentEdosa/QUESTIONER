@@ -16,7 +16,7 @@ const router = Router();
 router.post('/', isAuth, validator.validateMeetup(), meetupController.createMeetup);
 
 /** This router handles request to get all meetups */
-router.get('/', meetupController.getMeetups);
+router.get('/', isAuth, meetupController.getMeetups);
 
 /** This router handles request to get upcoming meetup */
 router.get('/upcoming', meetupController.getUpcoming);

@@ -76,19 +76,19 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
     }
   });
 
-  it('IT SHOULD RETURN ALL MEETUPS', (done) => {
-    server
-      .get('/api/v1/meetups')
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.should.be.an('object');
-        res.body.should.have.property('status', 200);
-        done();
-      });
-  });
+ 
+    it('should get all meetup', async () => {
+      try {
+        const res = await request(app)
+          .get('/api/v1/meetups/')
+          .set('Accept', 'application/json')
+          .set('Authorization', token)
+        expect(res.statusCode).toEqual(200);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
 
   /**
    * Testing POST/api/v1/meetups endpoint

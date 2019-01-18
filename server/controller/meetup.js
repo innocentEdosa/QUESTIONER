@@ -41,11 +41,17 @@ export default class meetupController {
    * @param {object} res - response object
    */
   static getMeetups(req, res) {
-    const meetup = Meetup.getAll();
-    if (meetup.length === 0) {
-      return res.status(404).json({ status: 404, data: [{ info: 'No meetup yet' }] });
-    }
-    return res.status(200).json({ status: 200, data: meetup });
+    const query = 'SELECT * FROM "public"."meetups" LIMIT 100';
+    databaseConnection.query(query)
+      .then((response) => {
+        console.log(response)
+        if (response.rows) {
+          return res.status(200).json({ data: response.rows });
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Server error!!! Try again later' });
+      });
   }
 
   static getMeetup(req, res) {
