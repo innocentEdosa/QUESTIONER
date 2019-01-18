@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
-    "pretest": " npm run migration",
-    "test": "nyc mocha --require babel-register --reporter spec --timeout 10000  --exit",
+    "pretest": "npm run migration",
+    "test": " nyc mocha --require babel-register --reporter spec --timeout 10000  --exit",
     "build": "babel server -d dist",
     "heroku-postbuid": "npm run build",
     "serve": "npm run build && nodemon dist/app.js",

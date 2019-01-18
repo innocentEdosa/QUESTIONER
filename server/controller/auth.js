@@ -28,17 +28,17 @@ export default class authController {
     const error = validationResult(req);
     util.errorCheck(error, res);
     const {
-      username, email, password, firstname, lastname, othername, phonenumber,
+      username, email, password, firstname, lastname, othername, phonenumber, isadmin
     } = req.body;
     bcrypt.hash(password, 3)
       .then((hashedpw) => {
-        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-        const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber];
+        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *';
+        const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
         return databaseConnection.query(query, values)
           .then((response) => {
             if (response) {
               const token = jwt.sign(
-                { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isAdmin },
+                { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isadmin },
                 process.env.SECRET,
                 { expiresIn: '1h' }
               );
@@ -73,7 +73,7 @@ export default class authController {
           email: loadeduser.rows[0].email,
           userId: loadeduser.rows[0].user_id,
         }, process.env.SECRET,
-        { expiresIn: '1h' });
+        { expiresIn: '10h' });
         return res.status(200).json({ data: [{ token, user: loadeduser.rows[0], msg: 'login successful' }] });
       })
       .catch((err) => {

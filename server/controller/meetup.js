@@ -1,5 +1,7 @@
 import { validationResult } from 'express-validator/check';
 
+import databaseConnection from '../models/dbConfig';
+
 import Meetup from '../models/meetup';
 
 import util from '../helper/util';
@@ -14,13 +16,24 @@ export default class meetupController {
    */
   static createMeetup(req, res) {
     const {
-      location, images, topic, happeningOn, tags, description, createdBy,
+      location, images, topic, happeningOn, tags, description,
     } = req.body;
     const error = validationResult(req);
     util.errorCheck(error, res);
-    const meetup = new Meetup();
-    meetup.create(location, images, topic, happeningOn, tags, description, createdBy);
-    return res.status(201).json({ status: 201, data: meetup });
+    if (!req.isadmin) {
+      return res.status(401).json({ error: 'NOT AUTHORISED' });
+    }
+    const query = 'INSERT INTO meetups(location, images, topic, happeningOn, tags, description, createdBy) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+    const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, req.user_id];
+    databaseConnection.query(query, value)
+      .then((response) => {
+        if (response.rows[0]) {
+          return res.status(201).json({ data: response.rows[0] });
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Server error!!! Try again later' });
+      });
   }
 
   /**

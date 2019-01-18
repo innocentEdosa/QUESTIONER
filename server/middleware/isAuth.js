@@ -16,6 +16,8 @@ export default (req, res, next) => {
   if (!decodedtoken) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
-  req.user_id = decodedtoken.user_id;
+  req.user_id = decodedtoken.userId;
+  req.isadmin = decodedtoken.isAdmin;
+  req.email = decodedtoken.email;
   next();
 };

@@ -25,16 +25,18 @@ const databasetables = [
     registered TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
     updateOn TIMESTAMP DEFAULT NULL,
     lastLogin TIMESTAMP DEFAULT NULL,
-    isAdmin BOOLEAN
+    isadmin BOOLEAN DEFAULT FALSE NOT NULL
   );`,
   `DROP TABLE IF EXISTS meetups;
     CREATE TABLE meetups (
     meetup_id SERIAL PRIMARY KEY,
     createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
-    topic VARCHAR (355) UNIQUE NOT NULL,
+    topic VARCHAR (355) NOT NULL,
     location VARCHAR (355) NOT NULL,
-    happeningOn VARCHAR (20) NOT NULL,
-    images VARCHAR (355)[],
+    description VARCHAR (355) NOT NULL,
+    happeningOn VARCHAR (355) NOT NULL,
+    images VARCHAR (355),
+    createdby integer NOT NULL,
     tags VARCHAR (355)[]
   );`,
   `DROP TABLE IF EXISTS rsvps;
