@@ -23,7 +23,7 @@ Visit Questioner on https://innocentedosa.github.io/QUESTIONER/UI
 
  
 
-Getting Started
+## Getting Started
 
 Clone or fork our repository on GitHub or download the entire project as a zip package and run locally.
 External Dependencies
@@ -52,18 +52,48 @@ To install express type npm install --save express in the terminal
 
     To access the app locally, visit http://localhost:3006 in a web browser
 
-Testing
+##Testing
 
     To test the web application, run the following command to carry out all tests:
 
     $ npm run test
+    
+    
+    Create meetup: POST https://innocentsquestioner.herokuapp.com/api/v1/meetups
+    
+    Get all meetup: GET https://innocentsquestioner.herokuapp.com/api/v1/meetups
+    
+    Get a single meetup: GET https://innocentsquestioner.herokuapp.com/api/v1/meetups/<meetupId>
+    
+    Delete a single meetup: DELETE https://innocentsquestioner.herokuapp.com/api/v1/meetups/<meetupId>
+    
+    Get all upcoming meetup: GET https://innocentsquestioner.herokuapp.com/api/v1/meetups/upcoming
+    
+    Create question for a meetup: POST https://innocentsquestioner.herokuapp.com/api/v1/api/v1/questions
+    
+    Downvote a question: PATCH https://innocentsquestioner.herokuapp.com/api/v1/questions/<questionId>/downvote
+    
+    Upvote a question: PATCH https://innocentsquestioner.herokuapp.com/api/v1/questions/<questionId>/upvote
+    
+    Respond to meetup rsvp: POST https://innocentsquestioner.herokuapp.com/api/v1/meetups/<meetupId>/rsvps
+    
+    Add a comment to a question: POST https://innocentsquestioner.herokuapp.com/api/v1/questions/<questionId>/comments
+    
+    Get all comment related to a question: GET https://innocentsquestioner.herokuapp.com/api/v1/questions/<questionId>/comments
+    
+    Get a single question: GET https://innocentsquestioner.herokuapp.com/api/v1/questions/<questionId>
+    
+    Sign up: POST https://innocentsquestioner.herokuapp.com/api/v1/auth/signup
+    
+    Sign in: POST https://innocentsquestioner.herokuapp.com/api/v1/auth/login
 
 
-Limitations
+
+## Limitations
 
     Questioner  is still in development
 
-Contributing
+## Contributing
 
     Fork it by visiting https://github.com/innocentEdosa/QUESTIONER.git
 
