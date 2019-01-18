@@ -20,6 +20,7 @@ export default class meetupController {
     } = req.body;
     const error = validationResult(req);
     util.errorCheck(error, res);
+    console.log(req.isadmin);
     if (!req.isadmin) {
       return res.status(401).json({ error: 'NOT AUTHORISED' });
     }
@@ -32,6 +33,7 @@ export default class meetupController {
         }
       })
       .catch((err) => {
+        console.log(err);
         res.status(500).json({ error: 'Server error!!! Try again later' });
       });
   }

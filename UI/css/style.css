@@ -46,7 +46,7 @@ a {
 }
 
 .profile-data {
-    color: rgb(5, 196, 107);
+    color: #333;
     font-style: italic;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -89,7 +89,7 @@ a {
 }
 
 .meetup-data {
-    color: rgb(5, 196, 107);
+    color: #333;
     font-style: italic;
     text-overflow: ellipsis;
     overflow: hidden;

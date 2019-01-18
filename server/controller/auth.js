@@ -32,10 +32,11 @@ export default class authController {
     } = req.body;
     bcrypt.hash(password, 3)
       .then((hashedpw) => {
-        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, email, firstname, lastname, othername, phonenumber';
+        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id, username, email, firstname, lastname, othername, phonenumber, isadmin';
         const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
         return databaseConnection.query(query, values)
           .then((response) => {
+            console.log(response.rows[0]);
             if (response) {
               const token = jwt.sign(
                 { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isadmin },
@@ -54,7 +55,7 @@ export default class authController {
     const {
       password, email,
     } = req.body;
-    const query = 'SELECT username, firstname, lastname, othername, email, phonenumber,password FROM users WHERE email = $1';
+    const query = 'SELECT user_id, username, firstname, lastname, othername, email, phonenumber,password,isadmin FROM users WHERE email = $1';
     const value = [email];
     let loadeduser;
     databaseConnection.query(query, value)
@@ -72,6 +73,7 @@ export default class authController {
         const token = jwt.sign({
           email: loadeduser.rows[0].email,
           userId: loadeduser.rows[0].user_id,
+          isAdmin: loadeduser.rows[0].isadmin,
         }, process.env.SECRET,
         { expiresIn: '10h' });
         return res.status(200).json({ data: [{ token, user: { token: loadeduser.rows[0].token, lastname: loadeduser.rows[0].lastname, username: loadeduser.rows[0].username, email: loadeduser.rows[0].email, phonenumber: loadeduser.rows[0].phonenumber, othername: loadeduser.rows[0].othername }, msg: 'login successful' }] });
