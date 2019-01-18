@@ -9,7 +9,7 @@ vote on asked questions and questions bubble to the top or bottom based on vote
 
 Visit Questioner on https://innocentedosa.github.io/QUESTIONER/UI
 
-##Features
+## Features
 
     Admins can create meetups
 
@@ -52,7 +52,7 @@ To install express type npm install --save express in the terminal
 
     To access the app locally, visit http://localhost:3006 in a web browser
 
-##Testing
+## Testing
 
     To test the web application, run the following command to carry out all tests:
 
