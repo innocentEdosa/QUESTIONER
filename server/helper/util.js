@@ -12,6 +12,5 @@ export default class Util {
         error: errorMessages,
       });
     }
-    return true;
   }
 }
