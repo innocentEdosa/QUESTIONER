@@ -36,7 +36,7 @@ To install express type npm install --save express in the terminal
 
     Once you have node and express installed , clone the repo by running
 
-    $ git clone 
+    $ git clone https://github.com/innocentEdosa/QUESTIONER.git
 
     Then run the following command to install gem dependencies:
 
