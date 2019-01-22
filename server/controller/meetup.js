@@ -20,6 +20,7 @@ export default class meetupController {
     } = req.body;
     const error = validationResult(req);
     util.errorCheck(error, res);
+    console.log(req.isadmin);
     if (!req.isadmin) {
       return res.status(401).json({ error: 'NOT AUTHORISED' });
     }
@@ -32,6 +33,7 @@ export default class meetupController {
         }
       })
       .catch((err) => {
+        console.log(err);
         res.status(500).json({ error: 'Server error!!! Try again later' });
       });
   }
@@ -44,9 +46,10 @@ export default class meetupController {
     const query = 'SELECT * FROM "public"."meetups" LIMIT 100';
     databaseConnection.query(query)
       .then((response) => {
-        console.log(response)
         if (response.rows) {
           return res.status(200).json({ data: response.rows });
+        } else {
+          return res.status(404).json({error: 'meetups not found'});
         }
       })
       .catch((err) => {
@@ -57,11 +60,20 @@ export default class meetupController {
   static getMeetup(req, res) {
     const { meetupId } = req.params;
     // check of meetup exists
-    const found = Meetup.findMeetup(meetupId);
-    if (found < 0) {
-      return res.status(404).json({ status: 404, error: 'The requested post does not exist! Try with an appropriate meetupId' });
-    }
-    return res.status(200).json({ status: 200, data: found });
+    const query = 'SELECT * FROM "public"."meetups" WHERE meetup_id = $1';
+    const value = [meetupId];
+    databaseConnection.query(query, value)
+      .then((response) => {
+        if (response.rows[0]) {
+          return res.status(200).json({ data: response.rows[0]});
+        } else {
+          return res.status(404).json({error: 'meetup not found'});
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: 'Server error!!! Try again later' });
+      });
   }
 
   static getUpcoming(req, res) {

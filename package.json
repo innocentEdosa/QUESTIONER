@@ -6,13 +6,13 @@
   "scripts": {
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
     "pretest": "npm run migration",
-    "test": " nyc mocha --require babel-register --reporter spec --timeout 10000  --exit",
+    "test": "nyc mocha --require babel-register --reporter spec --timeout 50000  --exit",
     "build": "babel server -d dist",
     "heroku-postbuid": "npm run build",
     "serve": "npm run build && nodemon dist/app.js",
     "start": "node --require babel-register ./server/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "migration": "babel-node server/models/migration.js"
+    "migration": "babel-node server/models/migration.js  --timeout 50000"
   },
   "repository": {
     "type": "git",
