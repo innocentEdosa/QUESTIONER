@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Questioner | Admin</title>
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/main.js"></script>
 </head>
 
 <body>
@@ -99,8 +98,8 @@
                 </p>
               </div>
               <div class="card-description-btn">
-                <a href="#" class="card-btn">Edit</a>
-                <a href="#" class="card-btn">Delete</a>
+                <a href="#" class="card-btn edit">Edit</a>
+                <a href="#" class="card-btn delete">Delete</a>
               </div>
             </div>
           </div>
@@ -134,8 +133,8 @@
                 </p>
               </div>
               <div class="card-description-btn">
-                <a href="#" class="card-btn">Edit</a>
-                <a href="#" class="card-btn">Delete</a>
+                <a href="#" class="card-btn edit">Edit</a>
+                <a href="#" class="card-btn delete">Delete</a>
               </div>
             </div>
           </div>
@@ -159,15 +158,12 @@
         </div>
       </div>
     </section>
-    <div class="create-post moveInLeft" id="popup">
+    <div class="create-post" id="popup">
       <div class="create-post-popup">
-        <div class="form-logobox ">
-          <a href="index.html"><img src="img/logo1.png" alt="logo" class="form-logo"></a>
-        </div>
         <div class="form-heading heading-primary">
           Create Meetup
         </div>
-        <div class="close"><button id="close">&times;</button></div>
+        <div class="close"><button class="close-btn">&times;</button></div>
         <form action="#" class="form create-form">
           <div class="form-group">
             <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
@@ -192,17 +188,69 @@
             <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-tag" name="meetup-location">
           </div>
           <div class="form-group">
+            <label for="meetup-location" class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-input" cols="30" rows="2"></textarea>
+          </div>
+          <div class="form-group">
             <div class="meetup-btnwrapper">
               <button class="btn form-btn">Create meetup</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
-
-
-
+        <div class="create-post" id="update-popup">
+          <div class="create-post-popup">
+            <div class="form-heading heading-primary">
+              update Meetup
+            </div>
+            <div class="close"><button class="close-btn">&times;</button></div>
+            <form action="#" class="form create-form">
+              <div class="form-group">
+                <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
+                <input type="text" class="form-input" required placeholder="Pick a topic" id="meetup-title" name="meetup-title">
+              </div>
+              <div class="form-group-inline">
+                <label for="meetup-date" class="form-label">Date of meetup</label>
+                <input type="date" class="form-input" required placeholder="13/01/2019" id="meetup-date" name="meetup-date">
+              </div>
+              <div class="form-group-inline">
+                <label for="meetup-img" class="form-label">Meetup picture (optional)</label>
+                <input type="file" class="form-input" required placeholder="13/01/2019" id="meetup-img" name="meetup-img">
+              </div>
+        
+              <div class="form-group">
+                <label for="meetup-tag" class="form-label">tags</label>
+                <input type="text" class="form-input" placeholder="tags (tags must be seperated with comma)" id="meetup-tag"
+                  name="meetup-tag">
+              </div>
+              <div class="form-group">
+                <label for="meetup-location" class="form-label">Location</label>
+                <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-tag" name="meetup-location">
+              </div>
+              <div class="form-group">
+                <label for="meetup-location" class="form-label">Description</label>
+                <textarea name="description" id="description" class="form-input" cols="30" rows="2"></textarea>
+              </div>
+              <div class="form-group">
+                <div class="meetup-btnwrapper">
+                  <button class="btn form-btn">Update meetup</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    <div class="delete-post" id="delete-popup">
+      <div class="delete-popup">
+        <input type="hidden" value="meetupId">
+        <h2 class="heading-primary delete-text">Do you really want to delete this meetup</h2>
+        <p class="delete-meetuptitle u-margin-sm"> THIS IS THE MEETUP TITLE</p>
+          <div class="card-description-btn">
+            <a href="admin.html" class="card-btn delete-ok">Ok</a>
+            <a href="#" class="card-btn delete-cancel">Cancel</a>
+          </div>
+      </div>
+    </div>
   </main>
   <footer class="footer">
     <h2 class="heading-primar">
@@ -210,6 +258,7 @@
     </h2>
     <p>All rights reserved</p>
   </footer>
+  <script defer src="js/admin.js"></script>
 </body>
 
 </html>
