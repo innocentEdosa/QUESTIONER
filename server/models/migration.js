@@ -47,17 +47,17 @@ const databasetables = [
   response VARCHAR (355) NOT NULL
   );`,
   `DROP TABLE IF EXISTS questions;
-    CREATE TABLE questions (
-    question_id SERIAL PRIMARY KEY,
-    createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
-    createdby integer,
-    meetup integer,
-    title VARCHAR (100) UNIQUE NOT NULL,
-    body VARCHAR (355) NOT NULL,
-    upvotes integer DEFAULT 0,
-    downvotes integer DEFAULT 0,
-    votes integer DEFAULT 0
-  );`,
+CREATE TABLE questions(
+  question_id SERIAL PRIMARY KEY,
+  createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
+  createdby integer,
+  meetup integer DEFAULT 0,
+  title VARCHAR(100) NOT NULL,
+  body VARCHAR(355) NOT NULL,
+  upvotes integer DEFAULT 0,
+  downvotes integer DEFAULT 0,
+  votes integer DEFAULT 0
+);`,
 ];
 
 databasetables.forEach(query => databaseConnection.query(query, error => console.log(error)));

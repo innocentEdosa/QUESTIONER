@@ -13,7 +13,7 @@ const Admin = {
   othername: 'mather',
   email: 'super@gmail.com',
   password: 'edosafd',
-  phonenumbe: '07057443455',
+  phonenumber: '07057443455',
   isadmin: true,
 }
 
@@ -68,9 +68,9 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
           tags: ['business'],
         })
         .expect(422);
-      res.status.should.equal(422);
-      res.body.should.be.an('object');
-      res.body.should.have.property('error');
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
     } catch (error) {
       console.log(error);
     }
@@ -79,11 +79,11 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
  
     it('should get all meetup', async () => {
       try {
-        const res = await request(app)
+        const res = await server
           .get('/api/v1/meetups/')
           .set('Accept', 'application/json')
           .set('Authorization', token)
-        expect(res.statusCode).toEqual(200);
+       res.status.should.equal(200);
       } catch (error) {
         console.log(error);
       }
@@ -91,11 +91,11 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 
   it('should get a specific meetup', async () => {
     try {
-      const res = await request(app)
+      const res = await server
         .get('/api/v1/meetups/1')
         .set('Accept', 'application/json')
         .set('Authorization', token)
-      expect(res.statusCode).toEqual(200);
+     res.status.should.equal(200);
     } catch (error) {
       console.log(error);
     }
@@ -122,62 +122,56 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
   /**
    * Testing POST/api/v1/questions endpoint
    */
-  it('IT SHOULD CREATE A NEW QUESTION', (done) => {
-    server
-      .post('/api/v1/questions')
-      .send({
-        createdBy: 2,
-        title: 'the fouth question',
-        meetup: 3,
-        body: 'this is the body',
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(201)
-      .end((err, res) => {
-        res.status.should.equal(201);
-        res.body.should.be.an('object');
-        res.body.should.have.property('status', 201);
-        res.body.should.have.property('data');
-        done();
-      });
+  it('IT SHOULD CREATE A QUESTION', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/questions')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 1,
+          "title": "This is a test title",
+          "body": "This is the test body"
+        })
+      result.status.should.equal(201);
+    } catch (err) {
+      console.log(err, 'This is from the create question test')
+    }
   });
 
-  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUP PARAMS', (done) => {
-    server
-      .post('/api/v1/questions')
-      .send({
-        createdBy: 2,
-        title: 'this is the title of a question',
-        body: 'this is the body of a question',
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(404)
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.body.should.be.an('object');
-        res.body.should.have.property('status', 404);
-        res.body.should.have.property('error');
-        done();
-      });
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCORRECT PARAMS FOR QUESTIONS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/questions')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 1,
+          "title": "",
+          "body": ""
+        })
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+    } catch (err) {
+      console.log(err, 'This is from the create question test')
+    }
   });
 
-  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', (done) => {
-    server
-      .post('/api/v1/questions')
-      .send({
-        createdBy: 2,
-        meetup: 3,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(422)
-      .end((err, res) => {
-        res.status.should.equal(422);
-        res.body.should.be.an('object');
-        done();
-      });
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUP ID', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/questions')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 180,
+          "title": "This is a test title",
+          "body": "This is the test body"
+        })
+      result.status.should.equal(404);
+    } catch (err) {
+      console.log(err, 'This is from non existing meetupid')
+    }
   });
 
 
