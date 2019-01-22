@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
-    "test": " nyc mocha --require babel-register --reporter spec --exit",
+    "pretest": "npm run migration",
+    "test": "nyc mocha --require babel-register --reporter spec --timeout 50000  --exit",
     "build": "babel server -d dist",
     "heroku-postbuid": "npm run build",
     "serve": "npm run build && nodemon dist/app.js",
     "start": "node --require babel-register ./server/app.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migration": "babel-node server/models/migration.js  --timeout 50000"
   },
   "repository": {
     "type": "git",
@@ -23,18 +25,23 @@
   },
   "homepage": "https://github.com/innocentEdosa/QUESTIONER#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.4.0",
     "mocha": "^5.2.0",
+    "pg": "^7.8.0",
     "request": "^2.88.0",
-    "rewire": "^4.0.1",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "rewire": "^4.0.1"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
