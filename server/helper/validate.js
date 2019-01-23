@@ -23,10 +23,17 @@ export default class validator {
   }
 
   static validateQuestions() {
-    return [body('createdBy', 'createdBy cannot be undefined').trim().exists(),
-      body('title', 'Title must be at least 3 characters long').trim().exists().isLength({ min: 3 }),
-      body('meetup', 'meetup cannot be undefined').trim().exists().isNumeric(),
-      body('body', 'body cannot be undefined').trim().exists(),
+    return [
+      body('title', 'Title must be at least 3 characters long').trim().isLength({ min: 3 })
+        .not()
+        .isEmpty()
+        .withMessage('Please provide valid title for your question'),
+      body('meetup', 'Please provide a valid meetupId').trim().exists().isNumeric()
+        .not()
+        .isEmpty(),
+      body('body', 'Please provide body of your question').trim().exists()
+        .not()
+        .isEmpty(),
     ];
   }
 
