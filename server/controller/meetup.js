@@ -14,28 +14,30 @@ export default class meetupController {
    * @param {object} req - the request object sent from router
    * @param {object} res - response object
    */
-  static createMeetup(req, res) {
-    const {
-      location, images, topic, happeningOn, tags, description,
-    } = req.body;
-    const error = validationResult(req);
-    util.errorCheck(error, res);
-    console.log(req.isadmin);
-    if (!req.isadmin) {
-      return res.status(401).json({ error: 'NOT AUTHORISED' });
+  static async createMeetup(req, res) {
+    try {
+      const {
+        location, images, topic, happeningOn, tags, description,
+      } = req.body;
+      const error = validationResult(req);
+     const errormsg = await util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      if (!req.isadmin) {
+        return res.status(401).json({ error: 'NOT AUTHORISED' });
+      }
+      const query = 'INSERT INTO meetups(location, images, topic, "happeningOn", tags, description, createdBy) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+      const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, req.user_id];
+      const response = await databaseConnection.query(query, value);
+      if (response.rows[0]) {
+        return res.status(201).json({ data: response.rows[0] });
+      }
     }
-    const query = 'INSERT INTO meetups(location, images, topic, happeningOn, tags, description, createdBy) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-    const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, req.user_id];
-    databaseConnection.query(query, value)
-      .then((response) => {
-        if (response.rows[0]) {
-          return res.status(201).json({ data: response.rows[0] });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'Server error!!! Try again later' });
-      });
+    catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
   }
 
   /**
@@ -48,9 +50,8 @@ export default class meetupController {
       .then((response) => {
         if (response.rows) {
           return res.status(200).json({ data: response.rows });
-        } else {
-          return res.status(404).json({error: 'meetups not found'});
         }
+        return res.status(404).json({ error: 'meetups not found' });
       })
       .catch((err) => {
         res.status(500).json({ error: 'Server error!!! Try again later' });
@@ -60,15 +61,15 @@ export default class meetupController {
   static getMeetup(req, res) {
     const { meetupId } = req.params;
     // check of meetup exists
-    const query = 'SELECT * FROM "public"."meetups" WHERE meetup_id = $1';
+    const query = 'SELECT * FROM "public"."meetups" WHERE id = $1';
     const value = [meetupId];
     databaseConnection.query(query, value)
       .then((response) => {
         if (response.rows[0]) {
-          return res.status(200).json({ data: response.rows[0]});
-        } else {
-          return res.status(404).json({error: 'meetup not found'});
+          return res.status(200).json({ data: response.rows[0] });
         }
+        return res.status(404).json({ error: 'meetup not found' });
+
       })
       .catch((err) => {
         console.log(err);

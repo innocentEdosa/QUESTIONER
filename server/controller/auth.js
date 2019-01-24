@@ -24,38 +24,46 @@ export default class authController {
    * if query fails send error response
    * if hash fails sends server error response
    */
-  static Signup(req, res) {
-    const error = validationResult(req);
-    util.errorCheck(error, res);
-    const {
-      username, email, password, firstname, lastname, othername, phonenumber, isadmin
-    } = req.body;
-    bcrypt.hash(password, 3)
-      .then((hashedpw) => {
-        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id, username, email, firstname, lastname, othername, phonenumber, isadmin';
-        const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
-        return databaseConnection.query(query, values)
-          .then((response) => {
-            console.log(response.rows[0]);
-            if (response) {
-              const token = jwt.sign(
-                { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isadmin },
-                process.env.SECRET,
-                { expiresIn: '10h' }
-              );
-              return res.status(201).json({ data: [{ token, user: response.rows[0] }] });
+  static async Signup(req, res) {
+    try {
+      const error = validationResult(req);
+      const errormsg = await util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      const {
+        username, email, password, firstname, lastname, othername, phonenumber, isadmin
+      } = req.body;
+      bcrypt.hash(password, 3)
+        .then(async (hashedpw) => {
+          const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, "isAdmin") VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, firstname, lastname, othername, phonenumber, "isAdmin"';
+          const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
+          try {
+            const response = await databaseConnection.query(query, values);
+            if (response.rows[0]) {
+              const { email, id, isAdmin } = response.rows[0];
+              const token = jwt.sign({ email: email, userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
+              return res.status(201).json({ data: [{ token: token, user: response.rows[0] }] });
             }
-          })
-          .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
-      })
-      .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
+          }
+          catch (e) {
+            console.log(e);
+            return res.status(500).json({ error: 'Server error!!! Try again later' });
+          }
+        })
+    }
+    catch (e) {
+      console.log(e);
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
   }
+
 
   static Login(req, res) {
     const {
       password, email,
     } = req.body;
-    const query = 'SELECT user_id, username, firstname, lastname, othername, email, phonenumber,password,isadmin FROM users WHERE email = $1';
+    const query = 'SELECT id, username, firstname, lastname, othername, email, phonenumber,password, "isAdmin" FROM users WHERE email = $1';
     const value = [email];
     let loadeduser;
     databaseConnection.query(query, value)
@@ -70,13 +78,15 @@ export default class authController {
         if (!isEqual) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
+        const { email, id, isAdmin, lastname, othername, phonenumber, username   } = loadeduser.rows[0];
         const token = jwt.sign({
-          email: loadeduser.rows[0].email,
-          userId: loadeduser.rows[0].user_id,
-          isAdmin: loadeduser.rows[0].isadmin,
+          email: email,
+          userId: id,
+          isAdmin: isAdmin,
         }, process.env.SECRET,
-        { expiresIn: '10h' });
-        return res.status(200).json({ data: [{ token, user: { token: loadeduser.rows[0].token, lastname: loadeduser.rows[0].lastname, username: loadeduser.rows[0].username, email: loadeduser.rows[0].email, phonenumber: loadeduser.rows[0].phonenumber, othername: loadeduser.rows[0].othername }, msg: 'login successful' }] });
+          { expiresIn: '10h' });
+          console.log(token);
+        return res.status(200).json({ status: 200, data: [{ token: token, user: { lastname: lastname, username: username, email: email, phonenumber: phonenumber, othername: othername } }] });
       })
       .catch((err) => {
         console.log(err);
