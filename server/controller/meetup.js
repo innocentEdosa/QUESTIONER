@@ -74,12 +74,4 @@ export default class meetupController {
         res.status(500).json({ error: 'Server error!!! Try again later' });
       });
   }
-
-  static getUpcoming(req, res) {
-    const upcoming = Meetup.getUpcomingMeetup();
-    if (upcoming.length === 0) {
-      return res.status(204).json({ status: 200, data: [{ info: 'No upcoming meetup' }] });
-    }
-    return res.status(200).json({ status: 200, data: upcoming });
-  }
 }
