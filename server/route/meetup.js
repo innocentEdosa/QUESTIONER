@@ -22,7 +22,7 @@ router.get('/', isAuth, meetupController.getMeetups);
 router.get('/upcoming', isAuth, meetupController.getUpcoming);
 
 /** This router handles requests to get a specific meetup */
-router.get('/:meetupId', meetupController.getMeetup);
+router.get('/:meetupId', isAuth, meetupController.getMeetup);
 
 
 /**

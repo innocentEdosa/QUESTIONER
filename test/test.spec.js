@@ -207,59 +207,53 @@ describe('TEST ALL RSVP ENDPOINT', () => {
   /**
    * Testing POST/api/v1/meetups/meetupid/rsvp endpoint
    */
-  it('IT SHOULD CREATE A NEW RSVP', (done) => {
-    server
-      .post('/api/v1/meetups/3/rsvp')
-      .send({
-        user: 'innocent',
-        response: 'maybe',
-        meetup: 3,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(201)
-      .end((err, res) => {
-        res.status.should.equal(201);
-        res.body.should.be.an('object');
-        res.body.should.have.property('status', 201);
-        res.body.should.have.property('data');
-        done();
-      });
+  it('IT SHOULD CREATE A NEW RSVP', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/meetups/1/rsvp')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 1,
+          "user": 1,
+          "response": "maybe"
+        })
+      result.status.should.equal(201);
+    } catch (err) {
+      console.log(err)
+    }
   });
 
-  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUPPARAMS', (done) => {
-    server
-      .post('/api/v1/meetups/3/rsvp')
-      .send({
-        response: 'maybe',
-        user: 2,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(404)
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.body.should.be.an('object');
-        res.body.should.have.property('status', 404);
-        res.body.should.have.property('error');
-        done();
-      });
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUPPARAMS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/meetups/1/rsvp')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 100,
+          "user": 1,
+          "response": "maybe"
+        })
+      result.status.should.equal(404);
+    } catch (err) {
+      console.log(err)
+    }
   });
 
-  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', (done) => {
-    server
-      .post('/api/v1/meetups/3/rsvp')
-      .send({
-        response: 'maybe',
-        meetup: 3,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-type', /json/)
-      .expect(422)
-      .end((err, res) => {
-        res.status.should.equal(422);
-        res.body.should.be.an('object');
-        done();
-      });
-  });
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCOMPLETE PARAMS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/meetups/1/rsvp')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "meetup": 100,
+          "user": 1,
+        })
+      result.status.should.equal(422);
+    } catch (err) {
+      console.log(err, 'This is from the create rsvp test')
+    }
+  })
 })
