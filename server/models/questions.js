@@ -29,17 +29,4 @@ export default class Question {
       return (err);
     }
   }
-
-  static downvote(questionId) {
-    const Id = Number(questionId);
-    const found = [];
-    for (let i = 0; i < db.question.length; i += 1) {
-      if (db.question[i].id === Id) {
-        db.question[i].downvote += 1;
-        found.push(db.question[i]);
-        return found;
-      }
-    }
-    return -1;
-  }
 }

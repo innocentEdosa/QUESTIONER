@@ -14,12 +14,12 @@ export default class Votes {
     }
   }
 
-  static async updateVotes(upvote, downvote) {
+  static async updateVotes(upvote, downvote, questionId)  {
     try {
-      const query = 'UPDATE votes SET upvotes = $1, downvotes = $2 WHERE question_id = $3';
-      const value = [upvote, downvote];
+      console.log(upvote, downvote, questionId);
+      const query = 'UPDATE votes SET upvote = $1, downvotes = $2 WHERE question_id = $3';
+      const value = [upvote, downvote, questionId];
       const response = await databaseConnection.query(query, value);
-      return response;
     }
     catch (err) {
       console.log(err);
@@ -27,9 +27,9 @@ export default class Votes {
     }
   }
 
-  static async insertUpvote(createdBy, questionId) {
+  static async insertvote(createdBy, questionId, vote) {
     try {
-      const query = 'INSERT INTO votes("createdBy", upvote, question_id) VALUES($1, $2, $3)';
+      const query = 'INSERT INTO votes("createdBy", ' + vote + ', question_id) VALUES($1, $2, $3)';
       const value = [createdBy, 1, questionId];
       const response = await databaseConnection.query(query, value);
       return response;
