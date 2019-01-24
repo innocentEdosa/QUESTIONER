@@ -59,38 +59,32 @@ export default class authController {
   }
 
 
-  static Login(req, res) {
-    const {
-      password, email,
-    } = req.body;
-    const query = 'SELECT id, username, firstname, lastname, othername, email, phonenumber,password, "isAdmin" FROM users WHERE email = $1';
-    const value = [email];
-    let loadeduser;
-    databaseConnection.query(query, value)
-      .then((user) => {
+  static async Login(req, res) {
+    try {
+      const {
+        password, email,
+      } = req.body;
+      const query = 'SELECT id, username, firstname, lastname, othername, email, phonenumber,password, "isAdmin" FROM users WHERE email = $1';
+      const value = [email];
+      let loadeduser;
+      const user = await databaseConnection.query(query, value);
+      if (user) {
         if (!user.rows[0]) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
         loadeduser = user;
-        return bcrypt.compare(password, user.rows[0].password);
-      })
-      .then((isEqual) => {
-        if (!isEqual) {
+        const check = await bcrypt.compare(password, user.rows[0].password);
+        if (!check) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
-        const { email, id, isAdmin, lastname, othername, phonenumber, username   } = loadeduser.rows[0];
-        const token = jwt.sign({
-          email: email,
-          userId: id,
-          isAdmin: isAdmin,
-        }, process.env.SECRET,
-          { expiresIn: '10h' });
-          console.log(token);
-        return res.status(200).json({ status: 200, data: [{ token: token, user: { lastname: lastname, username: username, email: email, phonenumber: phonenumber, othername: othername } }] });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'server error!!! Try again later' })
-      });
+        const { email, id, isAdmin, lastname, username, phonenumber, othername} = loadeduser.rows[0]
+        const token = jwt.sign({ email: email, userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
+        return res.status(200).json({ data: [{ token, user: { lastname: lastname, username: username, email: email, phonenumber: phonenumber, othername: othername } }]});
+      }
+    }
+    catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'server error!!! Try again later' })
+    }
   }
 }

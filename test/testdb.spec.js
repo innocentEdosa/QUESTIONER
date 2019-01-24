@@ -31,6 +31,7 @@ describe('POST /auth/signup', () => {
     }
   });
 
+  
   it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN AN ALREADY EXISTING EMAIL OR USERNAME ', async () => {
     try {
       const result = await server
@@ -44,7 +45,98 @@ describe('POST /auth/signup', () => {
       console.log(error);
     }
   });
+
+
+  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG EMEAIL', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer',
+          username: 'innocent2',
+          password: 'andelabootcamp',
+          "firstname": "inndfco",
+          "lastname": "jdisssdfjip",
+          "othername": "mather",
+          "phonenumber": "07077427084"
+        })
+        .expect(422);
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PHONE NUMBER', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer',
+          username: 'innocent2',
+          password: 'andelabootcamp',
+          "firstname": "inndfco",
+          "lastname": "jdisssdfjip",
+          "othername": "mather",
+          "phonenumber": "070"
+        })
+        .expect(422);
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer2@gmail.com',
+          username: 'innocent2',
+          password: '',
+          "firstname": "",
+          "lastname": "",
+          "othername": "",
+          "phonenumber": "070"
+        })
+        .expect(422);
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          eml: 'ilegbinijieinnocentcareer2@gmail.com',
+          usname: 'innocent2',
+          password: '',
+          "firstname": "",
+          "lastname": "",
+          "othername": "",
+          "phonenumber": "070"
+        })
+        .expect(422);
+      result.status.should.equal(422);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
+
+
 
 describe('POST /auth/login', () => {
   it('SHOULD CONFIRM THAT A USER EXISTS', async () => {
@@ -56,7 +148,6 @@ describe('POST /auth/login', () => {
       result.status.should.equal(200);
       result.body.should.be.an('object');
       result.body.should.have.property('data');
-      result.body.data[0].msg.should.equal('login successful');
     } catch (error) {
       console.log(error);
     }
@@ -76,5 +167,6 @@ describe('POST /auth/login', () => {
       console.log(error);
     }
   });
+
 });
 

@@ -18,9 +18,6 @@ router.post('/', isAuth, validator.validateMeetup(), meetupController.createMeet
 /** This router handles request to get all meetups */
 router.get('/', isAuth, meetupController.getMeetups);
 
-/** This router handles request to get upcoming meetup */
-router.get('/upcoming', isAuth, meetupController.getUpcoming);
-
 /** This router handles requests to get a specific meetup */
 router.get('/:meetupId', isAuth, meetupController.getMeetup);
 

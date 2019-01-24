@@ -33,7 +33,6 @@ export default class meetupController {
       }
     }
     catch (err) {
-      console.log(err);
       return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
     }
   }
