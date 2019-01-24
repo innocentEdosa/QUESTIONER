@@ -52,8 +52,7 @@ export default class questionController {
         return res.status(404).json({ error: 'Question does not exist' });
       }
       const questionupvotes = response.rows[0].upvotes += 1;
-      const questionvotes = response.rows[0].votes += 1;
-      let questiondownvote = response.rows[0].downvotes;
+      let questionvotes = response.rows[0].votes += 1; let questiondownvote = response.rows[0].downvotes;
       const result = await Votes.getvotes(req.user_id, questionId);
       if (result.rows[0]) {
         let upvote = result.rows[0].upvote;
@@ -62,12 +61,15 @@ export default class questionController {
           return res.status(409).json({ status: 409, error: 'Sorry. You can only upvote once' });
         }
         if (downvote > 0) {
-          downvote -= 1;
+          downvote = 0;
           questiondownvote -= 1;
+          questionvotes -= 1;
         }
-        const update = await Votes.updateVotes(upvote, downvote);
+        upvote = 1;
+        const update = await Votes.updateVotes(upvote, downvote, questionId);
+        console.log(update);
       } else {
-        response = await Votes.insertUpvote(req.user_id, questionId);
+        response = await Votes.insertvote(req.user_id, questionId, 'upvote');
         if (!response) {
           return res.status(500).json({ error: 'Server error!!! Try again later' });
         }
@@ -85,12 +87,46 @@ export default class questionController {
     }
   }
 
-  static downvote(req, res) {
-    const { questionId } = req.params;
-    const downvote = Question.downvote(questionId);
-    if (downvote < 0) {
-      return res.status(404).json({ status: 404, error: 'This question does not exist' });
+  static async downvote(req, res) {
+    try {
+      const { questionId } = req.params;
+      let response = await Question.findbyId(questionId);
+      if (!response.rows[0] || response.rows[0] === undefined) {
+        return res.status(404).json({ error: 'Question does not exist' });
+      }
+      let questionupvotes = response.rows[0].upvotes;
+      let questionvotes = response.rows[0].votes += 1;
+      let questiondownvote = response.rows[0].downvotes += 1;
+      const result = await Votes.getvotes(req.user_id, questionId);
+      if (result.rows[0]) {
+        let upvote = result.rows[0].upvote;
+        let downvote = result.rows[0].downvotes;
+        if (downvote > 0) {
+          return res.status(409).json({ error: 'Sorry. You can only downvote once' });
+        }
+        if (upvote > 0) {
+          upvote = 0;
+          questionupvotes -= 1;
+          questionvotes -= 1;
+        }
+        downvote = 1;
+        const update = await Votes.updateVotes(upvote, downvote, questionId);
+      } else {
+        response = await Votes.insertvote(req.user_id, questionId, 'downvotes');
+        if (!response) {
+          return res.status(500).json({ error: 'Server error!!! Try again later' });
+        }
+      }
+      response = await Question.updatevotes(questionupvotes, questionvotes, questiondownvote, questionId);
+      if (!response.rows[0] || response.rows[0] === undefined) {
+        return res.status(500).json({ error: 'Server error!!! Try again later' });
+      }
+      return res.status(200).json({ data: [response.rows[0]] });
+
     }
-    return res.status(200).json({ status: 200, data: downvote });
+    catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
   }
 }

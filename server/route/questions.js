@@ -18,6 +18,6 @@ router.post('/', isAuth, validator.validateQuestions(), questionController.creat
 router.patch('/:questionId/upvote', isAuth, questionController.upvote);
 
 /** This route handles request to downvote a question */
-router.patch('/:questionId/downvote', questionController.downvote);
+router.patch('/:questionId/downvote', isAuth, questionController.downvote);
 
 export default router;

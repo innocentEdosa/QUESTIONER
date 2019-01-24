@@ -20,23 +20,21 @@ export default class meetupController {
         location, images, topic, happeningOn, tags, description,
       } = req.body;
       const error = validationResult(req);
-     const errormsg = await util.errorCheck(error, res);
+      const errormsg = await util.errorCheck(error, res);
       if (errormsg) {
         return false;
       }
       if (!req.isadmin) {
         return res.status(401).json({ error: 'NOT AUTHORISED' });
       }
-      const query = 'INSERT INTO meetups(location, images, topic, "happeningOn", tags, description, createdBy) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-      const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, req.user_id];
-      const response = await databaseConnection.query(query, value);
+      const response = await Meetup.insertMeetup(location, images, topic, happeningOn, tags, description, req.user_id);
       if (response.rows[0]) {
         return res.status(201).json({ data: response.rows[0] });
       }
     }
     catch (err) {
       console.log(err);
-      res.status(500).json({ error: 'Server error!!! Try again later' });
+      return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
     }
   }
 
