@@ -11,7 +11,6 @@ export default class Meetup {
       return response;
     }
     catch (err) {
-      console.log(err, 'error from insert meetups');
       return err;
     }
   }
@@ -24,7 +23,6 @@ export default class Meetup {
       return response;
     }
     catch (err) {
-      console.log(err, 'error from meetup findbyId');
       return err;
     }
   }
@@ -37,8 +35,20 @@ export default class Meetup {
       return response;
     }
     catch (err) {
-      console.log(err, 'this is an rerror');
       return err;
+    }
+  }
+
+  static async getUpcoming() {
+    try {
+      const query = 'SELECT * FROM meetups WHERE "happeningOn" > $1 '
+      const currentDate = new Date(Date.now());
+      const value = [currentDate];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      return (err);
     }
   }
 }

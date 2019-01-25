@@ -10,7 +10,6 @@ export default (req, res, next) => {
   try {
     decodedtoken = jwt.verify(token, 'thisismyusersecretsecret');
   } catch (err) {
-    console.log(err);
     return res.status(401).json({ error: 'Not authenticated' });
   }
   if (!decodedtoken) {

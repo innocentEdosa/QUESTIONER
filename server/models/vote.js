@@ -22,7 +22,6 @@ export default class Votes {
       const response = await databaseConnection.query(query, value);
     }
     catch (err) {
-      console.log(err);
       return err;
     }
   }
@@ -35,7 +34,6 @@ export default class Votes {
       return response;
     }
     catch (err) {
-      console.log(err);
       return err;
     }
   }

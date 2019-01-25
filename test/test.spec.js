@@ -33,6 +33,17 @@ before(async () => {
 
 
 describe('TEST ALL MEETUP ENDPOINTS', () => {
+  it('should throw an error if there is no upcoming meetups', async () => {
+    try {
+      const res = await server
+        .get('/api/v1/meetups/upcoming')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(404);
+    } catch (error) {
+      console.log(error);
+    }
+  });
   
    
   it('SHOULD CREATE A NEW MEETUP', async () => {
@@ -47,7 +58,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
           description: 'this is anfffohter',
           createdBy: 1,
           images: 'this is an aeir',
-          happeningOn: 'new Date()',
+          happeningOn: new Date(2021, 12, 12),
         })
         .expect(201);
       result.status.should.equal(201);
@@ -70,8 +81,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
           topic: 'this is a topic',
           tags: ['business'],
         })
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {
@@ -91,6 +102,19 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
         console.log(error);
       }
     });
+
+  it('should get all upcoming meetup', async () => {
+    try {
+      const res = await server
+        .get('/api/v1/meetups/upcoming')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(200);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 
   it('should get a specific meetup', async () => {
     try {
@@ -138,7 +162,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
           "title": "",
           "body": ""
         })
-      result.status.should.equal(422);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
     } catch (err) {
       console.log(err, 'This is from the create question test')
@@ -282,7 +306,7 @@ describe('TEST ALL RSVP ENDPOINT', () => {
           "meetup": 100,
           "user": 1,
         })
-      result.status.should.equal(422);
+      result.status.should.equal(400);
     } catch (err) {
       console.log(err, 'This is from the create rsvp test')
     }
@@ -308,6 +332,36 @@ describe('TEST ALL COMMENT ENDPOINT', () => {
       console.log(err, 'This is from the create comment test')
     }
   });
+
+  it('IT SHOULD THROW AN ERROR IS WRONG PARAMETERS ARE SENT', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/comments')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "question": 1
+        })
+      result.status.should.equal(400);
+    } catch (err) {
+      console.log(err, 'This is from the create comment test')
+    }
+  });
+
+  it('IT SHOULD THROW AN ERROR IS WRONG PARAMETERS ARE SENT', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/comments')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({
+          "comment": "this is the comment to a question"
+        })
+      result.status.should.equal(400);
+    } catch (err) {
+      console.log(err, 'This is from the create comment test')
+    }
+  })
 });
 
 const notAdmin = {
@@ -351,8 +405,6 @@ describe('NON ADMIN', () => {
         })
         .expect(401);
       result.status.should.equal(401);
-      result.body.should.be.an('object');
-      result.body.should.have.property('error');
     } catch (error) {
       console.log(error);
     }
@@ -374,8 +426,6 @@ describe('NON ADMIN', () => {
         })
         .expect(401);
       result.status.should.equal(401);
-      result.body.should.be.an('object');
-      result.body.should.have.property('error');
     } catch (error) {
       console.log(error);
     }

@@ -25,14 +25,14 @@ export default class authController {
       } = req.body;
       bcrypt.hash(password, 3)
         .then(async (hashedpw) => {
-          const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, "isAdmin") VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, firstname, lastname, othername, phonenumber, "isAdmin"';
+          const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, "isAdmin") VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, firstname, lastname, othername, phonenumber, "isAdmin", registered';
           const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
           try {
             const response = await databaseConnection.query(query, values);
             if (response.rows[0]) {
-              const { email, id, isAdmin } = response.rows[0];
+              const { email, id, isAdmin, lastname, username, phonenumber, firstname, othername, registered} = response.rows[0];
               const token = jwt.sign({ email: email, userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
-              return res.status(201).json({ data: [{ token: token, user: response.rows[0] }] });
+              return res.status(201).json({ data: [{ token: token, user: { id: id, firstname: firstname, lastname: lastname, othername: othername, email: email, phonenumber: phonenumber, username: username, registered: registered } }] });
             }
           }
           catch (e) {
@@ -51,7 +51,7 @@ export default class authController {
       const {
         password, email,
       } = req.body;
-      const query = 'SELECT id, username, firstname, lastname, othername, email, phonenumber,password, "isAdmin" FROM users WHERE email = $1';
+      const query = 'SELECT id, username, firstname, lastname, othername, email, phonenumber,password, "isAdmin", registered FROM users WHERE email = $1';
       const value = [email];
       let loadeduser;
       const user = await databaseConnection.query(query, value);
@@ -64,9 +64,9 @@ export default class authController {
         if (!check) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
-        const { email, id, isAdmin, lastname, username, phonenumber, othername} = loadeduser.rows[0]
+        const { email, id, isAdmin, lastname, username, phonenumber, othername, firstname, registered} = loadeduser.rows[0]
         const token = jwt.sign({ email: email, userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
-        return res.status(200).json({ data: [{ token, user: { lastname: lastname, username: username, email: email, phonenumber: phonenumber, othername: othername } }]});
+        return res.status(200).json({ data: [{ token, user: { firstname: firstname, lastname: lastname, othername: othername, email: email, phonenumber: phonenumber, username: username, registered: registered } }]});
       }
     }
     catch (err) {
