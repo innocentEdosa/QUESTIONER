@@ -2,7 +2,6 @@ import { validationResult } from 'express-validator/check';
 import Question from '../models/questions';
 import Meetup from '../models/meetup';
 import util from '../helper/util';
-import databaseConnection from '../models/dbConfig';
 import Votes from '../models/vote';
 
 
@@ -56,14 +55,9 @@ export default class questionController {
         if (upvote > 0) {
           return res.status(409).json({ status: 409, error: 'Sorry. You can only upvote once' });
         }
-        if (downvote > 0) {
-          downvote = 0;
-          questiondownvote -= 1;
-          questionvotes -= 1;
-        }
+        if (downvote > 0) { downvote = 0; questiondownvote -= 1; questionvotes -= 1;}
         upvote = 1;
         const update = await Votes.updateVotes(upvote, downvote, questionId);
-        console.log(update);
       } else {
         response = await Votes.insertvote(req.user_id, questionId, 'upvote');
         if (!response) {
@@ -121,7 +115,6 @@ export default class questionController {
 
     }
     catch (err) {
-      console.log(err);
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }

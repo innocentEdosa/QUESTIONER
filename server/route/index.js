@@ -43,8 +43,4 @@ router.use('/api/v1/', (req, res) => {
   return res.status(404).json({ error: 'Resource not found' });
 })
 
-router.use((error) => {
-  console.log(error);
-}) 
-
 export default router;

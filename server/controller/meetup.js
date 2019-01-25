@@ -69,8 +69,27 @@ export default class meetupController {
 
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).json({ error: 'Server error!!! Try again later' });
       });
+  }
+
+  static async deleteMeetup(req, res) {
+    try {
+      const { meetupId } = req.params;
+      let result = await Meetup.findbyId(meetupId);
+      if (!req.isadmin) {
+        return res.status(401).json({ error: 'NOT AUTHORISED' });
+      }
+      if (!result.rows[0]) {
+        return res.status(404).json({ status: 404, error: 'Meetup not found' })
+      }
+      result = await Meetup.deleteMeetup(meetupId);
+      if (result.rowCount === 1) {
+        return res.status(200).json({ data: ['delete successful'] });
+      }
+    }
+    catch (err) {
+      return res.status(500).json({ error: 'Server error. Please Try again later' });
+    }
   }
 }

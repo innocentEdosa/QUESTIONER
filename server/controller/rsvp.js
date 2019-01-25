@@ -3,9 +3,6 @@ import Rsvp from '../models/rsvp';
 import Meetup from '../models/meetup';
 import util from '../helper/util';
 
-/**
- * create a question controller class
- */
 export default class rsvpController {
   /**
    * @param {object} req - the request object sent from router

@@ -12,18 +12,7 @@ dotenv.config();
 
 import util from '../helper/util';
 
-
 export default class authController {
-  /**
-   * @param {object} req - the request object sent from router
-   * @param {object} res - response object
-   * Hash password using bcrypt
-   * if hash is successful run query to create a user record
-   * run query to insert user record
-   * if query is successful send success response
-   * if query fails send error response
-   * if hash fails sends server error response
-   */
   static async Signup(req, res) {
     try {
       const error = validationResult(req);
@@ -47,13 +36,11 @@ export default class authController {
             }
           }
           catch (e) {
-            console.log(e);
             return res.status(500).json({ error: 'Server error!!! Try again later' });
           }
         })
     }
     catch (e) {
-      console.log(e);
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }
@@ -83,7 +70,6 @@ export default class authController {
       }
     }
     catch (err) {
-      console.log(err);
       res.status(500).json({ error: 'server error!!! Try again later' })
     }
   }
