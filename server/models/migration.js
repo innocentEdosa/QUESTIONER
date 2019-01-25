@@ -86,7 +86,6 @@ CREATE TABLE comments(
     // await databasetables.forEach(query => databaseConnection.query(query, error => console.log(error)));
     for (let i = 0; i < databasetables.length; i += 1) {
       const response = await databaseConnection.query(databasetables[i]);
-      console.log(response);
     }
   }
   catch (err) {

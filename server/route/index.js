@@ -3,11 +3,15 @@ import { Router } from 'express';
 /** import all required router
  * @module ./meetup
  * @module ./quesions
+ * @module ./rsvp
+ * @module ./auth
+ * @module ./comments
  */
 import meetupRouter from './meetup';
 import questionsRouter from './questions';
 import rsvpRouter from './rsvp';
 import authRouter from './auth';
+import commentRouter from './comments';
 
 const router = Router();
 
@@ -30,17 +34,17 @@ router.use('/meetups/:meetupId/rsvp', rsvpRouter);
 
 router.use('/auth', authRouter);
 
-router.use('/', (req, res, next) => {
-  res.status(404).json({error: 'Resource not found'});
+router.use('/comments', commentRouter);
+
+router.use('/', (req, res) => {
+  return res.status(404).json({error: 'Resource not found'});
 })
-router.use('/api/v1/', (req, res, next) => {
-  res.status(404).json({ error: 'Resource not found' });
+router.use('/api/v1/', (req, res) => {
+  return res.status(404).json({ error: 'Resource not found' });
 })
 
 router.use((error) => {
   console.log(error);
 }) 
-
-
 
 export default router;

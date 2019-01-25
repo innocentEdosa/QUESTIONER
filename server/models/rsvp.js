@@ -3,7 +3,6 @@
  * @module Meetup
  */
 import databaseConnection from './dbConfig';
-import Meetup from './meetup';
 
 /**
  * create a rsvp model

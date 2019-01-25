@@ -1,4 +1,3 @@
-import db from './db';
 import databaseConnection from './dbConfig';
 
 // create a class to handle the meetup array

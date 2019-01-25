@@ -1,5 +1,3 @@
-import db from './db';
-import Meetup from './meetup';
 import databaseConnection from './dbConfig';
 
 
@@ -27,6 +25,19 @@ export default class Question {
     catch (err) {
       console.log(err);
       return (err);
+    }
+  }
+
+  static async insertQuestion(createdBy, title, meetup, body) {
+    try {
+      const query = 'INSERT INTO questions("createdBy", title, meetup, body) VALUES($1, $2, $3, $4) RETURNING *';
+      const value = [createdBy, title, meetup, body]
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch(err) {
+      console.log(err);
+      return err;
     }
   }
 }

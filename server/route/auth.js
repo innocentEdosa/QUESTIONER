@@ -4,7 +4,6 @@ import { body } from 'express-validator/check';
 /** import
  * @module controller/auth
 */
-import databaseConnection from '../models/dbConfig';
 
 import authController from '../controller/auth';
 

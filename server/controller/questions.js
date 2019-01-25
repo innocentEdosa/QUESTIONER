@@ -24,15 +24,11 @@ export default class questionController {
       if (errormsg) {
         return false;
       }
-      let query = 'SELECT * FROM meetups WHERE id = $1';
-      let value = [meetup];
-      const response = await databaseConnection.query(query, value);
+      const response = await Meetup.findbyId(meetup);
       if (!response.rows[0] || response.rows[0] === undefined) {
         return res.status(404).json({ error: 'Meetup does not exist' });
       }
-      query = 'INSERT INTO questions("createdBy", title, meetup, body) VALUES($1, $2, $3, $4) RETURNING *';
-      value = [req.user_id, title, meetup, body]
-      const result = await databaseConnection.query(query, value);
+      const result = await Question.insertQuestion(req.user_id, title, meetup, body);
       if (!result.rows[0] || result.rows[0] === undefined) {
         return res.status(500).json({ error: 'Server error!!! Try again later' });
       }
