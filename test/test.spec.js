@@ -179,6 +179,19 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
     }
   });
 
+  it('IT SHOULD UPVOTE A QUESTION', async () => {
+    try {
+      const result = await server
+        .patch('/api/v1/questions/1/upvote')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+      result.status.should.equal(409);
+      result.body.should.have.property('error');
+    } catch (err) {
+      console.log(err, 'This is from upvoting question');
+    }
+  });
+
   it('IT SHOULD THROW A 404 ERROR WHEN GIVEN A NON EXISTING QUESTION ID', async () => {
     try {
       const result = await server
@@ -201,9 +214,24 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
       result.status.should.equal(200);
       result.body.should.have.property('data');
     } catch (err) {
-      console.log(err, 'This is from upvoting question');
+      console.log(err);
     }
   });
+
+  it('IT SHOULD DOWNVOTE A QUESTION', async () => {
+    try {
+      const result = await server
+        .patch('/api/v1/questions/1/downvote')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+      result.status.should.equal(409);
+      result.body.should.have.property('error');
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+
 });
 
 describe('TEST ALL RSVP ENDPOINT', () => {
@@ -352,4 +380,45 @@ describe('NON ADMIN', () => {
       console.log(error);
     }
   });
+
+  it('IT SHOULD THROWN AN ERROR IF USER IS NOT ADMIN', async () => {
+    try {
+      const res = await server
+        .delete('/api/v1/meetups/1')
+        .set('Accept', 'application/json')
+        .set('Authorization', notAdminToken)
+      res.status.should.equal(401);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
+
+describe('DELETE A MEETUP', () => {
+  it('IT SHOULD DELETE A MEETUP', async () => {
+    try {
+      const res = await server
+        .delete('/api/v1/meetups/1')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(200);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('IT SHOULD DELETE A MEETUP', async () => {
+    try {
+      const res = await server
+        .delete('/api/v1/meetups/2')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(404);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+

@@ -28,4 +28,17 @@ export default class Meetup {
       return err;
     }
   }
+
+  static async deleteMeetup(id) {
+    try {
+      const query = 'DELETE FROM meetups WHERE id = $1';
+      const value = [id];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      console.log(err, 'this is an rerror');
+      return err;
+    }
+  }
 }
