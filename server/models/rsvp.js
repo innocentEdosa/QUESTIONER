@@ -16,7 +16,6 @@ export default class Rsvp {
       return res;
     }
     catch (err) {
-      console.log(err);
       return err;
     }
   }
@@ -28,7 +27,6 @@ export default class Rsvp {
       const res = await databaseConnection.query(query, value)
       return res;
     } catch (err) {
-      console.log(err)
       return err;
     }
   }
@@ -41,7 +39,6 @@ export default class Rsvp {
       return res;
     }
     catch (err) {
-      console.log(err);
       return err;
     }
   }

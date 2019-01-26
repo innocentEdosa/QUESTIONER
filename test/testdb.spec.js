@@ -32,13 +32,13 @@ describe('POST /auth/signup', () => {
   });
 
   
-  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN AN ALREADY EXISTING EMAIL OR USERNAME ', async () => {
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN AN ALREADY EXISTING EMAIL OR USERNAME ', async () => {
     try {
       const result = await server
         .post('/api/v1/auth/signup')
         .send(mock)
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {
@@ -47,7 +47,7 @@ describe('POST /auth/signup', () => {
   });
 
 
-  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG EMEAIL', async () => {
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG EMEAIL', async () => {
     try {
       const result = await server
         .post('/api/v1/auth/signup')
@@ -60,8 +60,8 @@ describe('POST /auth/signup', () => {
           "othername": "mather",
           "phonenumber": "07077427084"
         })
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {
@@ -69,7 +69,7 @@ describe('POST /auth/signup', () => {
     }
   });
 
-  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PHONE NUMBER', async () => {
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG PHONE NUMBER', async () => {
     try {
       const result = await server
         .post('/api/v1/auth/signup')
@@ -82,8 +82,8 @@ describe('POST /auth/signup', () => {
           "othername": "mather",
           "phonenumber": "070"
         })
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {
@@ -91,7 +91,7 @@ describe('POST /auth/signup', () => {
     }
   });
 
-  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
     try {
       const result = await server
         .post('/api/v1/auth/signup')
@@ -104,8 +104,8 @@ describe('POST /auth/signup', () => {
           "othername": "",
           "phonenumber": "070"
         })
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {
@@ -113,7 +113,7 @@ describe('POST /auth/signup', () => {
     }
   });
 
-  it('SHOULD RESPOND WITH 422 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
     try {
       const result = await server
         .post('/api/v1/auth/signup')
@@ -126,8 +126,8 @@ describe('POST /auth/signup', () => {
           "othername": "",
           "phonenumber": "070"
         })
-        .expect(422);
-      result.status.should.equal(422);
+        .expect(400);
+      result.status.should.equal(400);
       result.body.should.be.an('object');
       result.body.should.have.property('error');
     } catch (error) {

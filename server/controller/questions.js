@@ -31,10 +31,9 @@ export default class questionController {
       if (!result.rows[0] || result.rows[0] === undefined) {
         return res.status(500).json({ error: 'Server error!!! Try again later' });
       }
-      return res.status(201).json({ data: result.rows[0] });
+      return res.status(201).json({ data: [ result.rows[0] ] });
     }
     catch (err) {
-      console.log(err, 'this is from the question controller');
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }
@@ -53,7 +52,7 @@ export default class questionController {
         let upvote = result.rows[0].upvote;
         let downvote = result.rows[0].downvotes;
         if (upvote > 0) {
-          return res.status(409).json({ status: 409, error: 'Sorry. You can only upvote once' });
+          return res.status(409).json({ error: 'Sorry. You can only upvote once' });
         }
         if (downvote > 0) { downvote = 0; questiondownvote -= 1; questionvotes -= 1;}
         upvote = 1;
@@ -68,11 +67,10 @@ export default class questionController {
       if (!response.rows[0] || response.rows[0] === undefined) {
         return res.status(500).json({ error: 'Server error!!! Try again later' });
       }
-      return res.status(200).json({ status: 200, data: [response.rows[0]] });
+      return res.status(200).json({ data: [response.rows[0]] });
 
     }
     catch (err) {
-      console.log(err, 'this is from the question upvote');
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }

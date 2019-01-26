@@ -20,18 +20,18 @@ export default class rsvpController {
       }
       let result = await Meetup.findbyId(meetup);
       if (!result.rows[0]) {
-        return res.status(404).json({ status: 404, error: 'Meetup not found' });
+        return res.status(404).json({ error: 'Meetup not found' });
       }
       result = await Rsvp.check(meetup, user);
       if (result.rows[0]) {
         result = await Rsvp.update(meetup, user, response, result.rows[0].id);
         if (result.rows[0]) {
-          return res.status(200).json({ status: 200, data: [result.rows[0]], msg: 'Rsvp updated' });
+          return res.status(200).json({ data: [result.rows[0]], msg: 'Rsvp updated' });
         }
       }
       result = await Rsvp.create(meetup, user, response);
       if (result.rows[0]) {
-        return res.status(201).json({ status: 201, data: [result.rows[0]] })
+        return res.status(201).json({ data: [result.rows[0]] })
       }
       console.log(result);
     }

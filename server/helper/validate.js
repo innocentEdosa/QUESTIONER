@@ -38,9 +38,15 @@ export default class validator {
   }
 
   static validateRsvp() {
-    return [body('user', 'user cannot be undefined').trim().exists(),
-      body('response', 'response must be at least 3 characters long').trim().exists().isLength({ min: 3 }),
-      body('meetup', 'meetup cannot be undefined').trim().exists().isNumeric(),
+    return [body('user', 'Please provide a user id').trim().isNumeric().not()
+      .isEmpty()
+      .exists(),
+    body('response', 'Response must be at least 3 characters long').trim().isLength({ min: 3 }).not()
+      .isEmpty()
+      .exists(),
+    body('meetup', 'Please provide a meetup id').trim().isNumeric().not()
+      .isEmpty()
+      .exists(),
     ];
   }
 
@@ -82,8 +88,18 @@ export default class validator {
       body('lastname', 'please enter a valid lastname').isAlpha().isLength({ min: 3 }).withMessage('Please enter a valid lastname. lastname must be more than 2 letters')
         .not()
         .isEmpty(),
-      body('phonenumber', 'please enter a valid phone number').isNumeric().isLength({ min: 11, max: 18 }).withMessage('Please enter a valid Phonenumber.').not().isEmpty(),
+      body('phonenumber', 'please enter a valid phone number').isNumeric().isLength({ min: 11, max: 18 }).withMessage('Please enter a valid Phonenumber.')
+        .not()
+        .isEmpty(),
       body('othername').isAlpha().optional(),
+      body('isadmin').isBoolean().optional(),
+    ];
+  }
+
+  static validateComment() {
+    return [body('question', 'Please provide a question id').trim().isNumeric().not()
+      .isEmpty(),
+    body('comment', 'Please provide a comment').trim().not().isEmpty(),
     ];
   }
 }

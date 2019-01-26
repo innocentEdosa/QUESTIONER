@@ -29,7 +29,7 @@ export default class meetupController {
       }
       const response = await Meetup.insertMeetup(location, images, topic, happeningOn, tags, description, req.user_id);
       if (response.rows[0]) {
-        return res.status(201).json({ data: response.rows[0] });
+        return res.status(201).json({ data: [ response.rows[0] ]});
       }
     }
     catch (err) {
@@ -81,12 +81,25 @@ export default class meetupController {
         return res.status(401).json({ error: 'NOT AUTHORISED' });
       }
       if (!result.rows[0]) {
-        return res.status(404).json({ status: 404, error: 'Meetup not found' })
+        return res.status(404).json({ error: 'Meetup not found' })
       }
       result = await Meetup.deleteMeetup(meetupId);
       if (result.rowCount === 1) {
         return res.status(200).json({ data: ['delete successful'] });
       }
+    }
+    catch (err) {
+      return res.status(500).json({ error: 'Server error. Please Try again later' });
+    }
+  }
+
+  static async getUpcoming(req, res) {
+    try {
+      const upcoming = await Meetup.getUpcoming();
+      if (!upcoming.rows[0]) {
+        return res.status(404).json({ error: 'No upcoming meetup' });
+      }
+      return res.status(200).json({ data: upcoming.rows });
     }
     catch (err) {
       return res.status(500).json({ error: 'Server error. Please Try again later' });

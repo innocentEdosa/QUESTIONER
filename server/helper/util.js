@@ -8,8 +8,8 @@ export default class Util {
   static errorCheck(error, res) {
     if (!error.isEmpty()) {
       const errorMessages = Util.printErr(error.array());
-      return res.status(422).json({
-        error: errorMessages,
+      return res.status(400).json({
+        error: errorMessages
       });
     }
   }

@@ -12,6 +12,6 @@ import commentController from '../controller/comments';
 const router = Router();
 
 /** This router handles request for the creation of a rsvp */
-router.post('/', isAuth, commentController.createComment);
+router.post('/', isAuth, validator.validateComment(), commentController.createComment);
 
 export default router;
