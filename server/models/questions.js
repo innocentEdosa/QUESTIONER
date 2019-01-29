@@ -10,7 +10,6 @@ export default class Question {
       return response;
     }
     catch (err) {
-      console.log(err, 'error from question findbyId');
       return err;
     }
   }
@@ -23,7 +22,6 @@ export default class Question {
       return response;
     }
     catch (err) {
-      console.log(err);
       return (err);
     }
   }
@@ -36,7 +34,6 @@ export default class Question {
       return response;
     }
     catch(err) {
-      console.log(err);
       return err;
     }
   }

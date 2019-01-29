@@ -13,7 +13,7 @@ const Admin = {
   othername: 'mather',
   email: 'super@gmail.com',
   password: 'edosafd',
-  phonenumber: '07057443455',
+  phoneNumber: '07057443455',
   isadmin: true,
 }
 
@@ -44,7 +44,30 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
       console.log(error);
     }
   });
+
+  it('should throw an error if there is no meetups', async () => {
+    try {
+      const res = await server
+        .get('/api/v1/meetups/10')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(404);
+    } catch (error) {
+      console.log(error);
+    }
+  });
   
+  it('should throw an error if given wrong meetup id', async () => {
+    try {
+      const res = await server
+        .get('/api/v1/meetups/innocent')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+      res.status.should.equal(422);
+    } catch (error) {
+      console.log(error);
+    }
+  });
    
   it('SHOULD CREATE A NEW MEETUP', async () => {
     try {
@@ -64,6 +87,22 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
       result.status.should.equal(201);
       result.body.should.be.an('object');
       result.body.should.have.property('data');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD THROW AN ERROR WHEN GIVEN NO PARAMETERS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/meetups')
+        .set('Authorization', token)
+        .send({
+        })
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
     } catch (error) {
       console.log(error);
     }
@@ -169,6 +208,20 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
     }
   });
 
+  it('IT SHOULD THROW AN ERROR WHEN GIVEN INCORRECT PARAMS FOR QUESTIONS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/questions')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+        .send({})
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+    } catch (err) {
+      console.log(err, 'This is from the create question test')
+    }
+  });
+
   it('IT SHOULD THROW AN ERROR WHEN GIVEN NON EXISTING MEETUP ID', async () => {
     try {
       const result = await server
@@ -203,7 +256,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
     }
   });
 
-  it('IT SHOULD UPVOTE A QUESTION', async () => {
+  it('IT SHOULD THROWN AN ERROR IS USER TRIES TO VOTE TWICE', async () => {
     try {
       const result = await server
         .patch('/api/v1/questions/1/upvote')
@@ -229,6 +282,20 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
     }
   });
 
+  it('IT SHOULD THROW A 404 ERROR WHEN GIVEN A NON EXISTING QUESTION ID', async () => {
+    try {
+      const result = await server
+        .patch('/api/v1/questions/innocent/upvote')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+      result.status.should.equal(422);
+      result.body.should.have.property('error');
+    } catch (err) {
+      console.log(err, 'This is from upvoting wrong question');
+    }
+  });
+
+
   it('IT SHOULD DOWNVOTE A QUESTION', async () => {
     try {
       const result = await server
@@ -252,6 +319,32 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
       result.body.should.have.property('error');
     } catch (err) {
       console.log(err);
+    }
+  });
+
+  it('IT SHOULD THROW A 404 ERROR WHEN GIVEN A NON EXISTING QUESTION ID', async () => {
+    try {
+      const result = await server
+        .patch('/api/v1/questions/1000/downvote')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+      result.status.should.equal(404);
+      result.body.should.have.property('error');
+    } catch (err) {
+      console.log(err, 'This is from upvoting wrong question');
+    }
+  });
+
+  it('IT SHOULD THROW A 404 ERROR WHEN GIVEN A NON EXISTING QUESTION ID', async () => {
+    try {
+      const result = await server
+        .patch('/api/v1/questions/innocent/downvote')
+        .set('Authorization', token)
+        .set('Accept', 'application/json')
+      result.status.should.equal(422);
+      result.body.should.have.property('error');
+    } catch (err) {
+      console.log(err, 'This is from upvoting wrong question');
     }
   });
 

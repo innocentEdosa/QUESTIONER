@@ -17,6 +17,5 @@ export default (req, res, next) => {
   }
   req.user_id = decodedtoken.userId;
   req.isadmin = decodedtoken.isAdmin;
-  req.email = decodedtoken.email;
   next();
 };

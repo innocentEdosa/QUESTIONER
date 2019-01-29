@@ -9,14 +9,12 @@ export default class Votes {
       return result;
     }
     catch (err) {
-      console.log(err)
       return err;
     }
   }
 
   static async updateVotes(upvote, downvote, questionId)  {
     try {
-      console.log(upvote, downvote, questionId);
       const query = 'UPDATE votes SET upvote = $1, downvotes = $2 WHERE question_id = $3';
       const value = [upvote, downvote, questionId];
       const response = await databaseConnection.query(query, value);

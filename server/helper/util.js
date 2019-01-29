@@ -13,4 +13,12 @@ export default class Util {
       });
     }
   }
+
+  static checkId(id) {
+    const reg = new RegExp('^[0-9]+$');
+    if (!reg.test(Number(id))) {
+      return false;
+    }
+    return true
+  } 
 }

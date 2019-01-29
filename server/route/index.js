@@ -40,7 +40,7 @@ router.use('/', (req, res) => {
   return res.status(404).json({error: 'Resource not found'});
 })
 router.use('/api/v1/', (req, res) => {
-  return res.status(404).json({ error: 'Resource not found' });
+  return res.status(200).json({ msg: 'Welcome to Questioner api. Please use all available resource' });
 })
 
 export default router;
