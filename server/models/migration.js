@@ -16,10 +16,10 @@ const databasetables = [
     lastname VARCHAR(355) DEFAULT NULL,
     othername VARCHAR(355) DEFAULT NULL,
     email VARCHAR(355) UNIQUE NOT NULL,
-    phoneNumber VARCHAR(13) DEFAULT NULL,
+    "phoneNumber" VARCHAR(13) DEFAULT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(250) NOT NULL,
-    registered TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
+    registered TIMESTAMPTZ NOT NULL DEFAULT CURRENT_DATE,
     "updateOn" TIMESTAMP DEFAULT NULL,
     "lastLogin" TIMESTAMP DEFAULT NULL,
     "isAdmin" BOOLEAN DEFAULT FALSE NOT NULL
@@ -33,7 +33,7 @@ const databasetables = [
     description VARCHAR (355) NOT NULL,
     "happeningOn" VARCHAR (355) NOT NULL,
     images VARCHAR (355),
-    createdby integer NOT NULL,
+    "createdBy" integer NOT NULL,
     tags VARCHAR (355)[]
   );`,
   `DROP TABLE IF EXISTS rsvps CASCADE;

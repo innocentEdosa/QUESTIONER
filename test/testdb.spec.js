@@ -13,7 +13,7 @@ const mock = {
   "firstname": "inndfco",
   "lastname": "jdisssdfjip",
   "othername": "mather",
-  "phonenumber": "07077427084"
+  "phoneNumber": "07077427084"
 };
 
 describe('POST /auth/signup', () => {
@@ -58,7 +58,86 @@ describe('POST /auth/signup', () => {
           "firstname": "inndfco",
           "lastname": "jdisssdfjip",
           "othername": "mather",
+          "phoneNumber": "07077427084"
+        })
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF NOT GIVE A USERNAME', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer',
+          password: 'andelabootcamp',
+          "firstname": "inndfco",
+          "lastname": "jdisssdfjip",
+          "othername": "mather",
+          "phoneNumber": "07077427084"
+        })
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF NOT GIVEN EMEAIL', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer',
+          password: 'andelabootcamp',
+          "firstname": "inndfco",
+          "username": 'anotheruser',
+          "lastname": "jdisssdfjip",
+          "othername": "mather",
           "phonenumber": "07077427084"
+        })
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF NOT GIVEN EMEAIL', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send()
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  
+  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG PHONE NUMBER', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'ilegbinijieinnocentcareer',
+          username: 'innocent2',
+          password: 'andelabootcamp',
+          "firstname": "inndfco",
+          "lastname": "jdisssdfjip",
+          "othername": "mather",
+          "phoneNumber": "070"
         })
         .expect(400);
       result.status.should.equal(400);
@@ -74,13 +153,13 @@ describe('POST /auth/signup', () => {
       const result = await server
         .post('/api/v1/auth/signup')
         .send({
-          email: 'ilegbinijieinnocentcareer',
+          email: 'ilegbinijieinnocentcareer@gmail.com',
           username: 'innocent2',
           password: 'andelabootcamp',
           "firstname": "inndfco",
           "lastname": "jdisssdfjip",
           "othername": "mather",
-          "phonenumber": "070"
+          "phoneNumber": "innoncnd"
         })
         .expect(400);
       result.status.should.equal(400);
@@ -102,29 +181,7 @@ describe('POST /auth/signup', () => {
           "firstname": "",
           "lastname": "",
           "othername": "",
-          "phonenumber": "070"
-        })
-        .expect(400);
-      result.status.should.equal(400);
-      result.body.should.be.an('object');
-      result.body.should.have.property('error');
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
-  it('SHOULD RESPOND WITH 400 AND ERROR MESSAGE IF GIVEN A WRONG PARAMS', async () => {
-    try {
-      const result = await server
-        .post('/api/v1/auth/signup')
-        .send({
-          eml: 'ilegbinijieinnocentcareer2@gmail.com',
-          usname: 'innocent2',
-          password: '',
-          "firstname": "",
-          "lastname": "",
-          "othername": "",
-          "phonenumber": "070"
+          "phoneNumber": "070"
         })
         .expect(400);
       result.status.should.equal(400);
@@ -148,6 +205,20 @@ describe('POST /auth/login', () => {
       result.status.should.equal(200);
       result.body.should.be.an('object');
       result.body.should.have.property('data');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  it('SHOULD THROW AN ERROR IF GIVEN WRONG PARAMS', async () => {
+    try {
+      const result = await server
+        .post('/api/v1/auth/login')
+        .send({ })
+        .expect(400);
+      result.status.should.equal(400);
+      result.body.should.be.an('object');
+      result.body.should.have.property('error');
     } catch (error) {
       console.log(error);
     }

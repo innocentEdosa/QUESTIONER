@@ -10,7 +10,6 @@ export default class Comment {
       return response;
     }
     catch (err) {
-      console.log(err, 'this is frm the comment controller');
       return err;
     }
   }

@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator/check';
 import Question from '../models/questions';
 import Meetup from '../models/meetup';
-import util from '../helper/util';
+import Util from '../helper/util';
 import Votes from '../models/vote';
 
 
@@ -19,7 +19,7 @@ export default class questionController {
         meetup, title, body,
       } = req.body;
       const error = await validationResult(req);
-      const errormsg = await util.errorCheck(error, res);
+      const errormsg = await Util.errorCheck(error, res);
       if (errormsg) {
         return false;
       }
@@ -41,6 +41,9 @@ export default class questionController {
   static async upvote(req, res) {
     try {
       const { questionId } = req.params;
+      if (!Util.checkId(questionId)) {
+        return res.status(422).json({ error: 'Question id can only be a number ' });
+      };
       let response = await Question.findbyId(questionId);
       if (!response.rows[0] || response.rows[0] === undefined) {
         return res.status(404).json({ error: 'Question does not exist' });
@@ -78,6 +81,9 @@ export default class questionController {
   static async downvote(req, res) {
     try {
       const { questionId } = req.params;
+      if (!Util.checkId(questionId)) {
+        return res.status(422).json({ error: 'Question id can only be a number' });
+      };
       let response = await Question.findbyId(questionId);
       if (!response.rows[0] || response.rows[0] === undefined) {
         return res.status(404).json({ error: 'Question does not exist' });
