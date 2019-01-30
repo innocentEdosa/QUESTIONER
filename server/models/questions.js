@@ -14,6 +14,19 @@ export default class Question {
     }
   }
 
+  static async findbyMeetup(meetup) {
+    try {
+      const query = 'SELECT * FROM questions WHERE meetup = $1';
+      const value = [meetup];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+
   static async updatevotes(questionupvotes, questionvotes, questiondownvote, questionId) {
     try {
       const query = 'UPDATE questions SET upvotes = $1, votes = $2, downvotes = $3 WHERE id = $4 RETURNING *';

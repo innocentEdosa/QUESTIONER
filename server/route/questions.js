@@ -14,6 +14,8 @@ const router = Router();
 /** This router handles request for the creation of a question */
 router.post('/', isAuth, validator.validateQuestions(), questionController.createQuestion);
 
+router.get('/meetups/:meetupid', questionController.findbyMeetupId )
+
 /** This routes handles request to upvote a question */
 router.patch('/:questionId/upvote', isAuth, questionController.upvote);
 

@@ -11,6 +11,7 @@ export default class Meetup {
       return response;
     }
     catch (err) {
+      console.log(err);
       return err;
     }
   }
@@ -22,6 +23,7 @@ export default class Meetup {
       const response = await databaseConnection.query(query, value);
       return response;
     } catch (err) {
+      console.log(err);
       return err;
     }
   }

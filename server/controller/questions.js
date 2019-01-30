@@ -122,4 +122,23 @@ export default class questionController {
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }
+
+  static async findbyMeetupId(req, res) {
+    try {
+      console.log(req.params)
+      const { meetupid } = req.params;
+      console.log(meetupid);
+      let response = await Question.findbyMeetup(meetupid);
+      if (!response.rows[0] || response.rows[0] === undefined) {
+        console.log(response);
+        return res.status(404).json({ error: 'Question does not exist' });
+      }
+      console.log(response)
+      return res.status(200).json({status: 200 , data: response.rows, number: response.rowCount});
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
+    }
+
+  }
 }

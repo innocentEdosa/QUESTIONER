@@ -850,7 +850,10 @@ sections styling */
     padding: 10rem 0rem;
 }
 
-
+.loading {
+    margin: 0 auto;
+    text-align: center;
+}
 /*section records  */
 
 .section-record {

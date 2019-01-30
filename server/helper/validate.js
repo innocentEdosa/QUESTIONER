@@ -21,9 +21,7 @@ export default class validator {
         }
         return true;
       }),
-    body('tags').trim().optional().isArray()
-      .not()
-      .isEmpty().withMessage('Tags should be an array'),
+    body('tags').trim().optional(),
       body('happeningOn').trim().custom((value) => {
         if (value === undefined || value === "") {
           return Promise.reject('Please provide a date for your meetup');

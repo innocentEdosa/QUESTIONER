@@ -7,10 +7,10 @@
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
     "pretest": "npm run migration",
     "test": "nyc mocha --require babel-register --reporter spec --timeout 50000  --exit",
-    "build": "babel server -d dist", 
+    "build": "babel server -d dist",
     "heroku-postbuid": "npm run build",
     "serve": "npm run build && nodemon dist/app.js",
-    "start": "nodemon --require babel-register ./server/app.js",
+    "start": "node --require babel-register ./server/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "migration": "babel-node server/models/migration.js  --timeout 50000"
   },
@@ -36,9 +36,11 @@
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.4.0",
     "mocha": "^5.2.0",
+    "multer": "^1.4.1",
     "pg": "^7.8.0",
     "request": "^2.88.0",
-    "rewire": "^4.0.1"
+    "rewire": "^4.0.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
