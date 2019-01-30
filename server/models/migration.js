@@ -22,7 +22,7 @@ const databasetables = [
     registered TIMESTAMPTZ NOT NULL DEFAULT CURRENT_DATE,
     "updateOn" TIMESTAMP DEFAULT NULL,
     "lastLogin" TIMESTAMP DEFAULT NULL,
-    "isAdmin" BOOLEAN DEFAULT FALSE NOT NULL
+    "isAdmin" VARCHAR(50) DEFAULT 'false' NOT NULL
   );`,
   `DROP TABLE IF EXISTS meetups CASCADE;
     CREATE TABLE meetups (
