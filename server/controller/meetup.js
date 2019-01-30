@@ -17,13 +17,19 @@ export default class meetupController {
   static async createMeetup(req, res) {
     try {
       const {
-        location, images, topic, happeningOn, tags, description,
+        location, topic, happeningOn, tags, description,
       } = req.body;
       const error = validationResult(req);
       const errormsg = await Util.errorCheck(error, res);
       if (errormsg) {
         return false;
       }
+      let images = 'imageUrl';
+      if (req.file) {
+        images = req.file.path;
+      }
+      console.log(req.file);
+      console.log(images, location, happeningOn, description);
       if (!req.isadmin) {
         return res.status(401).json({ error: 'Not authorised' });
       }
@@ -37,6 +43,7 @@ export default class meetupController {
       }
     }
     catch (err) {
+      console.log(err);
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }
@@ -67,7 +74,7 @@ export default class meetupController {
       };
       const result = await Meetup.findbyId(meetupId);
       if (result.rows[0]) {
-        return res.status(200).json({ data: result.rows[0] });
+        return res.status(200).json({ status: 200, data: [result.rows[0]] });
       }
       return res.status(404).json({ error: 'meetup not found' });
     } catch (err) {

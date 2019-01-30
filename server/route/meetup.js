@@ -9,7 +9,6 @@ import validator from '../helper/validate';
 
 import isAuth from '../middleware/isAuth';
 
-
 const router = Router();
 
 /** This router handles request for the creation of a meetup */
@@ -24,7 +23,7 @@ router.get('/upcoming', isAuth, meetupController.getUpcoming);
 router.get('/:meetupId', isAuth, meetupController.getMeetup);
 
 /** This router handles requests for deleting a specific meetup */
-router.delete('/:meetupId', isAuth,  meetupController.deleteMeetup);
+router.delete('/:meetupId', isAuth, meetupController.deleteMeetup);
 
 
 /**
