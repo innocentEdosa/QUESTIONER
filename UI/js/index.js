@@ -18,13 +18,10 @@ const fillMeetupSection1 = async () => {
 	const meetupSection = document.getElementById('meetup1');
 	meetupSection.innerHTML = `${loading()}`
 ;
-	const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups', {
+	const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups/random', {
 		method: 'GET',
 		mode: 'cors',
-		credentials: 'omit',
-		headers: {
-			Authorization: token,
-		},
+		credentials: 'omit'
 	});
 	const json = await response.json();
 	if (json.error) {
@@ -38,13 +35,10 @@ const fillMeetupSection1 = async () => {
 	const fillMeetupSection2 = async () => {
 	const meetupSection2 = document.getElementById('meetup2');
 	meetupSection2.innerHTML = `${loading()}`;
-	const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups', {
+	const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups/trending', {
 		method: 'GET',
 		mode: 'cors',
 		credentials: 'omit',
-		headers: {
-			Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU0ODgzMzI1NSwiZXhwIjoxNTQ4ODY5MjU1fQ.suj3SzePisprQBgdvnKj4cAAabfcoXwo_Mw9pwgCRns',
-		},
 	});
 	const json = await response.json();
 	if (json.error) {

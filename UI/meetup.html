@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,7 @@
 </head>
 
 <body>
-  <nav class="navigation">
+  <nav class="navigation" id='navigation'>
     <div class="row nav-mobile ">
       <div class="navigation-mobilelogobox">
         <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
@@ -24,7 +23,7 @@
 
       <div class="navigation-mobile">
         <ul class="navigation-listmobile">
-          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile">Log out</a></li>
+          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile logout">Log out</a></li>
           <li class="navigation-listitem-mobile"><a href="profile.html" class="navigation-listlink-mobile">Your profile</a></li>
           <li class="navigation-listitem">
             <a href="admin.html" class="navigation-listlink less">create meetup</a>
@@ -53,7 +52,7 @@
           <a href="admin.html" class="navigation-listlink less">create meetup</a>
         </li>
         <li class="navigation-listitem">
-          <a href="index.html" class="navigation-listlink">Log out</a>
+          <a href="index.html" class="navigation-listlink logout">Log out</a>
         </li>
         <li class="navigation-listitem">
           <a href="profile.html" class="navigation-imglink"><img src="img/user (1).png" class="navigation-profileimg"
@@ -64,7 +63,7 @@
   </nav>
   <main>
     <section class="section-meetup">
-      <div class="row">
+      <div class="row" id="meetup1">
         <a href="post.html">
           <div class="card moveInBottom">
             <div class="col-1-of-5">
@@ -183,6 +182,7 @@
     <p>All rights reserved</p>
   </footer>
   <script src="js/verify.js"></script>
+ <script src="js/Template.js"></script>
   <script src="js/meetup.js"></script>
 </body>
 
