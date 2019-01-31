@@ -162,6 +162,14 @@ a {
     margin-top: 8rem;
 }
 
+.u-marginTop-neg {
+    margin-top: -2rem;
+}
+
+.u-marginBottom-neg {
+    margin-bottom: 1rem;
+}
+
 .paddingSide-sm {
     padding-right: 2rem;
     padding-left: 2rem;
@@ -523,7 +531,9 @@ button:active {
     text-align: center;
 }
 
-
+.error {
+    display: none;
+}
 /* mobile navigation....(very painful..lol) */
 
 .navigation-mobile {
@@ -850,7 +860,10 @@ sections styling */
     padding: 10rem 0rem;
 }
 
-
+.loading {
+    margin: 0 auto;
+    text-align: center;
+}
 /*section records  */
 
 .section-record {
@@ -892,6 +905,10 @@ sections styling */
     text-transform: capitalize;
 }
 
+.err {
+    color: red;
+
+}
 
 /* create post modal */
 .delete-post {

@@ -12,75 +12,84 @@ dotenv.config();
 
 import util from '../helper/util';
 
-
 export default class authController {
-  /**
-   * @param {object} req - the request object sent from router
-   * @param {object} res - response object
-   * Hash password using bcrypt
-   * if hash is successful run query to create a user record
-   * run query to insert user record
-   * if query is successful send success response
-   * if query fails send error response
-   * if hash fails sends server error response
-   */
-  static Signup(req, res) {
-    const error = validationResult(req);
-    util.errorCheck(error, res);
-    const {
-      username, email, password, firstname, lastname, othername, phonenumber, isadmin
-    } = req.body;
-    bcrypt.hash(password, 3)
-      .then((hashedpw) => {
-        const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, phonenumber, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id, username, email, firstname, lastname, othername, phonenumber, isadmin';
-        const values = [username, email, hashedpw, firstname, lastname, othername, phonenumber, isadmin || false];
-        return databaseConnection.query(query, values)
-          .then((response) => {
-            console.log(response.rows[0]);
-            if (response) {
-              const token = jwt.sign(
-                { email: response.rows[0].email, userId: response.rows[0].user_id, isAdmin: response.rows[0].isadmin },
-                process.env.SECRET,
-                { expiresIn: '10h' }
-              );
-              return res.status(201).json({ data: [{ token, user: response.rows[0] }] });
+  static async Signup(req, res) {
+    try {
+      const error = validationResult(req);
+      const errormsg = await util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      const {
+        username, email, password, firstname, lastname, othername, phoneNumber, isadmin
+      } = req.body;
+      bcrypt.hash(password, 3)
+        .then(async (hashedpw) => {
+          const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, "phoneNumber", "isAdmin") VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, firstname, lastname, othername, "phoneNumber", "isAdmin", registered';
+          const values = [username, email, hashedpw, firstname, lastname, othername, phoneNumber, isadmin || 'FALSE'];
+          try {
+            const response = await databaseConnection.query(query, values);
+            if (response.rows[0]) {
+              const { email, id, isAdmin, lastname, username, phoneNumber, firstname, othername, registered} = response.rows[0];
+              const token = jwt.sign({ userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
+              return res.status(201).json({ data: [{ token: token, user: { id: id, firstname: firstname, lastname: lastname, othername: othername, email: email, phoneNumber: phoneNumber, username: username, registered: registered } }] });
             }
-          })
-          .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
-      })
-      .catch(() => res.status(500).json({ error: 'Server error!!! Try again later' }));
+          }
+          catch (e) {
+            return res.status(500).json({ error: 'Server error!!! Try again later' });
+          }
+        })
+    }
+    catch (e) {
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
   }
 
-  static Login(req, res) {
-    const {
-      password, email,
-    } = req.body;
-    const query = 'SELECT user_id, username, firstname, lastname, othername, email, phonenumber,password,isadmin FROM users WHERE email = $1';
-    const value = [email];
-    let loadeduser;
-    databaseConnection.query(query, value)
-      .then((user) => {
+
+  static async Login(req, res) {
+    try {
+      const error = validationResult(req);
+      const errormsg = await util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      const {
+        password, email,
+      } = req.body;
+      const query = 'SELECT id, username, firstname, lastname, othername, email, "phoneNumber",password, "isAdmin", registered FROM users WHERE email = $1';
+      const value = [email];
+      let loadeduser;
+      const user = await databaseConnection.query(query, value);
+      if (user) {
         if (!user.rows[0]) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
         loadeduser = user;
-        return bcrypt.compare(password, user.rows[0].password);
-      })
-      .then((isEqual) => {
-        if (!isEqual) {
+        const check = await bcrypt.compare(password, user.rows[0].password);
+        if (!check) {
           return res.status(401).json({ error: 'The email or password entered does not match any in the database' });
         }
-        const token = jwt.sign({
-          email: loadeduser.rows[0].email,
-          userId: loadeduser.rows[0].user_id,
-          isAdmin: loadeduser.rows[0].isadmin,
-        }, process.env.SECRET,
-        { expiresIn: '10h' });
-        return res.status(200).json({ data: [{ token, user: { token: loadeduser.rows[0].token, lastname: loadeduser.rows[0].lastname, username: loadeduser.rows[0].username, email: loadeduser.rows[0].email, phonenumber: loadeduser.rows[0].phonenumber, othername: loadeduser.rows[0].othername }, msg: 'login successful' }] });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'server error!!! Try again later' })
-      });
+        const { email, id, isAdmin, lastname, username, phoneNumber, othername, firstname, registered} = loadeduser.rows[0]
+        const token = jwt.sign({ userId: id, isAdmin: isAdmin }, process.env.SECRET, { expiresIn: '10h' });
+        return res.status(200).json({ data: [{ token, user: { firstname: firstname, lastname: lastname, othername: othername, email: email, phoneNumber: phoneNumber, username: username, registered: registered } }]});
+      }
+    }
+    catch (err) {
+      res.status(500).json({ error: 'server error!!! Try again later' })
+    }
+  }
+
+  static async Verify(req, res) {
+    try {
+      const status = req.isadmin;
+      const userid = req.user_id;
+      if (status && userid) {
+       return res.status(200).json({status: 200, data: [{status: status, userid: userid}]})
+      }
+      return res.status(404).json({status: 404, error: 'false token'});
+    } catch (error) {
+      console.log(errors);
+      return res.status(500).json({status: 500, error: 'Server error!!! Try again  later'});
+    }
   }
 }

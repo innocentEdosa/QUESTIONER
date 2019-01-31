@@ -4,7 +4,7 @@ import databaseConnection from '../models/dbConfig';
 
 import Meetup from '../models/meetup';
 
-import util from '../helper/util';
+import Util from '../helper/util';
 
 /**
  * create a meetup controller class
@@ -14,28 +14,38 @@ export default class meetupController {
    * @param {object} req - the request object sent from router
    * @param {object} res - response object
    */
-  static createMeetup(req, res) {
-    const {
-      location, images, topic, happeningOn, tags, description,
-    } = req.body;
-    const error = validationResult(req);
-    util.errorCheck(error, res);
-    console.log(req.isadmin);
-    if (!req.isadmin) {
-      return res.status(401).json({ error: 'NOT AUTHORISED' });
+  static async createMeetup(req, res) {
+    try {
+      const {
+        location, topic, happeningOn, tags, description,
+      } = req.body;
+      const error = validationResult(req);
+      const errormsg = await Util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      let images = 'imageUrl';
+      if (req.file) {
+        images = req.file.path;
+      }
+      console.log(req.file);
+      console.log(images, location, happeningOn, description);
+      if (req.isadmin === 'FALSE') {
+        return res.status(401).json({ error: 'Not authorised' });
+      }
+      const duplicate = await Meetup.noDuplicate(topic, happeningOn, location, req.user_id);
+      if(duplicate.rows[0]) {
+        return res.status(409).json({error: 'Meetup possibly exist. Duplication of meeutp not allowed'})
+      }
+      const response = await Meetup.insertMeetup(location, images, topic, happeningOn, tags, description, req.user_id);
+      if (response.rows[0]) {
+        return res.status(201).json({ data: [ response.rows[0] ]});
+      }
     }
-    const query = 'INSERT INTO meetups(location, images, topic, happeningOn, tags, description, createdBy) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-    const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, req.user_id];
-    databaseConnection.query(query, value)
-      .then((response) => {
-        if (response.rows[0]) {
-          return res.status(201).json({ data: response.rows[0] });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'Server error!!! Try again later' });
-      });
+    catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
   }
 
   /**
@@ -48,39 +58,63 @@ export default class meetupController {
       .then((response) => {
         if (response.rows) {
           return res.status(200).json({ data: response.rows });
-        } else {
-          return res.status(404).json({error: 'meetups not found'});
         }
+        return res.status(404).json({ error: 'meetups not found' });
       })
       .catch((err) => {
         res.status(500).json({ error: 'Server error!!! Try again later' });
       });
   }
 
-  static getMeetup(req, res) {
-    const { meetupId } = req.params;
-    // check of meetup exists
-    const query = 'SELECT * FROM "public"."meetups" WHERE meetup_id = $1';
-    const value = [meetupId];
-    databaseConnection.query(query, value)
-      .then((response) => {
-        if (response.rows[0]) {
-          return res.status(200).json({ data: response.rows[0]});
-        } else {
-          return res.status(404).json({error: 'meetup not found'});
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'Server error!!! Try again later' });
-      });
-  }
-
-  static getUpcoming(req, res) {
-    const upcoming = Meetup.getUpcomingMeetup();
-    if (upcoming.length === 0) {
-      return res.status(204).json({ status: 200, data: [{ info: 'No upcoming meetup' }] });
+  static async getMeetup(req, res) {
+    try {
+      const { meetupId } = req.params;
+      if(!Util.checkId(meetupId)) {
+        return res.status(422).json({error: 'Please enter a valid meetup id '});
+      };
+      const result = await Meetup.findbyId(meetupId);
+      if (result.rows[0]) {
+        return res.status(200).json({ status: 200, data: [result.rows[0]] });
+      }
+      return res.status(404).json({ error: 'meetup not found' });
+    } catch (err) {
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
-    return res.status(200).json({ status: 200, data: upcoming });
+  }
+
+  static async deleteMeetup(req, res) {
+    try {
+      const { meetupId } = req.params;
+      if (!Util.checkId(meetupId)) {
+        return res.status(422).json({ error: 'Please enter a valid meetup id ' });
+      };
+      let result = await Meetup.findbyId(meetupId);
+      if (!req.isadmin) {
+        return res.status(401).json({ error: 'Not authorised' });
+      }
+      if (!result.rows[0]) {
+        return res.status(404).json({ error: 'Meetup not found' })
+      }
+      result = await Meetup.deleteMeetup(meetupId);
+      if (result.rowCount === 1) {
+        return res.status(200).json({ data: ['delete successful'] });
+      }
+    }
+    catch (err) {
+      return res.status(500).json({ error: 'Server error. Please Try again later' });
+    }
+  }
+
+  static async getUpcoming(req, res) {
+    try {
+      const upcoming = await Meetup.getUpcoming();
+      if (!upcoming.rows[0]) {
+        return res.status(404).json({ error: 'No upcoming meetup' });
+      }
+      return res.status(200).json({ data: upcoming.rows });
+    }
+    catch (err) {
+      return res.status(500).json({ error: 'Server error. Please Try again later' });
+    }
   }
 }

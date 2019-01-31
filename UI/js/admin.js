@@ -1,31 +1,56 @@
-const createPostLink1 = document.getElementById('createlink1');
-const createPostLink2 = document.getElementById('createlink2');
-const popup = document.getElementById('popup');
+
+const popup = document.getElementById('createPopup');
 const updatePopup = document.getElementById('update-popup');
 const editbtn = document.getElementsByClassName('edit');
 const deletebtn = document.getElementsByClassName('delete');
 const deletepopup = document.getElementById('delete-popup');
 const canceldelete = document.getElementsByClassName('delete-cancel');
-const closebtn = document.getElementsByClassName('close-btn');
 
-/** modal to create meetup */
-createPostLink1.addEventListener('click', () => {
-  popup.style.display = 'block';
-  popup.style.opacity = '1';
-});
+class Display {
 
-createPostLink2.addEventListener('click', () => {
-  popup.style.display = 'block';
-  popup.style.opacity = '1';
-});
+  static open(elem) {
+    const value = elem;
+    value.style.display = 'block';
+    value.style.opacity = '1';
+  }
 
-
-for (let x = 0; x < closebtn.length; x += 1) {
-  closebtn[x].addEventListener('click', () => {
-    popup.style.display = 'none';
-    updatePopup.style.display = 'none';
-  });
+  static close(elem) {
+    const value = elem;
+    value.style.display = 'none';
+    value.style.opacity = 'none';
+  }
 }
+
+const createForm = document.forms['createForm'];
+createForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const topic = createForm.querySelector('#meetup-title').value;
+  const happeingOn = createForm.querySelector('#meetup-date').value;
+  const images = createForm.querySelector('#meetup-img');
+  const location = createForm.querySelector('#meetup-location').value;
+  const description = createForm.querySelector('#meetup-description').value;
+
+ 
+  const formData = new FormData();
+  formData.append('topic', topic);
+  formData.append('happeningOn', happeingOn);
+  formData.append('images', images.files[0]);
+  formData.append('location', location);
+  formData.append('description', description);
+  console.log(formData);
+})
+
+const mainBody = document.querySelector('#mainBody');
+mainBody.addEventListener('click', (e) => {
+  if (e.target.classList.contains('create')) {
+    Display.open(popup);
+  }
+  if (e.target.classList.contains('close-btn')) {
+    Display.close(popup);
+    Display.close(updatePopup);
+  }
+});
+
 
 for (let x = 0; x < editbtn.length; x += 1) {
   editbtn[x].addEventListener('click', () => {

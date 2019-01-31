@@ -21,19 +21,24 @@
         <div class="form-heading heading-primary">
           Welcome back
         </div>
-        <form action="#" class="form signup-form">
+        <form action="#" class="form signup-form"id='login'>
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-input" required placeholder="What is your email" id="email" name="email">
+            <input type="email" class="form-input" placeholder="What is your email" id="email" name="email">
           </div>
+          <div class=" err u-marginTop-neg u-marginBottom-neg" id='emailResponse'></div>
           <div class="form-group">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-input" placeholder="Enter password" id="password" name="password">
           </div>
+                    <div class="err u-marginTop-neg u-marginBottom-neg" id='passwordResponse'></div>
           <div class="form-group">
-            <a href="meetup.html" class="btn form-btn">Log in</a>
+            <a href="meetup.html" class="btn form-btn login" id="loginbtn">Log in</a>
           </div>
 
+        </form>
+        <form action="#" class="form error err signup-form" id="loginerror">
+        this is the fsdfsdfsfsdxvxcvxcxcvxcvxcvxcvxvxvxvxcvxvxcvfsdfsdfsdfsdfsdfsdfdsinal error space
         </form>
         <form action="#" class="form signup-form">
           <div class="form-group">
@@ -43,6 +48,7 @@
       </div>
     </section>
   </main>
+  <script src="js/auth.js"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body id="mainBody">
   <nav class="navigation">
     <div class="row nav-mobile ">
       <div class="navigation-mobilelogobox">
@@ -69,11 +69,11 @@
         </span>
       </h2>
       <div class="showcase-btnwrapper">
-        <button class="btn showcase-btn  moveInBottom" id='createlink1'>create meetup</button>
+        <button class="create btn showcase-btn  moveInBottom" id='createlink1'>create meetup</button>
       </div>
     </div>
   </header>
-  <main>
+  <main id="main">
     <section class="section-record">
       <div class="row">
         <h2 class="heading-secondary">
@@ -154,14 +154,57 @@
       </div>
       <div class="row">
         <div class="showcase-btnwrapper">
-          <button class="btn showcase-btn  moveInBottom" id="createlink2">create meetup</button>
+          <button class="create btn showcase-btn  moveInBottom" id="createlink2">create meetup</button>
         </div>
       </div>
     </section>
-    <div class="create-post" id="popup">
+    <!-- form to create post -->
+    <div class="create-post" id="createPopup">
       <div class="create-post-popup">
         <div class="form-heading heading-primary">
           Create Meetup
+        </div>
+        <div class="close"><button class="close-btn">&times;</button></div>
+        <form action="#" class="form create-form" id="createForm">
+          <div class="form-group">
+            <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
+            <input type="text" class="form-input" required placeholder="Pick a topic" id="meetup-title" name="meetup-title">
+          </div>
+          <div class="form-group-inline">
+            <label for="meetup-date" class="form-label">Date of meetup</label>
+            <input type="date" class="form-input" required placeholder="13/01/2019" id="meetup-date" name="meetup-date">
+          </div>
+          <div class="form-group-inline">
+            <label for="meetup-img" class="form-label">Meetup picture (optional)</label>
+            <input type="file" class="form-input" required placeholder="13/01/2019" id="meetup-img" name="meetup-img">
+          </div>
+
+          <div class="form-group">
+            <label for="meetup-tag" class="form-label">tags</label>
+            <input type="text" class="form-input" placeholder="tags (tags must be seperated with comma)" id="meetup-tag"
+              name="meetup-tag">
+          </div>
+          <div class="form-group">
+            <label for="meetup-location" class="form-label">Location</label>
+            <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-location" name="meetup-location">
+          </div>
+          <div class="form-group">
+            <label for="meetup-location" class="form-label">Description</label>
+            <textarea name="description" id="meetup-description" class="form-input" cols="30" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <div class="meetup-btnwrapper">
+              <button class="btn form-btn" type="submit" onsubmit="return false">Create meetup</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- form to update meetup -->
+    <!-- <div class="create-post" id="update-popup">
+      <div class="create-post-popup">
+        <div class="form-heading heading-primary">
+          update Meetup
         </div>
         <div class="close"><button class="close-btn">&times;</button></div>
         <form action="#" class="form create-form">
@@ -193,62 +236,21 @@
           </div>
           <div class="form-group">
             <div class="meetup-btnwrapper">
-              <button class="btn form-btn">Create meetup</button>
+              <button class="btn form-btn">Update meetup</button>
             </div>
           </div>
         </form>
       </div>
-    </div>
-        <div class="create-post" id="update-popup">
-          <div class="create-post-popup">
-            <div class="form-heading heading-primary">
-              update Meetup
-            </div>
-            <div class="close"><button class="close-btn">&times;</button></div>
-            <form action="#" class="form create-form">
-              <div class="form-group">
-                <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
-                <input type="text" class="form-input" required placeholder="Pick a topic" id="meetup-title" name="meetup-title">
-              </div>
-              <div class="form-group-inline">
-                <label for="meetup-date" class="form-label">Date of meetup</label>
-                <input type="date" class="form-input" required placeholder="13/01/2019" id="meetup-date" name="meetup-date">
-              </div>
-              <div class="form-group-inline">
-                <label for="meetup-img" class="form-label">Meetup picture (optional)</label>
-                <input type="file" class="form-input" required placeholder="13/01/2019" id="meetup-img" name="meetup-img">
-              </div>
-        
-              <div class="form-group">
-                <label for="meetup-tag" class="form-label">tags</label>
-                <input type="text" class="form-input" placeholder="tags (tags must be seperated with comma)" id="meetup-tag"
-                  name="meetup-tag">
-              </div>
-              <div class="form-group">
-                <label for="meetup-location" class="form-label">Location</label>
-                <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-tag" name="meetup-location">
-              </div>
-              <div class="form-group">
-                <label for="meetup-location" class="form-label">Description</label>
-                <textarea name="description" id="description" class="form-input" cols="30" rows="2"></textarea>
-              </div>
-              <div class="form-group">
-                <div class="meetup-btnwrapper">
-                  <button class="btn form-btn">Update meetup</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+    </div> -->
     <div class="delete-post" id="delete-popup">
       <div class="delete-popup">
         <input type="hidden" value="meetupId">
         <h2 class="heading-primary delete-text">Do you really want to delete this meetup</h2>
         <p class="delete-meetuptitle u-margin-sm"> THIS IS THE MEETUP TITLE</p>
-          <div class="card-description-btn">
-            <a href="admin.html" class="card-btn delete-ok">Ok</a>
-            <a href="#" class="card-btn delete-cancel">Cancel</a>
-          </div>
+        <div class="card-description-btn">
+          <a href="admin.html" class="card-btn delete-ok">Ok</a>
+          <a href="#" class="card-btn delete-cancel">Cancel</a>
+        </div>
       </div>
     </div>
   </main>
@@ -258,7 +260,7 @@
     </h2>
     <p>All rights reserved</p>
   </footer>
+  <!-- <script defer src="js/fetch.js"></script> -->
   <script defer src="js/admin.js"></script>
 </body>
-
 </html>

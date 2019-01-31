@@ -1,62 +1,67 @@
-import db from './db';
+import databaseConnection from './dbConfig';
 
 // create a class to handle the meetup array
 export default class Meetup {
-  constructor() {
-    this.id = db.meetup.length + 1;
-    this.createdOn = new Date();
-    this.image = '';
-    this.tags = [];
-    this.noOfQuestions = 0;
+
+  static async insertMeetup(location, images, topic, happeningOn, tags, description, userid) {
+    try {
+      const query = 'INSERT INTO meetups(location, images, topic, "happeningOn", tags, description, "createdBy") VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+      const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, userid];
+      const response = await databaseConnection.query(query, value)
+      return response;
+    }
+    catch (err) {
+      console.log(err);
+      return err;
+    }
   }
 
-  create(location, images, topic, happeningOn, tags, description, createdBy) {
-    this.location = location;
-    if (images) {
-      this.images = images;
+  static async noDuplicate(topic, happeningOn, location, createdBy) {
+    try {
+      const query = 'SELECT * FROM meetups WHERE topic = $1 AND "happeningOn" = $2 AND location = $3 AND "createdBy" = $4';
+      const value = [topic, happeningOn, location, createdBy];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    } catch (err) {
+      console.log(err);
+      return err;
     }
-    this.topic = topic;
-    this.happeningOn = happeningOn;
-    if (tags) {
-      this.tags = this.tags.concat(tags);
-    }
-    this.description = description;
-    this.createdBy = createdBy;
-    db.meetup.push(this);
   }
 
-  static getAll() {
-    return db.meetup;
+  static async findbyId(meetup) {
+    try {
+      const query = 'SELECT * FROM meetups WHERE id = $1';
+      const value = [meetup];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      return err;
+    }
   }
 
-  static findMeetup(meetupId) {
-    const Id = Number(meetupId);
-    const found = [];
-    for (let i = 0; i < db.meetup.length; i += 1) {
-      if (db.meetup[i].id === Id) {
-        found.push(db.meetup[i]);
-        return found;
-      }
+  static async deleteMeetup(id) {
+    try {
+      const query = 'DELETE FROM meetups WHERE id = $1';
+      const value = [id];
+      const response = await databaseConnection.query(query, value);
+      return response;
     }
-    return -1;
+    catch (err) {
+      return err;
+    }
   }
 
-  static getUpcomingMeetup() {
-    const upcoming = [];
-    for (let i = 0; i < db.meetup.length; i += 1) {
-      if (db.meetup[i].happeningOn > new Date()) {
-        upcoming.push(db.meetup[i]);
-      }
+  static async getUpcoming() {
+    try {
+      const query = 'SELECT * FROM meetups WHERE "happeningOn" > $1 '
+      const currentDate = new Date(Date.now());
+      const value = [currentDate];
+      const response = await databaseConnection.query(query, value);
+      return response;
     }
-    return upcoming;
-  }
-
-  static getTopic(meetupId) {
-    for (let i = 0; i < db.meetup.length; i += 1) {
-      if (db.meetup[i].id === meetupId) {
-        return db.meetup[i].topic;
-      }
+    catch (err) {
+      return (err);
     }
-    return -1;
   }
 }

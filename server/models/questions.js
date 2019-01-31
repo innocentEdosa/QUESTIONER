@@ -1,51 +1,53 @@
-import db from './db';
-import Meetup from './meetup';
+import databaseConnection from './dbConfig';
+
 
 export default class Question {
-  constructor() {
-    this.id = db.question.length + 1;
-    this.createdOn = new Date();
-    this.upvote = 0;
-    this.downvote = 0;
-  }
-
-  create(createdBy, meetup, title, body) {
-    this.createdBy = createdBy;
-    this.meetup = meetup;
-    this.title = title;
-    this.body = body;
-    db.question.push(this);
-    Question.notifyMeetup(meetup);
-  }
-
-  static notifyMeetup(meetupId) {
-    const meetup = Meetup.findMeetup(meetupId);
-    meetup[0].noOfQuestions += 1;
-  }
-
-  static upvote(questionId) {
-    const Id = Number(questionId);
-    const found = [];
-    for (let i = 0; i < db.question.length; i += 1) {
-      if (db.question[i].id === Id) {
-        db.question[i].upvote += 1;
-        found.push(db.question[i]);
-        return found;
-      }
+  static async findbyId(questionId) {
+    try {
+      const query = 'SELECT * FROM questions WHERE id = $1';
+      const value = [questionId];
+      const response = await databaseConnection.query(query, value);
+      return response;
     }
-    return -1;
+    catch (err) {
+      return err;
+    }
   }
 
-  static downvote(questionId) {
-    const Id = Number(questionId);
-    const found = [];
-    for (let i = 0; i < db.question.length; i += 1) {
-      if (db.question[i].id === Id) {
-        db.question[i].downvote += 1;
-        found.push(db.question[i]);
-        return found;
-      }
+  static async findbyMeetup(meetup) {
+    try {
+      const query = 'SELECT * FROM questions WHERE meetup = $1';
+      const value = [meetup];
+      const response = await databaseConnection.query(query, value);
+      return response;
     }
-    return -1;
+    catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+
+  static async updatevotes(questionupvotes, questionvotes, questiondownvote, questionId) {
+    try {
+      const query = 'UPDATE questions SET upvotes = $1, votes = $2, downvotes = $3 WHERE id = $4 RETURNING *';
+      const value = [questionupvotes, questionvotes, questiondownvote, questionId];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      return (err);
+    }
+  }
+
+  static async insertQuestion(createdBy, title, meetup, body) {
+    try {
+      const query = 'INSERT INTO questions("createdBy", title, meetup, body) VALUES($1, $2, $3, $4) RETURNING *';
+      const value = [createdBy, title, meetup, body]
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch(err) {
+      return err;
+    }
   }
 }
