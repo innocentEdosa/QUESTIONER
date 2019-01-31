@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Andela development challenge (Questioner)",
   "main": "index.js",
+    "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "test-init": "node node_modules/jasmine/bin/jasmine.js init",
     "pretest": "npm run migration",

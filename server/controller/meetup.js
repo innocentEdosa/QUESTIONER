@@ -53,7 +53,7 @@ export default class meetupController {
    * @param {object} res - response object
    */
   static getMeetups(req, res) {
-    const query = 'SELECT * FROM "public"."meetups" LIMIT 100';
+    const query = 'SELECT * FROM "public"."meetups" ORDER BY id DESC LIMIT 100';
     databaseConnection.query(query)
       .then((response) => {
         if (response.rows) {
@@ -117,4 +117,33 @@ export default class meetupController {
       return res.status(500).json({ error: 'Server error. Please Try again later' });
     }
   }
+
+  static async getRandom(req,res) {
+    try {
+      const query = 'SELECT * FROM "public"."meetups" ORDER BY random() LIMIT 4';
+      const response = await  databaseConnection.query(query);
+      if(response.rows) {
+        return res.status(200).json({status: 200, data: response.rows})
+      }
+      return res.status(404).json({ error: 'meetups not found' });
+    }
+ catch(error) {
+   console.log(error);
+    return res.status(500).json({ error: 'Server error. Please Try again later' });
+ }
+ }
+
+ static async getTrending(req, res) {
+   try {
+     const query = 'SELECT * FROM "public"."meetups" WHERE id > 5 ORDER BY random() LIMIT 4';
+     const response = await databaseConnection.query(query);
+     if (response.rows) {
+       return res.status(200).json({ status: 200, data: response.rows })
+     }
+     return res.status(404).json({ error: 'meetups not found' });
+   } catch (error) {
+     console.log(error);
+     return res.status(500).json({ error: 'Server error. Please Try again later' });
+   }
+ }
 }

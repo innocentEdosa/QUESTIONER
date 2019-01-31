@@ -1,33 +1,33 @@
 function createdWhen(date) {
-	const when = new Date(Date.now()).getDay() - new Date(date).getDay();
-	if (when <= 10) {
-		return 'Today';
-	}
-	return `${when} days ago`;
+  const when = new Date(Date.now()).getDay() - new Date(date).getDay();
+  if (when <= 10) {
+    return 'Today';
+  }
+  return `${when} days ago`;
 }
 
 function happening(date) {
-	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-		'July', 'August', 'September', 'October', 'November', 'December',
-	];
-	const d = new Date(date);
-	const day = d.getDay();
-	const month = monthNames[d.getMonth()];
-	const year = d.getFullYear();
-	const happens = `${day} / ${month} / ${year}`;
-	return `${happens}`;
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  const d = new Date(date);
+  const day = d.getDay();
+  const month = monthNames[d.getMonth()];
+  const year = d.getFullYear();
+  const happens = `${day} / ${month} / ${year}`;
+  return `${happens}`;
 }
 
 
 function loading(type) {
-	if (type === 2) {
-		return '<div class="loading"><img src="img/6.gif" alt="Loading" title="Loading" /></div>';
-	}
-	return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
+  if (type === 2) {
+    return '<div class="loading"><img src="img/6.gif" alt="Loading" title="Loading" /></div>';
+  }
+  return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
 }
 
 function questionTemplate(question) {
-	return `
+  return `
 	<div class="questions">
 									<div class="question-text">
 										${question.body}
@@ -35,14 +35,18 @@ function questionTemplate(question) {
 									<ul class="question-btnlist">
 										<li class="question-btnlistitem">
 											<a href="#" class="question-btn">
-												<span class="question-text">${question.downvotes}</span>
-												<ion-icon name="thumbs-down"></ion-icon>
+												<span class="question-text downvote downvotediv">${question.downvotes}</span>
+												<input type="hidden" value=${question.id}>
+												<ion-icon class="downvote" name="thumbs-down"></ion-icon>
+												<input type="hidden" value=${question.id}>
 											</a>
 										</li>
-										<li class="question-btnlistitem">
+										<li class="question-btnlistitem">		
 											<a href="#" class="question-btn">
-												<span class="question-text">${question.upvotes}</span>
-												<ion-icon name="thumbs-up"></ion-icon>
+												<span class="question-text upvotediv upvote">${question.upvotes}</span>
+												<input type="hidden" value=${question.id}>
+												<ion-icon class="upvote" name="thumbs-up"></ion-icon>
+												<input type="hidden" value=${question.id}>
 											</a>
 										</li>
 										<li class="question-btnlistitem">
@@ -53,23 +57,20 @@ function questionTemplate(question) {
 										</li>
 									</ul>
 								</div>
-									<div class="form-comment" id="form-comment${question.id}" >
+									<form action="#" class="form-comment" id="commentForm" >
+									<input type="hidden" value=${question.id}>
 										<input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
-										<input type="button" value="comment" class="form-comment-btn" id="commentBtn">
-									</div>
+										<input type="button" value="comment" class="form-comment-btn commentBtn">
+									</form>
 								<div class="post-comment" id="post-comment">
-									<div class="comment">
-										<div class="comment-text">
-											what kind of a question is this, very naughty
-										</div>
-									</div>
+									${loading(2)}
 								</div>
 							</div>
-						</div>	`
+						</div>	`;
 }
 
 function showcardTemplate(meetup) {
-	return `
+  return `
 					<div class="row">
 						<div class="card-date u-marginTop-sm">
 							${happening(meetup.happeningOn)}
@@ -95,13 +96,20 @@ function showcardTemplate(meetup) {
 					</div>
 `;
 }
-
-function postbodyTemplate(meetup) {
+function commentTemplate(comment)  {
 	return `
+										<div class="comment">
+										<div class="comment-text">
+											${comment.comment}
+										</div>
+	`
+}
+function postbodyTemplate(meetup) {
+  return `
   					<div class="u-marginTop-lg">
 						<div class="col-3-of-5">
 							<figure class="post-figure">
-								<img src="/${meetup.images}" alt="Post img" class="post-img">
+								<img src="/${meetup.images}" alt="" class="post-img">
 								<figcaption class="story-caption">Jack Wilson</figcaption>
 							</figure>
 							<div class="post-description">
@@ -114,17 +122,18 @@ function postbodyTemplate(meetup) {
 								</p>
 							</div>
 							<div class="post-input u-marginTop-sm">
-								<form action="#">
+								<form action="#" id="questionForm">
 									<div class="form-group">
-										<input type="text" name="post-title" id="post-title" class="form-input form-input-2" placeholder="title your question">
+										<input type="text" name="post-title" id="questionTitle" class="form-input form-input-2" placeholder="title your question">
 									</div>
 									<div class="form-group">
-										<textarea class="form-input form-input-2 post-textarea" name="post-input" id="post" row="20" col="20"
-										 placeholder="Ask your question" maxlength="400"></textarea>
+										<textarea class="form-input form-input-2 post-textarea" name="post-input" row="20" col="20"
+										 placeholder="Ask your question" maxlength="400" id='questionBody'></textarea>
 									</div>
 
 									<div class="form-group">
-										<a href="#" class="form-btn form-btn-sm"> post question</a>
+									 <div class=" err error u-marginTop-neg u-marginBottom-neg" id='errorResponse'>htis is the </div>
+										<a href="#" class="form-btn form-btn-sm questionbtn" id='qbtn'> post question</a>
 									</div>
 								</form>
 							</div>
@@ -139,11 +148,6 @@ function postbodyTemplate(meetup) {
 										<input type="button" value="comment" class="form-comment-btn" id="commentBtn">
 									</div>
 								</div>
-								<div class="post-comment" id="post-comment">
-									<div class="comment">
-										<div class="comment-text">
-											what kind of a question is this, very naughty
-										</div>
 									</div>
 								</div>
 							</div>
@@ -208,12 +212,12 @@ function postbodyTemplate(meetup) {
   `;
 }
 function meetupTemplate(meetup) {
-	return `	<a href="post.html" class="posbtn">
+  return `	<a href="post.html" class="posbtn">
 		<input type='hidden' value=${meetup.id}>
 					<div class="card moveInBottom">
 						<div class="col-1-of-5">
 							<div class="card-figure">
-								<img src="/${meetup.images}" alt="meet up image" class="card-img postbtn">
+								<img src="/${meetup.images}" alt="" class="card-img postbtn">
 								<input type='hidden' value=${meetup.id}>
 							</div>
 						</div>

@@ -125,9 +125,7 @@ export default class questionController {
 
   static async findbyMeetupId(req, res) {
     try {
-      console.log(req.params)
       const { meetupid } = req.params;
-      console.log(meetupid);
       let response = await Question.findbyMeetup(meetupid);
       if (!response.rows[0] || response.rows[0] === undefined) {
         console.log(response);
