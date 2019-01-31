@@ -26,7 +26,7 @@ export default class authController {
       bcrypt.hash(password, 3)
         .then(async (hashedpw) => {
           const query = 'INSERT INTO users(username, email, password, firstname, lastname, othername, "phoneNumber", "isAdmin") VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, firstname, lastname, othername, "phoneNumber", "isAdmin", registered';
-          const values = [username, email, hashedpw, firstname, lastname, othername, phoneNumber, isadmin || false];
+          const values = [username, email, hashedpw, firstname, lastname, othername, phoneNumber, isadmin || 'FALSE'];
           try {
             const response = await databaseConnection.query(query, values);
             if (response.rows[0]) {
@@ -76,6 +76,20 @@ export default class authController {
     }
     catch (err) {
       res.status(500).json({ error: 'server error!!! Try again later' })
+    }
+  }
+
+  static async Verify(req, res) {
+    try {
+      const status = req.isadmin;
+      const userid = req.user_id;
+      if (status && userid) {
+       return res.status(200).json({status: 200, data: [{status: status, userid: userid}]})
+      }
+      return res.status(404).json({status: 404, error: 'false token'});
+    } catch (error) {
+      console.log(errors);
+      return res.status(500).json({status: 500, error: 'Server error!!! Try again  later'});
     }
   }
 }

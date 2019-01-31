@@ -30,7 +30,7 @@ export default class meetupController {
       }
       console.log(req.file);
       console.log(images, location, happeningOn, description);
-      if (!req.isadmin) {
+      if (req.isadmin === 'FALSE') {
         return res.status(401).json({ error: 'Not authorised' });
       }
       const duplicate = await Meetup.noDuplicate(topic, happeningOn, location, req.user_id);
