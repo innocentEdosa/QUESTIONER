@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,900|Poppins:400,700,800" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <main>
     <section class="section-signup">
@@ -19,23 +21,28 @@
         <div class="form-heading heading-primary">
           Join Questioner
         </div>
-        <form action="#" class="form signup-form">
+        <form action="#" class="form signup-form" id="signup">
           <div class="form-group">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-input" required placeholder="Pick a username" id="username" name="username">
           </div>
+          <div class=" err error u-marginTop-neg u-marginBottom-neg" id='usernameResponse'></div>
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-input" required placeholder="You@example.com" id="email" name="email">
           </div>
+          <div class=" err error u-marginTop-neg u-marginBottom-neg" id='emailResponse'>htis is the </div>
           <div class="form-group">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-input" placeholder="Create a password" id="password" name="password">
           </div>
+          <div class="err error u-marginTop-neg u-marginBottom-neg" id='passwordResponse'> this is the password</div>
           <div class="form-group">
-            <a href="meetup.html" class="btn form-btn">Sign up for Questioner</a>
+            <a href="#" class="btn signup1 form-btn" id="signupbtn">Sign up for Questioner</a>
           </div>
-
+        </form>
+        <form action="#" class="form error err signup-form" id="signuperror">
+          this is the fsdfsdfsfsdxvxcvxcxcvxcvxcvxcvxvxvxvxcvxvxcvfsdfsdfsdfsdfsdfsdfdsinal error space
         </form>
         <form action="#" class="form signup-form">
           <div class="form-group">
@@ -45,6 +52,7 @@
       </div>
     </section>
   </main>
+  <script src="js/auth.js"></script>
 </body>
 
 </html>
