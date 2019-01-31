@@ -1,9 +1,9 @@
 const auth = async () => {
   let user = JSON.parse(localStorage.getItem('user'));
-  const token = user.token;
-  if (!token) {
+  if (!user) {
     window.location.href = 'signup.html';
   }
+  const token = user.token;
   const url = `https://innocentsquestioner.herokuapp.com/api/v1/auth/verify`;
   const fetchData = {
     method: 'POST',
@@ -25,4 +25,15 @@ const auth = async () => {
   }
 }
 
+const navigation = document.getElementById('navigation');
+navigation.addEventListener('click', (e) => {
+  e.preventDefault();
+  console.log(e.target);
+  if (e.target.classList.contains('logout')) {
+    localStorage.removeItem('user');
+    window.location.replace('index.html');
+  } else if (e.target.classList.contains('navigation-logo')) {
+    window.location.href = 'index.html';
+  }
+})
 window.onload = auth();

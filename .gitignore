@@ -4,4 +4,3 @@ dist
 .nyc_output
 .env
 coverage
-images
