@@ -36,4 +36,17 @@ export default class commentController {
       res.status(500).json({ error: "Server error!!!, Try again later" });
     }
   }
+
+  static async getComments(req, res) {
+    try {
+      const { questionid } = req.params;
+      const result = await Comment.getComments(questionid);
+      if (!result.rows) {
+        return res.status(404).json({ error: 'Comments not found' });
+      }
+      return res.status(200).json({status: 200, data: result.rows})
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

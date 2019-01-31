@@ -13,4 +13,17 @@ export default class Comment {
       return err;
     }
   }
+
+  static async getComments(questionid) {
+    try {
+      const query = 'SELECT * FROM comments WHERE question = $1 ORDER BY id DESC';
+      const value = [questionid];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
 }
