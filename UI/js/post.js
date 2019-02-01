@@ -131,7 +131,6 @@ const getQuestions = async (postid) => {
     questionDiv.innerHTML = `No questions presently`;
   } else {
     questionDiv.innerHTML = `${json.data.map(questionTemplate).join('')}`;
-
   }
   setquestionForm();
   initQuestionBtn();
@@ -252,6 +251,7 @@ function setquestionForm() {
   startQuestionForm();
   setCommentForm();
 }
+
 function startQuestionForm() {
   if (questionForm) {
     questionForm.addEventListener('click', (e) => {
