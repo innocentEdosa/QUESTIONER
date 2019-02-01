@@ -77,7 +77,7 @@ const downvote = async (question, questionid) => {
 }
 
 
-function initBtn() {
+function initQuestionBtn() {
   const questionDiv = document.getElementById('questionss');
   questionDiv.addEventListener('click', (e) => {
     e.preventDefault();
@@ -116,6 +116,8 @@ function getPostId() {
   getpost(postid);
 }
 
+
+
 const getQuestions = async (postid) => {
   const questionDiv = document.getElementById('questionss');
   const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/questions/meetups/' + postid, {
@@ -129,10 +131,23 @@ const getQuestions = async (postid) => {
     questionDiv.innerHTML = `No questions presently`;
   } else {
     questionDiv.innerHTML = `${json.data.map(questionTemplate).join('')}`;
-
   }
   setquestionForm();
-  initBtn();
+  initQuestionBtn();
+}
+
+const getComment = async (questionid, commentdiv) => {
+  const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/comments/questions/' + questionid, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'omit',
+  });
+  const json = await response.json();
+  if (json.error) {
+    commentdiv.innerHTML = `No comments presently`;
+  } else {
+    commentdiv.innerHTML = `${json.data.map(commentTemplate).join('')}`;
+  }
 }
 
 const getpost = async (postid) => {
@@ -195,11 +210,37 @@ const createQuestion = async (meetupid, questionTitle, questionBody) => {
   if (json.error) {
     console.log(json.error);
   } else {
-    console.log(json.data);
     questionbtn = document.getElementById('qbtn');
     questionbtn.innerHTML = `Post question`;
     getQuestions(meetupid);
-    initBtn();
+    initQuestionBtn();
+  }
+}
+
+const createComment = async (commentInput, questionid, commentdiv) => {
+  let user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+  const url = `https://innocentsquestioner.herokuapp.com/api/v1/comments`;
+  const data = {
+    question: questionid,
+    comment: commentInput
+}
+  const fetchData = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      Authorization: token
+    }
+  }
+
+  const response = await fetch(url, fetchData);
+  const json = await response.json();
+  if (json.error) {
+    console.log(json.error);
+  } else {
+    getComment(questionid, commentdiv)
   }
 }
 
@@ -207,8 +248,10 @@ let questionForm;
 function setquestionForm() {
   const questionF = document.forms['questionForm'];
   questionForm = questionF;
-  startQuestionForm()
+  startQuestionForm();
+  setCommentForm();
 }
+
 function startQuestionForm() {
   if (questionForm) {
     questionForm.addEventListener('click', (e) => {
@@ -230,6 +273,27 @@ function startQuestionForm() {
   }
 }
 
+let commentForm;
+function setCommentForm() {
+  const commentF = document.forms['commentForm'];
+  commentForm = commentF;
+  startCommentForm(commentForm);
+}
+
+function startCommentForm(commentform) {
+  if (commentForm) {
+    commentForm.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (e.target.classList.contains('commentBtn')) {
+        const commentInputDiv = e.target.previousElementSibling;
+        const commentInput = commentInputDiv.value;
+        const questionid = commentInputDiv.previousElementSibling.value;
+        const commentdiv = commentForm.nextElementSibling;
+        createComment(commentInput, questionid, commentdiv);
+      }
+    })
+  }
+}
 window.onload = function load() {
   getPostId();
 }

@@ -53,7 +53,7 @@ export default class meetupController {
    * @param {object} res - response object
    */
   static getMeetups(req, res) {
-    const query = 'SELECT * FROM "public"."meetups" LIMIT 100';
+    const query = 'SELECT * FROM "public"."meetups" ORDER BY id DESC LIMIT 100';
     databaseConnection.query(query)
       .then((response) => {
         if (response.rows) {
