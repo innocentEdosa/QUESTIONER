@@ -37,7 +37,7 @@ router.use('/auth', authRouter);
 router.use('/comments', commentRouter);
 
 router.use('/', (req, res) => {
-  return res.status(404).json({error: 'Resource not found'});
+  return res.status(200).json({ msg: 'Welcome to Questioner api. Please use all available resource' });
 })
 router.use('/api/v1/', (req, res) => {
   return res.status(200).json({ msg: 'Welcome to Questioner api. Please use all available resource' });
