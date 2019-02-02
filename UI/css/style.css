@@ -408,7 +408,7 @@ button:active {
 }
 
 .post-comment {
-    display: none;
+    display: block;
 }
 
 .form-comment-input {
@@ -449,9 +449,12 @@ button:active {
 }
 
 .post-comment {
-    padding: 0rem 0rem 0rem 4rem;
+    padding-left: 5px;
 }
 
+.commentContainer {
+    display:none;
+}
 
 /* navigation  classes*/
 

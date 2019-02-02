@@ -14,6 +14,18 @@ class questionValidator {
     return true;
   }
 
+  static comment(value) {
+    const errorResponse = document.getElementById('errorResponse');
+    const error = [];
+    if (value === undefined || value === '') {
+      error.push(`comment cannot be empty`);
+    }
+    if (error.length > 0) {
+      return false;
+    }
+    return true;
+  }
+
   static display(arr) {
     return arr.join('<br\>');
   }
@@ -220,27 +232,30 @@ const createQuestion = async (meetupid, questionTitle, questionBody) => {
 const createComment = async (commentInput, questionid, commentdiv) => {
   let user = JSON.parse(localStorage.getItem('user'));
   const token = user.token;
-  const url = `https://innocentsquestioner.herokuapp.com/api/v1/comments`;
-  const data = {
-    question: questionid,
-    comment: commentInput
-}
-  const fetchData = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      Authorization: token
+  const commentCheck = questionValidator.comment(commentInput);
+  if (commentCheck) {
+    const url = `https://innocentsquestioner.herokuapp.com/api/v1/comments`;
+    const data = {
+      question: questionid,
+      comment: commentInput
     }
-  }
+    const fetchData = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        Authorization: token
+      }
+    }
 
-  const response = await fetch(url, fetchData);
-  const json = await response.json();
-  if (json.error) {
-    console.log(json.error);
-  } else {
-    getComment(questionid, commentdiv)
+    const response = await fetch(url, fetchData);
+    const json = await response.json();
+    if (json.error) {
+      console.log(json.error);
+    } else {
+      getComment(questionid, commentdiv);
+    }
   }
 }
 
