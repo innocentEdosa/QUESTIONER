@@ -143,7 +143,6 @@ const getQuestions = async (postid) => {
     questionDiv.innerHTML = `No questions presently`;
   } else {
     questionDiv.innerHTML = `${json.data.map(questionTemplate).join('')}`;
-
   }
   setquestionForm();
   initQuestionBtn();
@@ -159,8 +158,7 @@ const getComment = async (questionid, commentdiv) => {
   if (json.error) {
     commentdiv.innerHTML = `No comments presently`;
   } else {
-    console.log(commentdiv)
-    commentdiv.innerHTML= `${json.data.map(commentTemplate).join('')}`;
+    commentdiv.innerHTML = `${json.data.map(commentTemplate).join('')}`;
   }
 }
 
@@ -268,6 +266,7 @@ function setquestionForm() {
   startQuestionForm();
   setCommentForm();
 }
+
 function startQuestionForm() {
   if (questionForm) {
     questionForm.addEventListener('click', (e) => {

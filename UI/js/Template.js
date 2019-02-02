@@ -1,33 +1,33 @@
 function createdWhen(date) {
-	const when = new Date(Date.now()).getDay() - new Date(date).getDay();
-	if (when <= 10) {
-		return 'Today';
-	}
-	return `${when} days ago`;
+  const when = new Date(Date.now()).getDay() - new Date(date).getDay();
+  if (when <= 10) {
+    return 'Today';
+  }
+  return `${when} days ago`;
 }
 
 function happening(date) {
-	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-		'July', 'August', 'September', 'October', 'November', 'December',
-	];
-	const d = new Date(date);
-	const day = d.getDay();
-	const month = monthNames[d.getMonth()];
-	const year = d.getFullYear();
-	const happens = `${day} / ${month} / ${year}`;
-	return `${happens}`;
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  const d = new Date(date);
+  const day = d.getDay();
+  const month = monthNames[d.getMonth()];
+  const year = d.getFullYear();
+  const happens = `${day} / ${month} / ${year}`;
+  return `${happens}`;
 }
 
 
 function loading(type) {
-	if (type === 2) {
-		return '<div class="loading"><img src="img/6.gif" alt="Loading" title="Loading" /></div>';
-	}
-	return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
+  if (type === 2) {
+    return '<div class="loading"><img src="img/6.gif" alt="Loading" title="Loading" /></div>';
+  }
+  return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
 }
 
 function questionTemplate(question) {
-	return `
+  return `
 	<div class="questions">
 									<div class="question-text">
 										${question.body}
@@ -62,16 +62,16 @@ function questionTemplate(question) {
 										<input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
 										<input type="button" value="comment" class="form-comment-btn commentBtn">
 									</form>
+
 									<div class="commentContainer">
 										${loading(2)}
 									</div>
-
 							</div>
 						</div>	`;
 }
 
 function showcardTemplate(meetup) {
-	return `
+  return `
 					<div class="row">
 						<div class="card-date u-marginTop-sm">
 							${happening(meetup.happeningOn)}
@@ -97,6 +97,7 @@ function showcardTemplate(meetup) {
 					</div>
 `;
 }
+
 function commentTemplate(comment) {
 	return `				<div class="post-comment" id="post-comment">
 										<div class="comment">
@@ -108,7 +109,7 @@ function commentTemplate(comment) {
 	`
 }
 function postbodyTemplate(meetup) {
-	return `
+  return `
   					<div class="u-marginTop-lg">
 						<div class="col-3-of-5">
 							<figure class="post-figure">
@@ -215,7 +216,7 @@ function postbodyTemplate(meetup) {
   `;
 }
 function meetupTemplate(meetup) {
-	return `	<a href="post.html" class="posbtn">
+  return `	<a href="post.html" class="posbtn">
 		<input type='hidden' value=${meetup.id}>
 					<div class="card moveInBottom">
 						<div class="col-1-of-5">
