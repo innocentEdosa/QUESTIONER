@@ -23,6 +23,8 @@ router.get('/random', meetupController.getRandom);
 
 router.get('/trending', meetupController.getTrending);
 
+router.get('/:admin/meetups', meetupController.getAdminMeetups);
+
 /** This router handles requests to get a specific meetup */
 router.get('/:meetupId', isAuth, meetupController.getMeetup);
 

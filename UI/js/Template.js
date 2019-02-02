@@ -26,6 +26,49 @@ function loading(type) {
   return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
 }
 
+
+function adminMeetupTemplate(meetup) {
+  return `
+          <div class="card moveInBottom">
+          <div class="col-1-of-5">
+            <div class="card-figure">
+              <img src="/${meetup.images}" alt="" class="card-img">
+            </div>
+          </div>
+          <div class="col-3-of-5">
+            <div class="card-description">
+              <div class="card-text">
+                <h2 class="card-title heading-primary">
+                  <a href="post.html">${meetup.topic}</a>
+                </h2>
+                <p>
+                 ${meetup.description}
+                </p>
+              </div>
+              <div class="card-description-btn">
+                <a href="#" class="card-btn edit">Edit</a>
+                <input type="hidden" value="${meetup.id}">
+                <a href="#" class="card-btn delete">Delete</a>
+                 <input type="hidden" value="${meetup.id}">
+              </div>
+            </div>
+          </div>
+          <div class="col-1-of-5">
+            <div class="card-description2">
+              <a href="post.html" class="card-question-link">
+                <span class="card-question-number">
+                  25
+                </span> questions already
+              </a>
+              <div class="card-created">
+                <span class="created-when">2 days ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  `
+}
+
 function questionTemplate(question) {
   return `
 	<div class="questions">
