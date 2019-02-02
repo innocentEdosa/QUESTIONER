@@ -190,6 +190,7 @@ const postbodyObserver = new MutationObserver(function (mutations) {
     if (mutation.addedNodes.length > 1) {
       const postid = localStorage.getItem('meetupid');
       getQuestions(postid);
+      startRsvp();
     }
   });
 })
@@ -309,6 +310,56 @@ function startCommentForm(commentform) {
     })
   }
 }
+
+const createRsvp = async (meetupid, rsvpResponse) => {
+  let user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+  user = user.id;
+  const rsvpCard = document.getElementById('rsvpCardFront');
+  const restext = document.getElementById('rsvptext');
+  if (meetupid && rsvpResponse && user) {
+    const url = 'https://innocentsquestioner.herokuapp.com/api/v1/meetups/' +meetupid+ '/rsvp';
+    const data = {
+      meetup: Number(meetupid),
+      user: user,
+      response: String(rsvpResponse),
+    }
+    const fetchData = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        Authorization: token,
+      }
+    }
+    const response = await fetch(url, fetchData);
+    if (response) {
+      const json = await response.json();
+      if (json.error) {
+        console.log(json.error);
+      } else {
+        if(json.msg) {
+          restext.textContent = `${json.msg}:`;
+        }
+        rsvpCard.textContent = json.data[0].response;
+      }
+    }
+  }
+}
+
+function startRsvp() {
+  const rsvpCard = document.getElementById('rsvpCard');
+  rsvpCard.addEventListener('click', (e) => {
+    e.preventDefault();
+  if (e.target.classList.contains('schedule-btn')){
+    const rsvpResponse = e.target.textContent;
+    const meetupid = e.target.nextElementSibling.value;
+    createRsvp(meetupid, rsvpResponse);
+  }
+  })
+}
+
 window.onload = function load() {
   getPostId();
 }

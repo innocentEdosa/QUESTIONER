@@ -34,6 +34,8 @@ navigation.addEventListener('click', (e) => {
     window.location.replace('index.html');
   } else if (e.target.classList.contains('navigation-logo')) {
     window.location.href = 'index.html';
+  } else if (e.target.classList.contains('profile')){
+    window.location.href = 'profile.html';
   }
 })
 window.onload = auth();
