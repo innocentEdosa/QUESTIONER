@@ -10,7 +10,7 @@
 </head>
 
 <body id="mainBody">
-  <nav class="navigation">
+  <nav class="navigation" id="navigation">
     <div class="row nav-mobile ">
       <div class="navigation-mobilelogobox">
         <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
@@ -20,22 +20,25 @@
         <span class="navigation-icon" id="navigation-icon"></span>
       </label>
       <div class="navigation-background">&nbsp</div>
-
+  
       <div class="navigation-mobile">
         <ul class="navigation-listmobile">
-          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile">Log out</a></li>
-          <li class="navigation-listitem-mobile"><a href="profile.html" class="navigation-listlink-mobile">Your profile</a></li>
+          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile logout">Log
+              out</a></li>
+          <li class="navigation-listitem-mobile profile"><a href="profile.html" class="navigation-listlink-mobile">Your
+              profile</a></li>
           <li class="navigation-listitem">
             <input type="text" class="navigation-listsearch">
             <a href="#" class="navigation-listlink">
               <span class="navigation-listsearch-btn">Search</span>
             </a>
           </li>
+  
         </ul>
       </div>
     </div>
-
-
+  
+  
     <div class="row nav-desktop">
       <div class="navigation-logobox">
         <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
@@ -46,13 +49,13 @@
           <a href="#" class="navigation-listlink">
             <span class="navigation-listsearch-btn">Search</span>
           </a>
-
+  
         </li>
         <li class="navigation-listitem">
-          <a href="index.html" class="navigation-listlink">Log out</a>
+          <a href="index.html" class="navigation-listlink logout">Log out</a>
         </li>
-        <li class="navigation-listitem">
-          <a href="profile.html" class="navigation-imglink"><img src="img/user (1).png" class="navigation-profileimg"
+        <li class="navigation-listitem profile">
+          <a href="profile.html" class="navigation-imglink profile"><img src="img/user (1).png" class="navigation-profileimg profile"
               alt="profile"></a>
         </li>
       </ul>
@@ -80,42 +83,8 @@
           records
         </h2>
       </div>
-      <div class="row">
-        <div class="card moveInBottom">
-          <div class="col-1-of-5">
-            <div class="card-figure">
-              <img src="img/bg2.jpg" alt="meet up image" class="card-img">
-            </div>
-          </div>
-          <div class="col-3-of-5">
-            <div class="card-description">
-              <div class="card-text">
-                <h2 class="card-title heading-primary">
-                  <a href="post.html">Ampearl annual meetup</a>
-                </h2>
-                <p>
-                  Pre ask your questions for Ampearl yearly meetup, and let us give...
-                </p>
-              </div>
-              <div class="card-description-btn">
-                <a href="#" class="card-btn edit">Edit</a>
-                <a href="#" class="card-btn delete">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-1-of-5">
-            <div class="card-description2">
-              <a href="post.html" class="card-question-link">
-                <span class="card-question-number">
-                  25
-                </span> questions already
-              </a>
-              <div class="card-created">
-                <span class="created-when">2 days ago</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="row" id="adminMeetups">
+
         <div class="card moveInBottom">
           <div class="col-1-of-5">
             <div class="card-figure">
@@ -201,7 +170,7 @@
       </div>
     </div>
     <!-- form to update meetup -->
-    <!-- <div class="create-post" id="update-popup">
+    <div class="create-post" id="update-popup">
       <div class="create-post-popup">
         <div class="form-heading heading-primary">
           update Meetup
@@ -241,15 +210,15 @@
           </div>
         </form>
       </div>
-    </div> -->
-    <div class="delete-post" id="delete-popup">
+    </div> 
+    <div class="delete-post" id="deletePopup">
       <div class="delete-popup">
         <input type="hidden" value="meetupId">
         <h2 class="heading-primary delete-text">Do you really want to delete this meetup</h2>
         <p class="delete-meetuptitle u-margin-sm"> THIS IS THE MEETUP TITLE</p>
         <div class="card-description-btn">
-          <a href="admin.html" class="card-btn delete-ok">Ok</a>
-          <a href="#" class="card-btn delete-cancel">Cancel</a>
+          <a href="admin.html" class="card-btn delete-ok ok">Ok</a>
+          <a href="#" class="card-btn delete-cancel cancel">Cancel</a>
         </div>
       </div>
     </div>
@@ -260,7 +229,8 @@
     </h2>
     <p>All rights reserved</p>
   </footer>
-  <!-- <script defer src="js/fetch.js"></script> -->
+ <script src="js/verify.js"></script>
+ <script src="js/Template.js"></script>
   <script defer src="js/admin.js"></script>
 </body>
 </html>

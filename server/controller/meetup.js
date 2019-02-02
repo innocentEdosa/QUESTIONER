@@ -146,4 +146,19 @@ export default class meetupController {
      return res.status(500).json({ error: 'Server error. Please Try again later' });
    }
  }
+
+ static async getAdminMeetups(req, res) {
+   try {
+     const {admin} = req.params;
+     const query = 'SELECT * FROM "public"."meetups" WHERE "createdBy" = $1 ORDER BY id DESC';
+     const value = [admin]
+     const response = await databaseConnection.query(query, value);
+     if (response.rows) {
+       return res.status(200).json({ status: 200, data: response.rows })
+     }
+     return res.status(404).json({ error: 'meetups not found' });
+   } catch (error) {
+     console.log(error);
+   }
+ }
 }
