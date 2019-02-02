@@ -85,13 +85,17 @@ function showcardTemplate(meetup) {
 							</div>
 						</div>
 						<div class="card-schedule">
-							<div class="card-schedule-side card-schedule-front">
-								<a href="#" class="">Add to your Schedule &rarr;</a>
+							<div class="card-schedule-side card-schedule-front" >
+							<span id="rsvptext" class="emp"></span>
+								<a href="#" class="" id="rsvpCardFront">Add to your Schedule &rarr;</a>
 							</div>
-							<div class="card-schedule-side card-schedule-back">
+							<div class="card-schedule-side card-schedule-back" id= 'rsvpCard'>
 								<a href="#" class="schedule-btn">Yes</a>
+								<input type="hidden" value='${meetup.id}'>
 								<a href="#" class="schedule-btn">Maybe</a>
+								<input type="hidden" value='${meetup.id}'>
 								<a href="#" class="schedule-btn">No</a>
+								<input type="hidden" value='${meetup.id}'>
 							</div>
 						</div>
 					</div>
@@ -99,7 +103,7 @@ function showcardTemplate(meetup) {
 }
 
 function commentTemplate(comment) {
-	return `				<div class="post-comment" id="post-comment">
+  return `				<div class="post-comment" id="post-comment">
 										<div class="comment">
 										<div class="comment-text">
 											${comment.comment}
@@ -256,7 +260,6 @@ function meetupTemplate(meetup) {
 							</div>
 						</div>
 					</div>
-        </a>
-        
+        </a>  
   `;
 }
