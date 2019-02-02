@@ -1,13 +1,8 @@
 
 const popup = document.getElementById('createPopup');
 const updatePopup = document.getElementById('update-popup');
-const editbtn = document.getElementsByClassName('edit');
-const deletebtn = document.getElementsByClassName('delete');
-const deletepopup = document.getElementById('delete-popup');
-const canceldelete = document.getElementsByClassName('delete-cancel');
-
+const deletePopup = document.getElementById('deletePopup')
 class Display {
-
   static open(elem) {
     const value = elem;
     value.style.display = 'block';
@@ -20,28 +15,95 @@ class Display {
     value.style.opacity = 'none';
   }
 }
+const getMeetups = async () => {
+  const adminMeetups = document.getElementById('adminMeetups');
+  adminMeetups.innerHTML = `${loading()}`;
+  let user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+  const url = `https://innocentsquestioner.herokuapp.com/api/v1/meetups/${user.id}/meetups`;
+  const fetchData = {
+    method: 'GET',
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await fetch(url, fetchData);
+  const json = await response.json();
+  if (json.error) {
+    console.log(json.error);
+  } else if(json.data) {
+    adminMeetups.innerHTML = `${json.data.map(adminMeetupTemplate).join('')}`;
+  }
+}
+
+const deleteMeetup = async (meetupid) => {
+  let user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+  const url = `https://innocentsquestioner.herokuapp.com/api/v1/meetups/${meetupid}`;
+  const fetchData = {
+    method: 'DELETE',
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await fetch(url, fetchData);
+  const json = await response.json();
+  if (json.error) {
+    console.log(json.error);
+    getMeetups();
+  } else if (json.data) {
+    console.log(json.data);
+    getMeetups();
+  }
+}
+
+const createMeetup = async (formData) => {
+  let user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+  const url = `https://innocentsquestioner.herokuapp.com/api/v1/meetups`;
+  const fetchData = {
+    method: 'POST',
+    body: formData,
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await fetch(url, fetchData);
+  const json = await response.json();
+  if (json.error) {
+  } else if (json.data) {
+    const adminMeetups = document.getElementById('adminMeetups');
+    adminMeetups.innerHTML = `${loading()}`;
+    Display.close(popup);
+    getMeetups();
+  }
+}
 
 const createForm = document.forms['createForm'];
 createForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const topic = createForm.querySelector('#meetup-title').value;
-  const happeingOn = createForm.querySelector('#meetup-date').value;
-  const images = createForm.querySelector('#meetup-img');
+  const happeningOn = createForm.querySelector('#meetup-date').value;
+  const images = createForm.querySelector('#meetup-img').files[0];
   const location = createForm.querySelector('#meetup-location').value;
   const description = createForm.querySelector('#meetup-description').value;
 
  
   const formData = new FormData();
   formData.append('topic', topic);
-  formData.append('happeningOn', happeingOn);
-  formData.append('images', images.files[0]);
+  formData.append('happeningOn', happeningOn);
+  formData.append('images', images);
   formData.append('location', location);
   formData.append('description', description);
-  console.log(formData);
+  createMeetup(formData);
 })
 
 const mainBody = document.querySelector('#mainBody');
 mainBody.addEventListener('click', (e) => {
+  e.preventDefault();
   if (e.target.classList.contains('create')) {
     Display.open(popup);
   }
@@ -49,26 +111,23 @@ mainBody.addEventListener('click', (e) => {
     Display.close(popup);
     Display.close(updatePopup);
   }
+  if(e.target.classList.contains('delete')) {
+    const meetupid = e.target.nextElementSibling.value;
+    Display.open(deletePopup);
+    deletePopup.addEventListener('click', (e) => {
+      if(e.target.classList.contains('ok')){
+        const adminMeetups = document.getElementById('adminMeetups');
+        adminMeetups.innerHTML = `${loading()}`;
+        Display.close(deletePopup);
+        deleteMeetup(meetupid);
+      }
+      if(e.target.classList.contains('cancel')) {
+        Display.close(deletePopup);
+      }
+    })
+  }
 });
 
-
-for (let x = 0; x < editbtn.length; x += 1) {
-  editbtn[x].addEventListener('click', () => {
-    updatePopup.style.display = 'block';
-    updatePopup.style.opacity = '1';
-  });
-}
-
-for (let x = 0; x < deletebtn.length; x += 1) {
-  deletebtn[x].addEventListener('click', () => {
-    deletepopup.style.display = 'block';
-    deletepopup.style.opacity = '1';
-  });
-}
-
-for (let x = 0; x < canceldelete.length; x += 1) {
-  canceldelete[x].addEventListener('click', () => {
-    deletepopup.style.display = 'none';
-    deletepopup.style.opacity = '0';
-  });
+window.onload = function init() {
+  getMeetups();
 }
