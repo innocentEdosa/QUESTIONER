@@ -82,9 +82,6 @@ export default class validator {
       }
       return true;
     }),
-    body('response', 'Response must be at least 2 characters long').trim().isLength({ min: 1 }).not()
-      .isEmpty()
-      .exists(),
       body('meetup').trim().custom((value) => {
         if (value === undefined || value === "") {
           return Promise.reject('Please provide a meetup id');
