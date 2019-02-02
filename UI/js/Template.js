@@ -62,9 +62,10 @@ function questionTemplate(question) {
 										<input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
 										<input type="button" value="comment" class="form-comment-btn commentBtn">
 									</form>
-								<div class="post-comment" id="post-comment">
-									${loading(2)}
-								</div>
+
+									<div class="commentContainer">
+										${loading(2)}
+									</div>
 							</div>
 						</div>	`;
 }
@@ -96,12 +97,15 @@ function showcardTemplate(meetup) {
 					</div>
 `;
 }
-function commentTemplate(comment)  {
-	return `
+
+function commentTemplate(comment) {
+	return `				<div class="post-comment" id="post-comment">
 										<div class="comment">
 										<div class="comment-text">
 											${comment.comment}
 										</div>
+								</div>
+
 	`
 }
 function postbodyTemplate(meetup) {
