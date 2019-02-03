@@ -19,7 +19,7 @@ router.get('/', isAuth, meetupController.getMeetups);
 
 router.get('/upcoming', isAuth, meetupController.getUpcoming);
 
-router.get('/random', meetupController.getRandom);
+router.get('/random/:meetupNum', meetupController.getRandom);
 
 router.get('/trending', meetupController.getTrending);
 
