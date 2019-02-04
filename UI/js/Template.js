@@ -42,10 +42,10 @@ function adminMeetupTemplate(meetup) {
             <div class="card-description">
               <div class="card-text">
                 <h2 class="card-title heading-primary">
-                  <a href="post.html">${meetup.topic}</a>
+                  <a href="post.html">${truncate(meetup.topic, 41)}</a>
                 </h2>
                 <p>
-                 ${truncate(meetup.description, 4)}
+                 ${truncate(meetup.description, 80)}
                 </p>
               </div>
               <div class="card-description-btn">
@@ -257,7 +257,7 @@ function meetupTemplate(meetup) {
 							<div class="card-description">
 								<div class="card-text">
 									<h2 class="card-title heading-primary">	
-										<a href="post.html" class="postbtn">${meetup.topic}</a>
+										<a href="post.html" class="postbtn">${truncate(meetup.topic, 41)}</a>
 										<input type='hidden' value=${meetup.id}>
 									</h2>
 									<p>

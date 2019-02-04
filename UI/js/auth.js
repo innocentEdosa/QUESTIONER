@@ -78,11 +78,13 @@ const showerror = (error) => {
     loginbtn.innerHTML = 'Log in';
     loginerror.innerHTML = `${error}`;
     loginerror.style.display = 'block';
+    loginerror.style.opacity = 1;
   }
   if (signupbtn && signuperror) {
     signupbtn.innerHTML = 'Sign up for questioner';
     signuperror.innerHTML = `${error.map(errorTemplate).join('')}`;
     signuperror.style.display = 'block';
+    signuperror.style.opacity = 1;
   }
 }
 
