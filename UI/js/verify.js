@@ -1,5 +1,9 @@
 let adminStatus;
-const pathname =  window.location.pathname
+const windowHref = window.location.href;
+const pathArray = window.location.href.split('/');
+pathArray.pop();
+const pathHref = pathArray.join('/');
+
 const adminNav = document.getElementById('adminNav');
 const signupNav = document.getElementById('signupNav');
 const signinNav = document.getElementById('signinNav');
@@ -18,12 +22,11 @@ function removeNav(nav){
 }
 const auth = async () => {
   let user = JSON.parse(localStorage.getItem('user'));
-  if (pathname === '/UI/index.html') {
+  if (windowHref === `${pathHref}/index.html`) {
     if (user) {
       removeNav(signupNav);
       removeNav(signinNav);
     } else (removeNav(logoutNav))
-    console.log(pathname);
     return false;
   }
   if (!user) {
