@@ -1,15 +1,4 @@
 const  getQuestionNo = (meetupid) => {
-	// const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/questions/meetups/' + meetupid, {
-	// 	method: 'GET',
-	// 	mode: 'cors',
-	// 	credentials: 'omit',
-	// });
-	// const json = await response.json();
-	// if (json.error) {
-	// 	console.log(json.error);
-	// } 
-	// 	console.log(json.number);
-	// 	return Promise.resolve(json.number)
 	return `${meetupid}`
 } 
 
@@ -18,7 +7,7 @@ const fillMeetupSection1 = async () => {
 	const meetupSection = document.getElementById('meetup1');
 	meetupSection.innerHTML = `${loading()}`
 ;
-	const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups/random', {
+	const response = await fetch(`https://innocentsquestioner.herokuapp.com/api/v1/meetups/random/${4}`, {
 		method: 'GET',
 		mode: 'cors',
 		credentials: 'omit'

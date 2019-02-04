@@ -1,24 +1,13 @@
 const getQuestionNo = (meetupid) => {
-  // const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/questions/meetups/' + meetupid, {
-  // 	method: 'GET',
-  // 	mode: 'cors',
-  // 	credentials: 'omit',
-  // });
-  // const json = await response.json();
-  // if (json.error) {
-  // 	console.log(json.error);
-  // } 
-  // 	console.log(json.number);
-  // 	return Promise.resolve(json.number)
   return `${meetupid}`
 } 
+
 const fillMeetupSection1 = async () => {
   const meetupSection = document.getElementById('meetup1');
   meetupSection.innerHTML = `${loading()}`
     ;
   let user = JSON.parse(localStorage.getItem('user'));
   const token = user.token;
-  console.log(token);
   const response = await fetch('https://innocentsquestioner.herokuapp.com/api/v1/meetups', {
     method: 'GET',
     mode: 'cors',

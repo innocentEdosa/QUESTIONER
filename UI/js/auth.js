@@ -1,4 +1,4 @@
-class validate {
+class Validate {
   static email(email) {
     const emailResponse = document.getElementById('emailResponse');
     const error = [];
@@ -9,8 +9,9 @@ class validate {
       error.push('Please enter a valid email');
     }
     if (error.length > 0) {
-      emailResponse.innerHTML = `${validate.display(error)}`;
+      emailResponse.innerHTML = `${Validate.display(error)}`;
       emailResponse.style.display = 'block';
+      emailResponse.style.opacity = 1;
       return false;
     }
     return true;
@@ -25,8 +26,9 @@ class validate {
       error.push('Password should be more than five characters');
     }
     if (error.length > 0) {
-      passwordResponse.innerHTML = `${validate.display(error)}`;
+      passwordResponse.innerHTML = `${Validate.display(error)}`;
       passwordResponse.style.display = 'block';
+      passwordResponse.style.opacity = 1;
       return false;
     }
     return true;
@@ -40,10 +42,13 @@ class validate {
       error.push('username is required');
     } else if (!regexp.test(username)) {
       error.push('Username cannot contain spaces');
+    } else if ( username.length < 3) {
+      error.push('Username should be more than 3 characters')
     }
     if (error.length > 0) {
-      usernameResponse.innerHTML = `${validate.display(error)}`;
+      usernameResponse.innerHTML = `${Validate.display(error)}`;
       usernameResponse.style.display = 'block';
+      usernameResponse.style.opacity = 1;
       return false;
     }
     return true;
@@ -51,6 +56,12 @@ class validate {
 
   static display(arr) {
     return arr.join('<br\>');
+  }
+
+  static clearDisplay(elem) {
+    if (elem) {
+      elem.style.opacity = 0; 
+    }
   }
 }
 
@@ -73,7 +84,6 @@ const showerror = (error) => {
     signuperror.innerHTML = `${error.map(errorTemplate).join('')}`;
     signuperror.style.display = 'block';
   }
-
 }
 
 const handlesuccess = (success) => {
@@ -96,18 +106,10 @@ const handlesuccess = (success) => {
   }
 }
 
-const clearError = () => {
-  const emailResponse = document.getElementById('emailResponse');
-  const passwordResponse = document.getElementById('passwordResponse');
-  const usernameResponse = document.getElementById('usernameResponse');
-  emailResponse.innerHTML = '';
-  passwordResponse.innerHTML = '';
-  if (usernameResponse) { usernameResponse.innerHTML = ''; }
-}
 
 const login = async (email, password) => {
-  const checkemail = await validate.email(email);
-  const checkpassword = await validate.password(password);
+  const checkemail = await Validate.email(email);
+  const checkpassword = await Validate.password(password);
   if (checkemail && checkpassword) {
     clearError();
     const loginbtn = document.getElementById('loginbtn');
@@ -140,9 +142,9 @@ const login = async (email, password) => {
 
 
 const signup = async (email, password, username) => {
-  const checkemail = await validate.email(email);
-  const checkpassword = await validate.password(password);
-  const checkusername = await validate.username(username);
+  const checkemail = await Validate.email(email);
+  const checkpassword = await Validate.password(password);
+  const checkusername = await Validate.username(username);
   if (checkemail && checkpassword && checkusername) {
     clearError();
     const signupbtn = document.getElementById('signupbtn');
@@ -178,6 +180,15 @@ const signup = async (email, password, username) => {
   }
 };
 
+const emailResponse = document.getElementById('emailResponse');
+const passwordResponse = document.getElementById('passwordResponse');
+const usernameResponse = document.getElementById('usernameResponse');
+
+const clearError = () => {
+  emailResponse.innerHTML = '';
+  passwordResponse.innerHTML = '';
+  if (usernameResponse) { usernameResponse.innerHTML = ''; }
+}
 
 function initialise() {
   const loginForm = document.forms.login;
@@ -185,6 +196,20 @@ function initialise() {
   const emailField = document.getElementById('email');
   const passwordField = document.getElementById('password');
   const usernameField = document.getElementById('username');
+
+  emailField.onkeyup = function() {
+    Validate.clearDisplay(emailResponse);
+  }
+
+  passwordField.onkeyup = function(){
+    Validate.clearDisplay(passwordResponse);
+  }
+
+  if(usernameField) {
+    usernameField.onkeyup = function(){
+      Validate.clearDisplay(usernameResponse);
+    }
+  }
 
   if (loginForm) {
     loginForm.addEventListener('click', (e) => {
