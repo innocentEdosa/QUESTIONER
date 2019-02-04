@@ -1,5 +1,9 @@
 import { validationResult } from 'express-validator/check';
 
+import { uploader } from 'cloudinary';
+
+import { dataUri } from '../middleware/upload';
+
 import databaseConnection from '../models/dbConfig';
 
 import Meetup from '../models/meetup';
@@ -9,6 +13,7 @@ import Util from '../helper/util';
 /**
  * create a meetup controller class
  */
+
 export default class meetupController {
   /**
    * @param {object} req - the request object sent from router
@@ -24,12 +29,14 @@ export default class meetupController {
       if (errormsg) {
         return false;
       }
-      let images = 'imageUrl';
+      let images = 'http://res.cloudinary.com/dqw7jnfgo/image/upload/v1549288478/q1pmfhfjkrgnchugokpf.jpg';
       if (req.file) {
-        images = req.file.path;
+        const file = dataUri(req).content;
+        const fileUpload = await uploader.upload(file);
+        if(fileUpload) {
+          images = fileUpload.url;
+        }
       }
-      console.log(req.file);
-      console.log(images, location, happeningOn, description);
       if (req.isadmin === 'FALSE') {
         return res.status(401).json({ error: 'Not authorised' });
       }
@@ -43,7 +50,6 @@ export default class meetupController {
       }
     }
     catch (err) {
-      console.log(err);
       return res.status(500).json({ error: 'Server error!!! Try again later' });
     }
   }
