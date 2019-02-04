@@ -20,7 +20,7 @@
         <span class="navigation-icon" id="navigation-icon"></span>
       </label>
       <div class="navigation-background">&nbsp</div>
-  
+
       <div class="navigation-mobile">
         <ul class="navigation-listmobile">
           <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile logout">Log
@@ -33,12 +33,12 @@
               <span class="navigation-listsearch-btn">Search</span>
             </a>
           </li>
-  
+
         </ul>
       </div>
     </div>
-  
-  
+
+
     <div class="row nav-desktop">
       <div class="navigation-logobox">
         <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
@@ -49,7 +49,7 @@
           <a href="#" class="navigation-listlink">
             <span class="navigation-listsearch-btn">Search</span>
           </a>
-  
+
         </li>
         <li class="navigation-listitem">
           <a href="index.html" class="navigation-listlink logout">Log out</a>
@@ -76,6 +76,13 @@
       </div>
     </div>
   </header>
+  <section  class="response-section">
+
+    
+  </section>
+            <div class="responseDiv" id="responseDiv">
+              Meetup created success
+            </div>
   <main id="main">
     <section class="section-record">
       <div class="row">
@@ -84,7 +91,6 @@
         </h2>
       </div>
       <div class="row" id="adminMeetups">
-
         <div class="card moveInBottom">
           <div class="col-1-of-5">
             <div class="card-figure">
@@ -137,33 +143,36 @@
         <form action="#" class="form create-form" id="createForm">
           <div class="form-group">
             <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
-            <input type="text" class="form-input" required placeholder="Pick a topic" id="meetup-title" name="meetup-title">
+            <input type="text" class="form-input" placeholder="Pick a topic" id="meetup-title" name="meetup-title">
+          <div class="error err u-marginTop-sm" id='topicError'></div>
           </div>
           <div class="form-group-inline">
             <label for="meetup-date" class="form-label">Date of meetup</label>
             <input type="date" class="form-input" required placeholder="13/01/2019" id="meetup-date" name="meetup-date">
           </div>
           <div class="form-group-inline">
-            <label for="meetup-img" class="form-label">Meetup picture (optional)</label>
-            <input type="file" class="form-input" required placeholder="13/01/2019" id="meetup-img" name="meetup-img">
+            <label for="meetup-img" class="form-label">Meetup picture </label>
+            <input type="file" class="form-input" required id="meetup-img" name="meetup-img">
           </div>
 
           <div class="form-group">
-            <label for="meetup-tag" class="form-label">tags</label>
+            <label for="meetup-tag" class="form-label">tags (optional)</label>
             <input type="text" class="form-input" placeholder="tags (tags must be seperated with comma)" id="meetup-tag"
               name="meetup-tag">
           </div>
           <div class="form-group">
             <label for="meetup-location" class="form-label">Location</label>
             <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-location" name="meetup-location">
+            <div class="error err u-marginTop-sm" id='locationError'></div>
           </div>
           <div class="form-group">
             <label for="meetup-location" class="form-label">Description</label>
             <textarea name="description" id="meetup-description" class="form-input" cols="30" rows="2"></textarea>
+            <div class="error err u-marginTop-sm" id='descriptionError'></div>
           </div>
           <div class="form-group">
             <div class="meetup-btnwrapper">
-              <button class="btn form-btn" type="submit" onsubmit="return false">Create meetup</button>
+              <button class="btn form-btn submit" id="submit">Create meetup</button>
             </div>
           </div>
         </form>
@@ -210,7 +219,7 @@
           </div>
         </form>
       </div>
-    </div> 
+    </div>
     <div class="delete-post" id="deletePopup">
       <div class="delete-popup">
         <input type="hidden" value="meetupId">
@@ -229,8 +238,8 @@
     </h2>
     <p>All rights reserved</p>
   </footer>
- <script src="js/verify.js"></script>
- <script src="js/Template.js"></script>
+  <script src="js/verify.js"></script>
+  <script src="js/Template.js"></script>
   <script defer src="js/admin.js"></script>
 </body>
 </html>

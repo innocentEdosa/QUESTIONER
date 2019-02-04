@@ -88,6 +88,23 @@ const downvote = async (question, questionid) => {
   }
 }
 
+const getTrending = async () => {
+  const trendingSection = document.getElementById('trendingMeetup');
+  trendingSection.innerHTML = `${loading()}`
+    ;
+  const response = await fetch(`https://innocentsquestioner.herokuapp.com/api/v1/meetups/random/${3}`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'omit'
+  });
+  const json = await response.json();
+  if (json.error) {
+    console.log(json.error);
+  } else {
+    trendingSection.innerHTML = `
+ 				${json.data.map(trendingTemplate).join('')}`;
+  }
+}
 
 function initQuestionBtn() {
   const questionDiv = document.getElementById('questionss');
@@ -139,7 +156,6 @@ const getQuestions = async (postid) => {
   });
   const json = await response.json();
   if (json.error) {
-    console.log(json.error);
     questionDiv.innerHTML = `No questions presently`;
   } else {
     questionDiv.innerHTML = `${json.data.map(questionTemplate).join('')}`;
@@ -191,6 +207,7 @@ const postbodyObserver = new MutationObserver(function (mutations) {
       const postid = localStorage.getItem('meetupid');
       getQuestions(postid);
       startRsvp();
+      getTrending();
     }
   });
 })

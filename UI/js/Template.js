@@ -18,6 +18,9 @@ function happening(date) {
   return `${happens}`;
 }
 
+function truncate(text, max) {
+  return text.substr(0, max - 1) + (text.length > max ? '&hellip;' : '');
+}
 
 function loading(type) {
   if (type === 2) {
@@ -42,7 +45,7 @@ function adminMeetupTemplate(meetup) {
                   <a href="post.html">${meetup.topic}</a>
                 </h2>
                 <p>
-                 ${meetup.description}
+                 ${truncate(meetup.description, 4)}
                 </p>
               </div>
               <div class="card-description-btn">
@@ -207,53 +210,11 @@ function postbodyTemplate(meetup) {
 						<div class="col-2-of-5">
 							<div class="more-meetup">
 								<h2 class="heading-primary post-heading u-marginBottom-sm">
-									scheduled meetup
+									Trending meetup
 								</h2>
-								<a href="#" class="scheduledMeetup">
-									<div class="card-sub paddingSide-sm u-marginBottom-sm">
-										<div class="card-date u-marginTop-sm">
-											present date
-										</div>
-										<div class="card-text">
-											<h2 class="card-title heading-primary">
-												the golf club benin
-											</h2>
-											<div class="card-created u-marginBottom-sm">
-												created by osaro two days ago
-											</div>
-										</div>
-									</div>
-								</a>
-								<a href="#" class="scheduledMeetup">
-									<div class="card-sub paddingSide-sm u-marginBottom-sm">
-										<div class="card-date u-marginTop-sm">
-											present date
-										</div>
-										<div class="card-text">
-											<h2 class="card-title heading-primary">
-												meeting in outer space
-											</h2>
-											<div class="card-created u-marginBottom-sm">
-												created by osaro two days ago
-											</div>
-										</div>
-									</div>
-								</a>
-								<a href="#" class="scheduledMeetup">
-									<div class="card-sub paddingSide-sm u-marginBottom-sm">
-										<div class="card-date u-marginTop-sm">
-											present date
-										</div>
-										<div class="card-text">
-											<h2 class="card-title heading-primary">
-												the coven
-											</h2>
-											<div class="card-created u-marginBottom-sm">
-												created by osaro two days ago
-											</div>
-										</div>
-									</div>
-								</a>
+								<div id="trendingMeetup">
+									${loading(2)}
+								</div>
 							</div>
 							<div class="row u-text-center">
 								<a href="meetup.html" class="more emp u-marginTop-md ">show more meetup &rarr;</a>
@@ -261,6 +222,26 @@ function postbodyTemplate(meetup) {
 						</div>
 					</div>
   `;
+}
+
+function trendingTemplate(meetup) {
+  return `
+		<a href="#" class="scheduledMeetup">
+		<div class="card-sub paddingSide-sm u-marginBottom-sm">
+			<div class="card-date u-marginTop-sm">
+				${meetup.happeningOn}
+			</div>
+			<div class="card-text">
+				<h2 class="card-title heading-primary">
+					${meetup.topic}
+				</h2>
+				<div class="card-created u-marginBottom-sm">
+					created by ${meetup.createdBy} two days ago
+				</div>
+			</div>
+		</div>
+	</a>
+		`
 }
 function meetupTemplate(meetup) {
   return `	<a href="post.html" class="posbtn">
@@ -280,7 +261,7 @@ function meetupTemplate(meetup) {
 										<input type='hidden' value=${meetup.id}>
 									</h2>
 									<p>
-										${meetup.description}
+                 ${truncate(meetup.description, 80)}
 									</p>
 								</div>
 								<div class="card-description-btn">

@@ -536,6 +536,12 @@ button:active {
 
 .error {
     display: none;
+    transition: all .5s;
+    opacity: 0
+}
+
+.admin {
+    display: none;
 }
 /* mobile navigation....(very painful..lol) */
 
@@ -872,6 +878,7 @@ sections styling */
 .section-record {
     padding: 7rem 0rem;
     background-color: #f4f4f4;
+    position: relative;
 }
 
 .record-table {
@@ -909,7 +916,7 @@ sections styling */
 }
 
 .err {
-    color: red;
+    color: red !important;
 
 }
 
@@ -1016,6 +1023,28 @@ sections styling */
     text-overflow: ellipsis;
 }
 
+
+.responseDiv {
+position: absolute;
+top: 72%;
+left: 50%;
+transform: translate(-50%,-50%);
+padding: 2rem;
+color: white;
+width: 30%;
+display: none;
+transition: all 1s;
+z-index: 20;
+text-align: center;
+}
+
+.success {
+    background-color:  rgb(5, 196, 107);
+}
+
+.failed {
+    background-color: rgb(194, 33, 15);
+}
 
 /* meetup card styling */
 
@@ -1237,6 +1266,7 @@ border: 1px solid red;
 .post-description {
     padding: 2rem 0rem 3rem 0rem;
 }
+
 
 .post-text {
     text-align: justify;
@@ -1632,6 +1662,7 @@ outline: none;
     .section-record {
         padding: 3rem 0rem;
         background-color: #f4f4f4;
+        position: relative;
     }
     .record-table {
         position: relative;

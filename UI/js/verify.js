@@ -1,5 +1,31 @@
+let adminStatus;
+const pathname =  window.location.pathname
+const adminNav = document.getElementById('adminNav');
+const signupNav = document.getElementById('signupNav');
+const signinNav = document.getElementById('signinNav');
+const logoutNav = document.getElementById('logoutNav');
+
+function setadminNav(status) {
+  if (adminStatus === 'TRUE' && adminNav) {
+    adminNav.style.display = 'block';
+  }
+}
+
+function removeNav(nav){
+  if(nav) {
+    nav.style.display = 'none';
+  }
+}
 const auth = async () => {
   let user = JSON.parse(localStorage.getItem('user'));
+  if (pathname === '/UI/index.html') {
+    if (user) {
+      removeNav(signupNav);
+      removeNav(signinNav);
+    } else (removeNav(logoutNav))
+    console.log(pathname);
+    return false;
+  }
   if (!user) {
     window.location.href = 'signup.html';
   }
@@ -19,23 +45,29 @@ const auth = async () => {
     window.location.href = 'signup.html';
   }
   if (json.status === 200) {
+    adminStatus = json.data[0].status;
     user.status = json.data[0].status;
     user.id = json.data[0].userid;
     localStorage.setItem('user', JSON.stringify(user));
   }
+setadminNav(adminStatus);
 }
 
 const navigation = document.getElementById('navigation');
 navigation.addEventListener('click', (e) => {
-  e.preventDefault();
-  console.log(e.target);
   if (e.target.classList.contains('logout')) {
+    e.preventDefault();
     localStorage.removeItem('user');
     window.location.replace('index.html');
   } else if (e.target.classList.contains('navigation-logo')) {
+    e.preventDefault();
     window.location.href = 'index.html';
   } else if (e.target.classList.contains('profile')){
+    e.preventDefault();
     window.location.href = 'profile.html';
+  } else if (e.target.classList.contains('admin')) {
+    e.preventDefault();
+    window.location.href = 'admin.html';
   }
 })
 window.onload = auth();

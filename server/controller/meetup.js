@@ -120,8 +120,10 @@ export default class meetupController {
 
   static async getRandom(req,res) {
     try {
-      const query = 'SELECT * FROM "public"."meetups" ORDER BY random() LIMIT 4';
-      const response = await  databaseConnection.query(query);
+      const { meetupNum } = req.params;
+      const query = 'SELECT * FROM "public"."meetups" ORDER BY random() LIMIT $1';
+      const value = [meetupNum]
+      const response = await  databaseConnection.query(query, value);
       if(response.rows) {
         return res.status(200).json({status: 200, data: response.rows})
       }
