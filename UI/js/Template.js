@@ -10,20 +10,20 @@ function happening(date) {
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
   ];
-  const d = new Date(date);
-  const day = d.getDay();
-  const month = monthNames[d.getMonth()];
-  const year = d.getFullYear();
-  const happens = `${day} / ${month} / ${year}`;
-  return `${happens}`;
+  let happeningDate = new Date(date);
+  const day = happeningDate.getDay();
+  const month = monthNames[happeningDate.getMonth()];
+  const year = happeningDate.getFullYear();
+  happeningDate = `${day} / ${month} / ${year}`;
+  return `${happeningDate}`;
 }
 
 function truncate(text, max) {
   return text.substr(0, max - 1) + (text.length > max ? '&hellip;' : '');
 }
 
-function loading(type) {
-  if (type === 2) {
+function loading(loadingType) {
+  if (loadingType === 2) {
     return '<div class="loading"><img src="img/6.gif" alt="Loading" title="Loading" /></div>';
   }
   return '<div class="loading"><img src="img/5.gif" alt="Loading" title="Loading" /></div>';
@@ -32,258 +32,257 @@ function loading(type) {
 
 function adminMeetupTemplate(meetup) {
   return `
-          <div class="card moveInBottom">
-          <div class="col-1-of-5">
-            <div class="card-figure">
-              <img src="/${meetup.images}" alt="" class="card-img">
-            </div>
-          </div>
-          <div class="col-3-of-5">
-            <div class="card-description">
-              <div class="card-text">
-                <h2 class="card-title heading-primary">
-                  <a href="post.html">${truncate(meetup.topic, 41)}</a>
-                </h2>
-                <p>
-                 ${truncate(meetup.description, 80)}
-                </p>
-              </div>
-              <div class="card-description-btn">
-                <a href="#" class="card-btn edit">Edit</a>
-                <input type="hidden" value="${meetup.id}">
-                <a href="#" class="card-btn delete">Delete</a>
-                 <input type="hidden" value="${meetup.id}">
-              </div>
-            </div>
-          </div>
-          <div class="col-1-of-5">
-            <div class="card-description2">
-              <a href="post.html" class="card-question-link">
-                <span class="card-question-number">
-                  25
-                </span> questions already
-              </a>
-              <div class="card-created">
-                <span class="created-when">2 days ago</span>
-              </div>
-            </div>
-          </div>
+    <div class="card moveInBottom">
+    <div class="col-1-of-5">
+      <div class="card-figure">
+        <img src="${meetup.images}" alt="" class="card-img">
+      </div>
+    </div>
+    <div class="col-3-of-5">
+      <div class="card-description">
+        <div class="card-text">
+          <h2 class="card-title heading-primary">
+            <a href="post.html">${truncate(meetup.topic, 41)}</a>
+          </h2>
+          <p>
+            ${truncate(meetup.description, 80)}
+          </p>
         </div>
-  `
+        <div class="card-description-btn">
+          <a href="#" class="card-btn edit">Edit</a>
+          <input type="hidden" value="${meetup.id}">
+          <a href="#" class="card-btn delete">Delete</a>
+            <input type="hidden" value="${meetup.id}">
+        </div>
+      </div>
+    </div>
+    <div class="col-1-of-5">
+      <div class="card-description2">
+        <a href="post.html" class="card-question-link">
+          <span class="card-question-number">
+            25
+          </span> questions already
+        </a>
+        <div class="card-created">
+          <span class="created-when">2 days ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
 }
 
 function questionTemplate(question) {
   return `
-	<div class="questions">
-									<div class="question-text">
-										${question.body}
-									</div>
-									<ul class="question-btnlist">
-										<li class="question-btnlistitem">
-											<a href="#" class="question-btn">
-												<span class="question-text downvote downvotediv">${question.downvotes}</span>
-												<input type="hidden" value=${question.id}>
-												<ion-icon class="downvote" name="thumbs-down"></ion-icon>
-												<input type="hidden" value=${question.id}>
-											</a>
-										</li>
-										<li class="question-btnlistitem">		
-											<a href="#" class="question-btn">
-												<span class="question-text upvotediv upvote">${question.upvotes}</span>
-												<input type="hidden" value=${question.id}>
-												<ion-icon class="upvote" name="thumbs-up"></ion-icon>
-												<input type="hidden" value=${question.id}>
-											</a>
-										</li>
-										<li class="question-btnlistitem">
-											<a href="" class="question-btn" id="chatbox">
-												<span class="question-text"></span>
-												<ion-icon class="chatbtn" name="chatboxes"></ion-icon>
-											</a>
-										</li>
-									</ul>
-								</div>
-									<form action="#" class="form-comment" id="commentForm" >
-									<input type="hidden" value=${question.id}>
-										<input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
-										<input type="button" value="comment" class="form-comment-btn commentBtn">
-									</form>
+  <div class="questions">
+      <div class="question-text">
+        ${question.body}
+      </div>
+      <ul class="question-btnlist">
+        <li class="question-btnlistitem">
+          <a href="#" class="question-btn">
+            <span class="question-text downvote downvotediv">${question.downvotes}</span>
+            <input type="hidden" value=${question.id}>
+            <ion-icon class="downvote" name="thumbs-down"></ion-icon>
+            <input type="hidden" value=${question.id}>
+          </a>
+        </li>
+        <li class="question-btnlistitem">		
+          <a href="#" class="question-btn">
+            <span class="question-text upvotediv upvote">${question.upvotes}</span>
+            <input type="hidden" value=${question.id}>
+            <ion-icon class="upvote" name="thumbs-up"></ion-icon>
+            <input type="hidden" value=${question.id}>
+          </a>
+        </li>
+        <li class="question-btnlistitem">
+          <a href="" class="question-btn" id="chatbox">
+            <span class="question-text"></span>
+            <ion-icon class="chatbtn" name="chatboxes"></ion-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+      <form action="#" class="form-comment" id="commentForm" >
+      <input type="hidden" value=${question.id}>
+        <input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
+        <input type="button" value="comment" class="form-comment-btn commentBtn">
+      </form>
 
-									<div class="commentContainer">
-										${loading(2)}
-									</div>
-							</div>
-						</div>	`;
+      <div class="commentContainer">
+        ${loading(2)}
+      </div>
+  </div>
+  </div>	`;
 }
 
 function showcardTemplate(meetup) {
   return `
-					<div class="row">
-						<div class="card-date u-marginTop-sm">
-							${happening(meetup.happeningOn)}
-						</div>
-						<div class="card-text">
-							<h2 class="card-title heading-primary">
-								${meetup.topic}
-							</h2>
-							<div class="card-created u-marginBottom-sm">
-								created by osaro ${createdWhen(meetup.createdOn)}
-							</div>
-						</div>
-						<div class="card-schedule">
-							<div class="card-schedule-side card-schedule-front" >
-							<span id="rsvptext" class="emp"></span>
-								<a href="#" class="" id="rsvpCardFront">Add to your Schedule &rarr;</a>
-							</div>
-							<div class="card-schedule-side card-schedule-back" id= 'rsvpCard'>
-								<a href="#" class="schedule-btn">Yes</a>
-								<input type="hidden" value='${meetup.id}'>
-								<a href="#" class="schedule-btn">Maybe</a>
-								<input type="hidden" value='${meetup.id}'>
-								<a href="#" class="schedule-btn">No</a>
-								<input type="hidden" value='${meetup.id}'>
-							</div>
-						</div>
-					</div>
+    <div class="row">
+      <div class="card-date u-marginTop-sm">
+        ${happening(meetup.happeningOn)}
+      </div>
+      <div class="card-text">
+        <h2 class="card-title heading-primary">
+          ${meetup.topic}
+        </h2>
+        <div class="card-created u-marginBottom-sm">
+          created by osaro ${createdWhen(meetup.createdOn)}
+        </div>
+      </div>
+      <div class="card-schedule">
+        <div class="card-schedule-side card-schedule-front" >
+        <span id="rsvptext" class="emp"></span>
+          <a href="#" class="" id="rsvpCardFront">Add to your Schedule &rarr;</a>
+        </div>
+        <div class="card-schedule-side card-schedule-back" id= 'rsvpCard'>
+          <a href="#" class="schedule-btn">Yes</a>
+          <input type="hidden" value='${meetup.id}'>
+          <a href="#" class="schedule-btn">Maybe</a>
+          <input type="hidden" value='${meetup.id}'>
+          <a href="#" class="schedule-btn">No</a>
+          <input type="hidden" value='${meetup.id}'>
+        </div>
+      </div>
+    </div>
 `;
 }
 
 function commentTemplate(comment) {
   return `				<div class="post-comment" id="post-comment">
-										<div class="comment">
-										<div class="comment-text">
-											${comment.comment}
-										</div>
-								</div>
-
-	`
+                    <div class="comment">
+                    <div class="comment-text">
+                      ${comment.comment}
+                    </div>
+                </div>
+  `;
 }
 function postbodyTemplate(meetup) {
   return `
-  					<div class="u-marginTop-lg">
-						<div class="col-3-of-5">
-							<figure class="post-figure">
-								<img src="/${meetup.images}" alt="" class="post-img">
-								<figcaption class="story-caption">Jack Wilson</figcaption>
-							</figure>
-							<div class="post-description">
-								<h2 class="heading-primary post-heading">
-									details
-								</h2>
-								<p class="post-text">
-                    ${meetup.description}
-                    <br\><h1 class="emp">Location</h1> ${meetup.location}
-								</p>
-							</div>
-							<div class="post-input u-marginTop-sm">
-								<form action="#" id="questionForm">
-									<div class="form-group">
-										<input type="text" name="post-title" id="questionTitle" class="form-input form-input-2" placeholder="title your question">
-									</div>
-									<div class="form-group">
-										<textarea class="form-input form-input-2 post-textarea" name="post-input" row="20" col="20"
-										 placeholder="Ask your question" maxlength="400" id='questionBody'></textarea>
-									</div>
+    <div class="u-marginTop-lg">
+    <div class="col-3-of-5">
+      <figure class="post-figure">
+        <img src="${meetup.images}" alt="" class="post-img">
+        <figcaption class="story-caption">Jack Wilson</figcaption>
+      </figure>
+      <div class="post-description">
+        <h2 class="heading-primary post-heading">
+          details
+        </h2>
+        <p class="post-text">
+            ${meetup.description}
+            <br\><h1 class="emp">Location</h1> ${meetup.location}
+        </p>
+      </div>
+      <div class="post-input u-marginTop-sm">
+        <form action="#" id="questionForm">
+          <div class="form-group">
+            <input type="text" name="post-title" id="questionTitle" class="form-input form-input-2" placeholder="title your question">
+          </div>
+          <div class="form-group">
+            <textarea class="form-input form-input-2 post-textarea" name="post-input" row="20" col="20"
+              placeholder="Ask your question" maxlength="400" id='questionBody'></textarea>
+          </div>
 
-									<div class="form-group">
-									 <div class=" err error u-marginTop-neg u-marginBottom-neg" id='errorResponse'>htis is the </div>
-										<a href="#" class="form-btn form-btn-sm questionbtn" id='qbtn'> post question</a>
-									</div>
-								</form>
-							</div>
-							<div class="post-questions u-marginTop-md" id="questionss">
-							
-								<div class="questions">
-								${loading(2)}
-								</div>
-								<div>
-									<div class="form-comment" id="form-comment">
-										<input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
-										<input type="button" value="comment" class="form-comment-btn" id="commentBtn">
-									</div>
-								</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-2-of-5">
-							<div class="more-meetup">
-								<h2 class="heading-primary post-heading u-marginBottom-sm">
-									Trending meetup
-								</h2>
-								<div id="trendingMeetup">
-									${loading(2)}
-								</div>
-							</div>
-							<div class="row u-text-center">
-								<a href="meetup.html" class="more emp u-marginTop-md ">show more meetup &rarr;</a>
-							</div>
-						</div>
-					</div>
+          <div class="form-group">
+            <div class=" err error u-marginTop-neg u-marginBottom-neg" id='errorResponse'>htis is the </div>
+            <a href="#" class="form-btn form-btn-sm questionbtn" id='qbtn'> post question</a>
+          </div>
+        </form>
+      </div>
+      <div class="post-questions u-marginTop-md" id="questionss">
+      
+        <div class="questions">
+        ${loading(2)}
+        </div>
+        <div>
+          <div class="form-comment" id="form-comment">
+            <input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
+            <input type="button" value="comment" class="form-comment-btn" id="commentBtn">
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2-of-5">
+      <div class="more-meetup">
+        <h2 class="heading-primary post-heading u-marginBottom-sm">
+          Trending meetup
+        </h2>
+        <div id="trendingMeetup">
+          ${loading(2)}
+        </div>
+      </div>
+      <div class="row u-text-center">
+        <a href="meetup.html" class="more emp u-marginTop-md ">show more meetup &rarr;</a>
+      </div>
+    </div>
+  </div>
   `;
 }
 
 function trendingTemplate(meetup) {
   return `
-		<a href="#" class="scheduledMeetup">
-		<div class="card-sub paddingSide-sm u-marginBottom-sm">
-			<div class="card-date u-marginTop-sm">
-				${meetup.happeningOn}
-			</div>
-			<div class="card-text">
-				<h2 class="card-title heading-primary">
-					${meetup.topic}
-				</h2>
-				<div class="card-created u-marginBottom-sm">
-					created by ${meetup.createdBy} two days ago
-				</div>
-			</div>
-		</div>
-	</a>
-		`
+    <a href="#" class="scheduledMeetup">
+    <div class="card-sub paddingSide-sm u-marginBottom-sm">
+      <div class="card-date u-marginTop-sm">
+        ${meetup.happeningOn}
+      </div>
+      <div class="card-text">
+        <h2 class="card-title heading-primary">
+          ${meetup.topic}
+        </h2>
+        <div class="card-created u-marginBottom-sm">
+          created by ${meetup.createdBy} two days ago
+        </div>
+      </div>
+    </div>
+  </a>
+    `;
 }
 function meetupTemplate(meetup) {
-  return `	<a href="post.html" class="posbtn">
-		<input type='hidden' value=${meetup.id}>
-					<div class="card moveInBottom">
-						<div class="col-1-of-5">
-							<div class="card-figure">
-								<img src="/${meetup.images}" alt="" class="card-img postbtn">
-								<input type='hidden' value=${meetup.id}>
-							</div>
-						</div>
-						<div class="col-3-of-5">
-							<div class="card-description">
-								<div class="card-text">
-									<h2 class="card-title heading-primary">	
-										<a href="post.html" class="postbtn">${truncate(meetup.topic, 41)}</a>
-										<input type='hidden' value=${meetup.id}>
-									</h2>
-									<p>
-                 ${truncate(meetup.description, 80)}
-									</p>
-								</div>
-								<div class="card-description-btn">
-									<a href="post.html" class="card-btn postbtn">Post question &rarr;</a>
-									<input type='hidden' value=${meetup.id}>
-								</div>
-							</div>
-						</div>
-						<div class="col-1-of-5">
-							<div class="card-description2">
-								<a href="post.html" class="card-question-link postbtn">
-									<span class="card-question-number" id="question">
-										${getQuestionNo(2)}
-									</span> questions already
-								</a>
-								<input type='hidden' value=${meetup.id}>
-								<div class="card-created">
-									created by osaro <span class="created-when">${createdWhen(meetup.createdOn)}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-        </a>  
+  return `
+  <a href="post.html" class="posbtn">
+  <input type='hidden' value=${meetup.id}>
+      <div class="card moveInBottom">
+        <div class="col-1-of-5">
+          <div class="card-figure">
+            <img src="${meetup.images}" alt="" class="card-img postbtn">
+            <input type='hidden' value=${meetup.id}>
+          </div>
+        </div>
+        <div class="col-3-of-5">
+          <div class="card-description">
+            <div class="card-text">
+              <h2 class="card-title heading-primary">	
+                <a href="post.html" class="postbtn">${truncate(meetup.topic, 41)}</a>
+                <input type='hidden' value=${meetup.id}>
+              </h2>
+              <p>
+              ${truncate(meetup.description, 80)}
+              </p>
+            </div>
+            <div class="card-description-btn">
+              <a href="post.html" class="card-btn postbtn">Post question &rarr;</a>
+              <input type='hidden' value=${meetup.id}>
+            </div>
+          </div>
+        </div>
+        <div class="col-1-of-5">
+          <div class="card-description2">
+            <a href="post.html" class="card-question-link postbtn">
+              <span class="card-question-number" id="question">
+                ${getQuestionNo(2)}
+              </span> questions already
+            </a>
+            <input type='hidden' value=${meetup.id}>
+            <div class="card-created">
+              created by osaro <span class="created-when">${createdWhen(meetup.createdOn)}</span>
+            </div>
+          </div>
+        </div>
+        </div>
+    </a>  
   `;
 }

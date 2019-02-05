@@ -7,7 +7,7 @@ const should = chai.should();
 const server = supertest.agent(app);
 
 const mock = {
-  email: 'ilegbinijieinnocentcareer@gmail.com',
+  email: 'anotheruser@gmail.com',
   username: 'innocent',
   password: 'andelabootcamp',
   "firstname": "inndfco",
@@ -200,7 +200,7 @@ describe('POST /auth/login', () => {
     try {
       const result = await server
         .post('/api/v1/auth/login')
-        .send({ email: 'ilegbinijieinnocentcareer@gmail.com', password: 'andelabootcamp' })
+        .send({ email: 'anotheruser@gmail.com', password: 'andelabootcamp' })
         .expect(200);
       result.status.should.equal(200);
       result.body.should.be.an('object');

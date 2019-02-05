@@ -1,18 +1,12 @@
 import multer from 'multer';
 
-import uuid from 'uuid/v4';
+import Datauri from 'datauri';
 
-export default class Upload {
+import path from 'path';
+
+class Upload {
   static fileStorage() {
-    const fileStorage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, './images');
-      },
-      filename: (req, file, cb) => {
-        cb(null, uuid() + file.originalname);
-      },
-    });
-
+    const fileStorage = multer.memoryStorage();
     return fileStorage;
   }
 
@@ -25,3 +19,12 @@ export default class Upload {
     }
   }
 }
+
+const dUri = new Datauri();
+/** format the req file buffer and return a string blob */
+const dataUri = (req) => { return dUri.format(path.extname(req.file.originalname).toString(),
+  req.file.buffer) 
+};
+
+export { Upload, dataUri };
+
