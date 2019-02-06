@@ -78,6 +78,26 @@ const adminMeetupTemplate = meetup => `
   </div>
   `;
 
+  const scheduledTemplate = schedule => `
+    <a href="#">
+      <div class="card-sub paddingSide-sm u-marginBottom-sm">
+        <div class="card-date u-marginTop-sm">
+         created ${createdWhen(schedule.createdOn)}
+        </div>
+        <div class="card-text">
+          <h2 class="card-title heading-primary">
+            ${schedule.topic}
+          </h2>
+          <div class="card-created u-marginBottom-sm">
+          Happening Date: ${dateFormater(schedule.happeningOn)}
+          </div>
+          <div class="heading-primary reply">
+            Rsvp: ${schedule.response}
+          </div>
+        </div>
+      </div>
+    </a>
+  `
 
 const questionTemplate = question => `
 <div class="questions">
@@ -243,11 +263,11 @@ const trendingTemplate = meetup => `
   <a href="#" class="scheduledMeetup">
   <div class="card-sub paddingSide-sm u-marginBottom-sm">
     <div class="card-date u-marginTop-sm">
-      ${dateFormater(meetup.happeningOn)}
+      ${createdWhen(meetup.happeningOn)}
     </div>
     <div class="card-text">
       <h2 class="card-title heading-primary postbtn">
-        ${truncate(meetup.topic, 25)}
+        ${truncate(meetup.topic, 20)}
       </h2>
       <input type='hidden' value='${meetup.id}'>
     <p class="post-text">

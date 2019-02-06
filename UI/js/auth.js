@@ -81,14 +81,14 @@ const fadein = (value) => {
   value.style.display = 'block';
 }
 const fade = (value) => {
-  setTimeout(fadein, 2000, value)
+  setTimeout(fadein, 1000, value)
 }
 
 const checkSignupStatus = () => {
   let signupStatus = localStorage.getItem('signupStatus');
   const signupResponse = document.getElementById('signupResponse');
   if (signupStatus == 1) {
-    signupResponse.innerHTML = `You have to be Signed up <br\> to view meetups`;
+    signupResponse.innerHTML = `You have to be logged in to view meetups`;
     fade(signupResponse);
   }
   localStorage.removeItem('signupStatus');
@@ -124,6 +124,8 @@ const handleSuccessResponse = (response) => {
     token: response[0].token,
     username: response[0].user.username,
     status: response[0].user.isAdmin,
+    phonenumber: response[0].user.phoneNumber,
+    email: response[0].user.email,
   }
   localStorage.removeItem('user');
   localStorage.setItem('user', JSON.stringify(user));
