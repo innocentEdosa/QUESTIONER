@@ -14,7 +14,7 @@ const Admin = {
   email: 'super@gmail.com',
   password: 'edosafd',
   phoneNumber: '07057443455',
-  isadmin: true,
+  isadmin: 'TRUE',
 }
 
 
@@ -44,7 +44,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
       console.log(error);
     }
   });
-
   it('should throw an error if there is no meetups', async () => {
     try {
       const res = await server
@@ -79,7 +78,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
           topic: 'this is a topic',
           tags: ['business'],
           description: 'this is anfffohter',
-          createdBy: 1,
+          createdBy: 2,
           images: 'this is an aeir',
           happeningOn: new Date(2021, 12, 12),
         })
@@ -363,7 +362,7 @@ describe('TEST ALL RSVP ENDPOINT', () => {
         .set('Accept', 'application/json')
         .send({
           "meetup": 1,
-          "user": 1,
+          "user": 2,
           "response": "maybe"
         })
       result.status.should.equal(201);
@@ -380,7 +379,7 @@ describe('TEST ALL RSVP ENDPOINT', () => {
         .set('Accept', 'application/json')
         .send({
           "meetup": 100,
-          "user": 1,
+          "user": 2,
           "response": "maybe"
         })
       result.status.should.equal(404);
@@ -397,7 +396,7 @@ describe('TEST ALL RSVP ENDPOINT', () => {
         .set('Accept', 'application/json')
         .send({
           "meetup": 100,
-          "user": 1,
+          "user": 2,
         })
       result.status.should.equal(400);
     } catch (err) {
@@ -464,8 +463,8 @@ const notAdmin = {
   othername: 'mather',
   email: 'super2@gmail.com',
   password: 'edosafd',
-  phonenumber: '07057443455',
-  isadmin: false,
+  phoneNumber: '07057443455',
+  isadmin: 'FALSE',
 }
 
 let notAdminToken;
@@ -492,7 +491,7 @@ describe('NON ADMIN', () => {
           topic: 'this is a topic',
           tags: ['business'],
           description: 'this is anfffohter',
-          createdBy: 1,
+          createdBy: 3,
           images: 'this is an aeir',
           happeningOn: 'new Date()',
         })
@@ -513,7 +512,7 @@ describe('NON ADMIN', () => {
           topic: 'this is a topic',
           tags: ['business'],
           description: 'this is anfffohter',
-          createdBy: 1,
+          createdBy: 3,
           images: 'this is an aeir',
           happeningOn: 'new Date()',
         })
@@ -555,7 +554,7 @@ describe('DELETE A MEETUP', () => {
   it('IT SHOULD DELETE A MEETUP', async () => {
     try {
       const res = await server
-        .delete('/api/v1/meetups/2')
+        .delete('/api/v1/meetups/12')
         .set('Accept', 'application/json')
         .set('Authorization', token)
       res.status.should.equal(404);

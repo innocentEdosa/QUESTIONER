@@ -1,6 +1,13 @@
 
 import { config } from 'dotenv';
+
 import databaseConnection from './dbConfig';
+
+import bcrypt from 'bcryptjs';
+
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 config();
 
@@ -8,7 +15,8 @@ databaseConnection.on('connect', () => {
   console.log('connected to the db');
 });
 
-const databasetables = [
+
+const databaseTables = [
   `DROP TABLE IF EXISTS users CASCADE;
     CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -19,15 +27,15 @@ const databasetables = [
     "phoneNumber" VARCHAR(13) DEFAULT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(250) NOT NULL,
-    registered TIMESTAMPTZ NOT NULL DEFAULT CURRENT_DATE,
-    "updateOn" TIMESTAMP DEFAULT NULL,
-    "lastLogin" TIMESTAMP DEFAULT NULL,
+    registered TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updateOn" TIMESTAMP DEFAULT NOW(),
+    "lastLogin" TIMESTAMP DEFAULT NOW(),
     "isAdmin" VARCHAR(50) DEFAULT 'false' NOT NULL
   );`,
   `DROP TABLE IF EXISTS meetups CASCADE;
     CREATE TABLE meetups (
     id SERIAL PRIMARY KEY,
-    "createdOn" TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,
+    "createdOn" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     topic VARCHAR (355) NOT NULL,
     location VARCHAR (355) NOT NULL,
     description VARCHAR (355) NOT NULL,
@@ -81,12 +89,33 @@ CREATE TABLE comments(
 );`,
 ];
 
+
+const hashPwd = bcrypt.hashSync(process.env.APASSWORD, 3);
+
+const Admin = {
+  firstname: 'innocent',
+  lastname: 'ilegbinijie',
+  username: 'adminuser',
+  othername: 'edosa',
+  email: 'ilegbinijieinnocent@gmail.com',
+  password: hashPwd,
+  phoneNumber: '070754240848',
+  isadmin: 'TRUE',
+};
+
+
+const query =   'INSERT INTO users(firstname, lastname, othername, email, "phoneNumber", username, password, "isAdmin") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+const value = [Admin.firstname, Admin.lastname, Admin.othername, Admin.email, Admin.phoneNumber, Admin.username, Admin.password, Admin.isadmin ];
+
 (async () => {
   try {
-    // await databasetables.forEach(query => databaseConnection.query(query, error => console.log(error)));
-    for (let i = 0; i < databasetables.length; i += 1) {
-      const response = await databaseConnection.query(databasetables[i]);
-    }
+    await databaseConnection.query(databaseTables[0]);
+    await databaseConnection.query(databaseTables[1]);
+    await databaseConnection.query(databaseTables[2]);
+    await databaseConnection.query(databaseTables[3]);
+    await databaseConnection.query(databaseTables[4]);
+    await databaseConnection.query(databaseTables[5]);
+    await databaseConnection.query(query, value);
   }
   catch (err) {
     console.log(err);

@@ -1,7 +1,9 @@
 export default class Util {
   static printErr(errorArr) {
-    const Temp = [];
-    for (let i = 0; i < errorArr.length; i += 1) { Temp.push({ [errorArr[i].param]: errorArr[i].msg }); }
+    const Temp = {};
+    errorArr.forEach((error) => {
+      Temp[error.param] = [error.msg];
+    });
     return Temp;
   }
 

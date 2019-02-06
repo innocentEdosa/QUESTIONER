@@ -50,13 +50,16 @@
 				<li class="navigation-listitem">
 					<a href="signup.html" class="navigation-listlink" id="signupNav">Sign up</a>
 				</li>
-								<li class="navigation-listitem">
-									<a href="admin.html" class="navigation-listlink less admin" id="adminNav">create meetup</a>
-								</li>
-								<li class="navigation-listitem">
-									<a href="index.html" class="navigation-listlink logout" id="logoutNav">Log out</a>
-								</li>
-				
+				<li class="navigation-listitem">
+					<a href="admin.html" class="navigation-listlink  admin" id="adminNav">Admin</a>
+				</li>
+				<li class="navigation-listitem">
+					<a href="create.html" class="navigation-listlink  create" id="createNav">create meetup</a>
+				</li>
+				<li class="navigation-listitem">
+					<a href="index.html" class="navigation-listlink logout" id="logoutNav">Log out</a>
+				</li>
+
 			</ul>
 		</div>
 	</nav>
@@ -66,11 +69,11 @@
 				<span class="header-text-main moveInLeft">
 					Crowd Source Questions
 				</span>
-				<span class="header-text-sub">
+				<span class="header-text-sub" id="headerSubText">
 					Join Questioner, Ask the right questions and help organiser plan better for your next meetup
 				</span>
 			</h1>
-			<div class="showcase-btnwrapper u-marginTop-lg">
+			<div class="showcase-btnwrapper u-marginTop-lg" id="showcasebtn1">
 				<a href="signup.html" class="btn showcase-btn">sign up for questioner</a>
 			</div>
 		</div>
@@ -78,12 +81,12 @@
 	<main>
 		<section class="section-meetup">
 			<div class="row">
-				 <h2 class="heading-primary">
+				<h2 class="heading-primary">
 					Top meetup
 				</h2>
-			</div> 
-		 <div class="row" id="meetup1">
-			</div> 
+			</div>
+			<div class="row" id="meetup1">
+			</div>
 		</section>
 		<div class="row u-text-center">
 			<a href="meetup.html" class="more emp u-marginTop-md ">show more meetup &rarr;</a>
@@ -92,19 +95,19 @@
 			<div class="row padding-df">
 				<h2 class="showcase-text u-marginBottom-md">
 					<span class=" header-text-main moveInLeft">
-						Still have'nt decided
+						GET THE RIGHT ANSWERS
 					</span>
 					<span class="header-text-sub moveInRight">
 						You can finally get the right answers from the organiser of meetups, if you ask the right questions
 					</span>
 				</h2>
 				<div class="showcase-btnwrapper">
-					<a href="signup.html" class="btn showcase-btn  moveInBottom">Join Questioner</a>
+					<a href="signup.html" class="btn showcase-btn  moveInBottom" id='showcasebtn2'>Join Questioner</a>
 				</div>
 			</div>
 		</div>
 		<section class="section-meetup">
-			<div class="row" >
+			<div class="row">
 				<h2 class="heading-primary">
 					Trending
 				</h2>
@@ -123,7 +126,7 @@
 		<p>All rights reserved</p>
 	</footer>
 	<script src="js/verify.js"></script>
-<script defer src="js/Template.js"></script>
+	<script defer src="js/Template.js"></script>
 	<script defer src="js/index.js"></script>
 </body>
 

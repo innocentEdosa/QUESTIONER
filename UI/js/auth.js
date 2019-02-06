@@ -1,6 +1,13 @@
+const usernameErrorResponse = document.getElementById('usernameErrorResponse');
+const emailErrorResponse = document.getElementById('emailErrorResponse');
+const passwordErrorResponse = document.getElementById('passwordErrorResponse');
+const loginbtn = document.getElementById('loginbtn');
+const signupbtn = document.getElementById('signupbtn');
+const loginErrorResponse = document.getElementById('loginerror');
+
+
 class Validate {
   static email(email) {
-    const emailResponse = document.getElementById('emailResponse');
     const error = [];
     const reg = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     if (email === undefined || email === '') {
@@ -9,16 +16,14 @@ class Validate {
       error.push('Please enter a valid email');
     }
     if (error.length > 0) {
-      emailResponse.innerHTML = `${Validate.display(error)}`;
-      emailResponse.style.display = 'block';
-      emailResponse.style.opacity = 1;
+      emailErrorResponse.innerHTML = `${Validate.print(error)}`;
+      Validate.display(emailErrorResponse);
       return false;
     }
     return true;
   }
 
   static password(password) {
-    const passwordResponse = document.getElementById('passwordResponse');
     const error = [];
     if (password === undefined || password === '') {
       error.push('Password is required');
@@ -26,74 +31,99 @@ class Validate {
       error.push('Password should be more than five characters');
     }
     if (error.length > 0) {
-      passwordResponse.innerHTML = `${Validate.display(error)}`;
-      passwordResponse.style.display = 'block';
-      passwordResponse.style.opacity = 1;
+      passwordErrorResponse.innerHTML = `${Validate.print(error)}`;
+      Validate.display(passwordErrorResponse);
       return false;
     }
     return true;
   }
 
   static username(username) {
-    const usernameResponse = document.getElementById('usernameResponse');
     const error = [];
     let regexp = /^\S+$/;
     if (username === undefined || username === "") {
       error.push('username is required');
     } else if (!regexp.test(username)) {
       error.push('Username cannot contain spaces');
-    } else if ( username.length < 3) {
+    } else if (username.length < 3) {
       error.push('Username should be more than 3 characters')
     }
     if (error.length > 0) {
-      usernameResponse.innerHTML = `${Validate.display(error)}`;
-      usernameResponse.style.display = 'block';
-      usernameResponse.style.opacity = 1;
+      usernameErrorResponse.innerHTML = `${Validate.print(error)}`;
+      Validate.display(usernameErrorResponse);
       return false;
     }
     return true;
   }
 
-  static display(arr) {
+  static print(arr) {
     return arr.join('<br\>');
+  }
+
+  static display(element) {
+    element.style.display = 'block';
+    element.style.opacity = 1;
   }
 
   static clearDisplay(elem) {
     if (elem) {
-      elem.style.opacity = 0; 
+      elem.style.opacity = 0;
     }
   }
 }
 
-const errorTemplate = (error) => {
-  return `${error.email || ''} <br\> ${error.username || ''}`;
+const fadeout = (value) => {
+  value.style.opacity = 0;
+  value.style.opacity = 0;
+}
+const fadein = (value) => {
+  value.style.opacity = 1;
+  value.style.display = 'block';
+}
+const fade = (value) => {
+  setTimeout(fadein, 2000, value)
 }
 
-const showerror = (error) => {
-  const loginerror = document.getElementById('loginerror');
-  const loginbtn = document.getElementById('loginbtn');
-  const signupbtn = document.getElementById('signupbtn');
-  const signuperror = document.getElementById('signuperror');
-  if (loginbtn && loginerror) {
+const checkSignupStatus = () => {
+  let signupStatus = localStorage.getItem('signupStatus');
+  const signupResponse = document.getElementById('signupResponse');
+  if (signupStatus == 1) {
+    signupResponse.innerHTML = `You have to be Signed up <br\> to view meetups`;
+    fade(signupResponse);
+  }
+  localStorage.removeItem('signupStatus');
+}
+
+const handleErrorResponse = (error) => {
+  if (loginbtn) {
     loginbtn.innerHTML = 'Log in';
-    loginerror.innerHTML = `${error}`;
-    loginerror.style.display = 'block';
-    loginerror.style.opacity = 1;
+    if (error.email) {
+      emailErrorResponse.innerHTML = `${Validate.print(error.email)}`;
+      Validate.display(emailErrorResponse);
+    }
+    else {
+      loginErrorResponse.innerHTML = `${error}`;
+      Validate.display(loginErrorResponse);
+    }
   }
-  if (signupbtn && signuperror) {
+  if (signupbtn) {
     signupbtn.innerHTML = 'Sign up for questioner';
-    signuperror.innerHTML = `${error.map(errorTemplate).join('')}`;
-    signuperror.style.display = 'block';
-    signuperror.style.opacity = 1;
+    if (error.email) {
+      emailErrorResponse.innerHTML = `${Validate.print(error.email)}`;
+      Validate.display(emailErrorResponse);
+    }
+    if (error.username) {
+      usernameErrorResponse.innerHTML = `${Validate.print(error.username)}`;
+      Validate.display(usernameErrorResponse);
+    }
   }
 }
 
-const handlesuccess = (success) => {
-  const loginbtn = document.getElementById('loginbtn');
-  const signupbtn = document.getElementById('signupbtn');
+const handleSuccessResponse = (response) => {
   const user = {
-    token: success[0].token,
-    username: success[0].user.username,
+    token: response[0].token,
+    username: response[0].user.username,
+    status: response[0].user.isAdmin,
   }
   localStorage.removeItem('user');
   localStorage.setItem('user', JSON.stringify(user));
@@ -134,10 +164,9 @@ const login = async (email, password) => {
     const response = await fetch(url, fetchData);
     const json = await response.json();
     if (json.error) {
-
-      return showerror(json.error);
+      return handleErrorResponse(json.error);
     } else {
-      return handlesuccess(json.data);
+      return handleSuccessResponse(json.data);
     }
   }
 };
@@ -175,41 +204,38 @@ const signup = async (email, password, username) => {
     const response = await fetch(url, fetchData);
     const json = await response.json();
     if (json.error) {
-      return showerror(json.error);
+      return handleErrorResponse(json.error);
     } else {
-      return handlesuccess(json.data);
+      return handleSuccessResponse(json.data);
     }
   }
 };
 
-const emailResponse = document.getElementById('emailResponse');
-const passwordResponse = document.getElementById('passwordResponse');
-const usernameResponse = document.getElementById('usernameResponse');
+
 
 const clearError = () => {
-  emailResponse.innerHTML = '';
-  passwordResponse.innerHTML = '';
-  if (usernameResponse) { usernameResponse.innerHTML = ''; }
+  emailErrorResponse.innerHTML = '';
+  passwordErrorResponse.innerHTML = '';
+  if (loginErrorResponse) { loginErrorResponse.style.display = 'none' }
+  if (usernameErrorResponse) { usernameErrorResponse.innerHTML = ''; }
 }
 
-function initialise() {
+const initialiseForms = () => {
   const loginForm = document.forms.login;
   const signupForm = document.forms.signup;
   const emailField = document.getElementById('email');
   const passwordField = document.getElementById('password');
   const usernameField = document.getElementById('username');
 
-  emailField.onkeyup = function() {
-    Validate.clearDisplay(emailResponse);
+  emailField.onkeyup = function () {
+    Validate.clearDisplay(emailErrorResponse);
   }
-
-  passwordField.onkeyup = function(){
-    Validate.clearDisplay(passwordResponse);
+  passwordField.onkeyup = function () {
+    Validate.clearDisplay(passwordErrorResponse);
   }
-
-  if(usernameField) {
-    usernameField.onkeyup = function(){
-      Validate.clearDisplay(usernameResponse);
+  if (usernameField) {
+    usernameField.onkeyup = function () {
+      Validate.clearDisplay(usernameErrorResponse);
     }
   }
 
@@ -236,4 +262,7 @@ function initialise() {
   }
 }
 
-window.onload = initialise();
+window.onload = function () {
+  initialiseForms();
+  checkSignupStatus();
+}
