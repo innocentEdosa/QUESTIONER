@@ -128,15 +128,24 @@ export default class questionController {
       const { meetupid } = req.params;
       let response = await Question.findbyMeetup(meetupid);
       if (!response.rows[0] || response.rows[0] === undefined) {
-        console.log(response);
         return res.status(404).json({ error: 'Question does not exist' });
       }
-      console.log(response)
       return res.status(200).json({status: 200 , data: response.rows, number: response.rowCount});
     } catch (error) {
-      console.log(error)
       return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
     }
+  }
 
+  static async findbyUserId (req, res) {
+  try {
+    const { userid } = req.params;
+    const response = await Question.findbyUser(userid);
+    if(!response.rows[0] || response.rows[0] === undefined) {
+      return res.status(404).json({ error: 'No questions for this user' });
+    }
+    return res.status(200).json({ status: 200, data: response.rows, number: response.rowCount });
+  } catch (error) {
+    return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
+  }
   }
 }

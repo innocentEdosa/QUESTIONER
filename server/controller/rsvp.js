@@ -39,4 +39,17 @@ export default class rsvpController {
       console.log(err);
     }
   }
+
+  static async findbyUser(req, res) {
+    try {
+      const { userid } = req.params;
+      const response = await Rsvp.findbyUser(userid);
+      if (!response.rows[0] || response.rows[0] === undefined) {
+        return res.status(404).json({ error: 'No Rsvp for this user' });
+      }
+      return res.status(200).json({ status: 200, data: response.rows, number: response.rowCount });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
+    }
+  }
 }

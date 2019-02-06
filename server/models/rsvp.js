@@ -42,4 +42,16 @@ export default class Rsvp {
       return err;
     }
   }
+
+  static async findbyUser(userid) {
+    try {
+      const query = 'SELECT * FROM meetups LEFT JOIN rsvps ON meetups.id = rsvps.meetup WHERE rsvps.userid = $1';
+      const value = [userid];
+      const res = await databaseConnection.query(query, value)
+      return res;
+    }
+    catch (err) {
+      return err;
+    }
+  }
 }

@@ -29,8 +29,11 @@ router.use('/meetups', meetupRouter);
 /** This router handles all requests to /questions endpoint */
 router.use('/questions', questionsRouter)
 
+router.use('/rsvp', rsvpRouter);
 /** This router handles rsvp requests */
 router.use('/meetups/:meetupId/rsvp', rsvpRouter);
+
+
 
 router.use('/auth', authRouter);
 
