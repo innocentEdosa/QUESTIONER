@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Questioner | Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body id="mainBody">
+  <nav class="navigation" id="navigation">
+    <div class="row nav-mobile ">
+      <div class="navigation-mobilelogobox">
+        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+      </div>
+      <input type="checkbox" name="checkBox" id="checkBox" class="navigation-checkbox">
+      <label for="checkBox" class="navigation-toggle" id="navtoggle">
+        <span class="navigation-icon" id="navigation-icon"></span>
+      </label>
+      <div class="navigation-background">&nbsp</div>
+
+      <div class="navigation-mobile">
+        <ul class="navigation-listmobile">
+          <li class="navigation-listitem-mobile"><a href="index.html" class="navigation-listlink-mobile logout">Log
+              out</a></li>
+          <li class="navigation-listitem-mobile profile"><a href="profile.html" class="navigation-listlink-mobile">Your
+              profile</a></li>
+          <li class="navigation-listitem">
+            <input type="text" class="navigation-listsearch">
+            <a href="#" class="navigation-listlink">
+              <span class="navigation-listsearch-btn">Search</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="row nav-desktop">
+      <div class="navigation-logobox">
+        <a href="index.html"><img src="img/logo.png" alt="logo" class="navigation-logo"></a>
+      </div>
+      <ul class="navigation-list">
+      <li class="navigation-listitem">
+        <a href="admin.html" class="navigation-listlink  admin" id="adminNav"> Admin </a>
+      </li>
+        <li class="navigation-listitem">
+          <a href="index.html" class="navigation-listlink logout">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<section class="create-meetup">
+  <div class="row">
+    <div class="createForm">
+      <div class="form-heading heading-primary">
+        create meetups
+      </div>
+      <form action="#" class="form create-form" id="createForm">
+        <div class="form-group">
+          <label for="meetup-title" class="form-label">Topic/Title of meetup</label>
+          <input type="text" class="form-input" placeholder="Pick a topic" id="meetup-title" name="meetup-title">
+          <div class="error err u-marginTop-sm" id='topicError'></div>
+        </div>
+        <div class="form-group-inline">
+          <label for="meetup-date" class="form-label">Date of meetup</label>
+          <input type="date" class="form-input" required placeholder="13/01/2019" id="meetup-date" name="meetup-date">
+        </div>
+        <div class="form-group-inline">
+          <label for="meetup-img" class="form-label">Meetup picture </label>
+          <input type="file" class="form-input" required id="meetup-img" name="meetup-img">
+        </div>
+        <div class="form-group">
+          <label for="meetup-location" class="form-label">Location</label>
+          <input type="text" class="form-input" placeholder="Where is the meetup holding" id="meetup-location" name="meetup-location">
+          <div class="error err u-marginTop-sm" id='locationError'></div>
+        </div>
+        <div class="form-group">
+          <label for="meetup-location" class="form-label">Description</label>
+          <textarea name="description" id="meetup-description" class="form-input" cols="30" rows="2"></textarea>
+          <div class="error err u-marginTop-sm" id='descriptionError'></div>
+        </div>
+        <div class="error err formerror u-marginTop-sm" id='Error'>this would show any error created</div>
+        <div class="form-group">
+          <div class="meetup-btnwrapper">
+            <button class="btn form-btn submit" id="submit">Create meetup</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</section>
+  <footer class="footer">
+    <h2 class="heading-primar">
+      Questionaire &copy; 2018
+    </h2>
+    <p>All rights reserved</p>
+  </footer>
+  <script src="js/verify.js"></script>
+  <script src="js/Template.js"></script>
+  <script defer src="js/create.js"></script>
+</body>
+
+</html>

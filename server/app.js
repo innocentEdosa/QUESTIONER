@@ -12,7 +12,7 @@ import router from './route/index';
 
 import { Upload } from './middleware/upload';
 
-import { cloudinaryConfig } from './middleware/cloudinary'
+import { cloudinaryConfig } from './middleware/cloudinary';
 
 const app = express();
 const port = process.env.PORT || 3006;
