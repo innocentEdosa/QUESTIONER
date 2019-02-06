@@ -21,7 +21,7 @@
         <span class="navigation-icon" id="navigation-icon"></span>
       </label>
       <div class="navigation-background">&nbsp</div>
-  
+
       <div class="navigation-mobile">
         <ul class="navigation-listmobile">
           <li class="navigation-listitem-mobile">
@@ -37,7 +37,7 @@
               <span class="navigation-listsearch-btn">Search</span>
             </a>
           </li>
-  
+
         </ul>
       </div>
     </div>
@@ -51,7 +51,7 @@
           <a href="#" class="navigation-listlink">
             <span class="navigation-listsearch-btn">Search</span>
           </a>
-  
+
         </li>
         <li class="navigation-listitem">
           <a href="admin.html" class="navigation-listlink admin" id="adminNav">create meetup</a>
@@ -72,26 +72,26 @@
         <div class="row">
           <div class="col-3-of-5">
             <div class="profile-text u-marginBottom-md">
-              <h2 class="heading-secondary">
+              <h2 class="heading-secondary" id="welcomeUser">
                 Welcome user
               </h2>
             </div>
             <table class="profile-info">
               <tr class="profile-row">
-                <th class=" profile-row-1 profile-heading">Name</th>
-                <td class=" profile-row-2 profile-data">innocent edosa ilegbinijie</td>
+                <th class=" profile-row-1 profile-heading">username</th>
+                <td class=" profile-row-2 profile-data" id="username">innocent edosa ilegbinijie</td>
               </tr>
               <tr class="profile-row">
                 <th class="profile-heading">Email</th>
-                <td class="profile-data">ilegbinijieinnocentcareer@gmail.com</td>
+                <td class="profile-data" id="email">ilegbinijieinnocentcareer@gmail.com</td>
               </tr>
               <tr class="profile-row">
                 <th class="profile-heading">Phone number</th>
-                <td class="profile-data">0807656565656</td>
+                <td class="profile-data" id="phonenumber">0807656565656</td>
               </tr>
               <tr class="profile-row">
                 <th class="profile-heading">No of questions posted</th>
-                <td class="profile-data">1000 questions</td>
+                <td class="profile-data" id="questions">1000 questions</td>
               </tr>
               <tr class="profile-row">
                 <th class="profile-heading">No of questions commented on</th>
@@ -106,112 +106,21 @@
               <h2 class="heading-primary post-heading u-marginBottom-sm">
                 Scheduled (RSVP) Meetups
               </h2>
-              <a href="meetup.html">
-                <div class="card-sub paddingSide-sm u-marginBottom-sm">
-                  <div class="card-date u-marginTop-sm">
-                    present date
-                  </div>
-                  <div class="card-text">
-                    <h2 class="card-title heading-primary">
-                      the golf club benin
-                    </h2>
-                    <div class="card-created u-marginBottom-sm">
-                      created by osaro two days ago
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <table class="meetup-info">
-                <tr>
-                  <td class="meetup-data"> this is question one</td>
-                </tr>
-                <tr>
-                  <td class="meetup-data"> this is question one</td>
-                </tr>
-                <tr>
-                  <td class="meetup-data"> this is question one</td>
-                </tr>
-              </table>
+              <div id="schedule">
+                <!--  -->
 
-                <a href="meetup.html">
-                  <div class="card-sub paddingSide-sm u-marginBottom-sm">
-                    <div class="card-date u-marginTop-sm">
-                      present date
-                    </div>
-                    <div class="card-text">
-                      <h2 class="card-title heading-primary">
-                        the golf club benin
-                      </h2>
-                      <div class="card-created u-marginBottom-sm">
-                        created by osaro two days ago
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <table class="meetup-info">
-                  <tr>
-                    <td class="meetup-data"> this is question one</td>
-                  </tr>
-                  <tr>
-                    <td class="meetup-data"> this is question one</td>
-                  </tr>
-                  <tr>
-                    <td class="meetup-data"> this is question one</td>
-                  </tr>
-                </table>
               </div>
-            
+            </div>
+
           </div>
           <div class="col-2-of-5">
             <div class="more-meetup">
               <h2 class="heading-primary post-heading u-marginBottom-sm">
                 More meetup
               </h2>
-              <a href="meetup.html">
-                <div class="card-sub paddingSide-sm u-marginBottom-sm">
-                  <div class="card-date u-marginTop-sm">
-                    present date
-                  </div>
-                  <div class="card-text">
-                    <h2 class="card-title heading-primary">
-                      the golf club benin
-                    </h2>
-                    <div class="card-created u-marginBottom-sm">
-                      created by osaro two days ago
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href="meetup.html">
-                <div class="card-sub paddingSide-sm u-marginBottom-sm">
-                  <div class="card-date u-marginTop-sm">
-                    present date
-                  </div>
-                  <div class="card-text">
-                    <h2 class="card-title heading-primary">
-                      meeting in outer space
-                    </h2>
-                    <div class="card-created u-marginBottom-sm">
-                      created by osaro two days ago
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href="meetup.html">
-                <div class="card-sub paddingSide-sm u-marginBottom-sm">
-                  <div class="card-date u-marginTop-sm">
-                    present date
-                  </div>
-                  <div class="card-text">
-                    <h2 class="card-title heading-primary">
-                      the coven
-                    </h2>
-                    <div class="card-created u-marginBottom-sm">
-                      created by osaro two days ago
-                    </div>
-                  </div>
-                </div>
-              </a>
+              <div id="trendingMeetup">
+
+              </div>
             </div>
           </div>
         </div>
@@ -227,6 +136,7 @@
     <p>All rights reserved</p>
   </footer>
   <script src="js/verify.js"></script>
+  <script src="js/Template.js"></script>
+  <script src="js/profile.js"></script>
 </body>
-
 </html>

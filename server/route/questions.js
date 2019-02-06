@@ -16,6 +16,8 @@ router.post('/', isAuth, validator.validateQuestions(), questionController.creat
 
 router.get('/meetups/:meetupid', questionController.findbyMeetupId )
 
+router.get('/:userid', questionController.findbyUserId);
+
 /** This routes handles request to upvote a question */
 router.patch('/:questionId/upvote', isAuth, questionController.upvote);
 

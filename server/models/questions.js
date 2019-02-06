@@ -27,6 +27,19 @@ export default class Question {
     }
   }
 
+  static async findbyUser(userid) {
+    try {
+      const query = 'SELECT username, "phoneNumber", email, registered FROM users INNER JOIN questions ON users.id = questions."createdBy" WHERE users.id = $1';
+      const value = [userid];
+      const response = await databaseConnection.query(query, value);
+      return response;
+    }
+    catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+
   static async updatevotes(questionupvotes, questionvotes, questiondownvote, questionId) {
     try {
       const query = 'UPDATE questions SET upvotes = $1, votes = $2, downvotes = $3 WHERE id = $4 RETURNING *';

@@ -13,7 +13,7 @@ const showcasebtn2 = document.getElementById('showcasebtn2');
 const headerSubText = document.getElementById('headerSubText');
 const createNav = document.getElementById('createNav');
  
-const setadminNav = (status) => {
+const setadminNav = () => {
   if (adminStatus === 'TRUE' && adminNav) {
     adminNav.style.display = 'block';
   }
@@ -27,7 +27,7 @@ const removeElement = (element) => {
 
 const auth = async () => {
   let user = JSON.parse(localStorage.getItem('user'));
-  if (windowHref === `${pathHref}/index.html`) {
+  if (windowHref === `${pathHref}/index.html` || windowHref === `${pathHref}/`) {
     if (user) {
       if (user.status === 'TRUE') {
         adminNav.style.display = 'block';
@@ -38,13 +38,12 @@ const auth = async () => {
       removeElement(showcasebtn1);
       removeElement(showcasebtn2);
       headerSubText.innerHTML = `Welcome ${user.username}. Enjoy Questioner`;
-
-    } else (removeElement(logoutNav))
+    } else (removeElement(logoutNav));
     return false;
   }
   if (!user) {
     localStorage.setItem('signupStatus', 1);
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
     return false;
   }
   const token = user.token;
@@ -60,7 +59,7 @@ const auth = async () => {
   const response = await fetch(url, fetchData);
   const json = await response.json();
   if (json.error) {
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
   }
   if (json.status === 200) {
     adminStatus = json.data[0].status;
