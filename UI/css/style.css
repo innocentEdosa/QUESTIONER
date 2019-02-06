@@ -75,6 +75,8 @@ a {
     border-spacing: 1rem;
     border-collapse: collapse;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
+    margin-top: -2rem;
+    margin-bottom: 3rem;
 }
 
 .meetup-row,
@@ -142,12 +144,21 @@ a {
 .u-margin-sm {
     margin: 1.5rem;
 }
+
+.u-marginTop-sm2 {
+    margin-top: 2rem;
+}
+
 .u-marginBottom-sm {
     margin-bottom: 2rem;
 }
 
 .u-marginBottom-md {
     margin-bottom: 4rem;
+}
+
+.u-marginTop-neg {
+    margin-top: -3.5rem !important;
 }
 
 .u-marginTop-sm {
@@ -448,12 +459,9 @@ button:active {
     margin-bottom: 1.5rem;
 }
 
-.post-comment {
-    padding-left: 5px;
-}
-
 .commentContainer {
     display:none;
+    padding: 1rem 2.7rem;
 }
 
 /* navigation  classes*/
@@ -542,6 +550,13 @@ button:active {
 
 .admin {
     display: none;
+    transition: all 1s;
+ 
+}
+
+.create {
+    display: none;
+    transition: all 1s;
 }
 /* mobile navigation....(very painful..lol) */
 
@@ -822,6 +837,9 @@ button:active {
     opacity: 0;
 }
 
+.u-width-100 {
+    width: 100% !important;
+}
 
 /* 
 sections styling */
@@ -838,6 +856,25 @@ sections styling */
     background-size: cover;
     position: relative;
     backface-visibility: hidden;
+}
+
+.fix {
+    background-color: red !important;
+    color: black;
+}
+.signupResponse {
+    background-color: red;
+    z-index: 100000;
+    position: absolute;
+    top: 2.5%;
+    right: 19%;
+    padding: 2.5rem;
+    background-color: rgb(0, 157, 84);
+    color: #fff;
+    opacity: 0;
+    transition: all 1s;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .signup {
@@ -960,12 +997,12 @@ sections styling */
 .create-post {
     position: fixed;
     background-image: linear-gradient(to right bottom, rgba(32, 32, 56, .8), rgba(0, 0, 0, .8));
-    top: 0%;
+    top: 20%;
     left: 0%;
     min-height: 100vh;
-    opacity: 0;
+    opacity: 1;
     width: 100%;
-    display: none;
+    display: block;
     overflow: scroll;
     z-index: 500;
 }
@@ -1023,6 +1060,24 @@ sections styling */
     text-overflow: ellipsis;
 }
 
+.create-meetup {
+         background-image: linear-gradient(to right bottom, rgba(20, 20, 37, 0.97), rgba(0, 0, 0, .98)), url("../img/bg1.jpg");
+     min-height: 100vh;
+     background-position: centre;
+     background-size: cover;
+     position: relative;
+     padding: 3rem;
+   
+}
+
+.createForm {
+    border-radius: .3rem;
+    background-color: #f2f2f2;
+    min-height: 50rem;
+    padding: 3rem 2rem;
+    transform: scale(.9);
+    margin-top: -6rem;
+}
 
 .responseDiv {
 position: absolute;
@@ -1040,10 +1095,16 @@ text-align: center;
 
 .success {
     background-color:  rgb(5, 196, 107);
+    color: #fff;
 }
 
 .failed {
     background-color: rgb(194, 33, 15);
+}
+
+.formerror {
+    text-align: center;
+    padding: 1rem;
 }
 
 /* meetup card styling */
@@ -1183,18 +1244,18 @@ ion-icon {
     font-size: 1.6rem;
 }
 
-.delete-ok {
+.delete-cancel, .delete-ok {
 margin-right: 2rem;
 padding-right: 3rem;
 padding-left: 3rem;
 }
 
-.delete-cancel {
+.delete-ok {
 color: red;
 border: 1px solid red;
 }
 
-.delete-cancel:hover {
+.delete-ok:hover {
     background-color: red;
     color: #fff !important;
 }
@@ -1251,7 +1312,23 @@ border: 1px solid red;
     margin-bottom: 2rem;
 }
 
+    .questionbtn {
+   margin-left: 48rem;
+    background-color: #fff;
+    color: rgb(5, 196, 107) !important;
+    border: 1px solid rgb(5, 196, 107);
+    border-radius: .3rem;
+    /* float: right; */
+}
 
+.questionbtn::after, .questionbtn::before {
+    clear: both;
+}
+
+.questionbtn:hover  {
+    background-color: rgb(5, 196, 107) !important;
+    color: #fff !important;
+}
 /* section post styling */
 
 .section-post {
@@ -1264,7 +1341,11 @@ border: 1px solid red;
 }
 
 .post-description {
-    padding: 2rem 0rem 3rem 0rem;
+   padding: 2rem 2rem 3rem 2rem;
+word-wrap: normal;
+width: 95%;
+text-align: justify;
+}
 }
 
 
@@ -1277,6 +1358,7 @@ border: 1px solid red;
     overflow: hidden;
     height: 5.8rem;
     width: 100%;
+      border-radius: 50rem;
 }
 
 .post-figure {
@@ -1369,7 +1451,7 @@ outline: none;
 /* footer styling */
 
 .footer {
-    padding: 7rem;
+    padding: 2rem;
     text-align: center;
     background-color: rgb(32, 32, 56);
 }
@@ -1646,6 +1728,8 @@ outline: none;
         left: 0%;
         transform: translate(0%, 0%) scale(1);
         box-shadow: none;
+        cursor: pointer;
+
     }
     .signup-form {
         width: 100%;

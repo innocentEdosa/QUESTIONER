@@ -9,6 +9,7 @@ class questionValidator {
     if (error.length > 0) {
       errorResponse.innerHTML = `${questionValidator.display(error)}`;
       errorResponse.style.display = 'block';
+      errorResponse.style.opacity = 1;
       return false;
     }
     return true;
@@ -106,7 +107,7 @@ const getTrending = async () => {
   }
 }
 
-function initQuestionBtn() {
+const initQuestionBtn = () => {
   const questionDiv = document.getElementById('questionss');
   questionDiv.addEventListener('click', (e) => {
     e.preventDefault();
@@ -140,7 +141,7 @@ function initQuestionBtn() {
 }
 
 
-function getPostId() {
+const getPostId = () => {
   const postid = localStorage.getItem('meetupid');
   getpost(postid);
 }
@@ -206,7 +207,8 @@ const postbodyObserver = new MutationObserver(function (mutations) {
     if (mutation.addedNodes.length > 1) {
       const postid = localStorage.getItem('meetupid');
       getQuestions(postid);
-      startRsvp();
+      setRsvpCard();
+      setTrending();
       getTrending();
     }
   });
@@ -278,24 +280,24 @@ const createComment = async (commentInput, questionid, commentdiv) => {
 }
 
 let questionForm;
-function setquestionForm() {
+const setquestionForm = () => {
   const questionF = document.forms['questionForm'];
   questionForm = questionF;
   startQuestionForm();
   setCommentForm();
 }
 
-function startQuestionForm() {
+const startQuestionForm = () => {
   if (questionForm) {
     questionForm.addEventListener('click', (e) => {
       e.preventDefault();
       if (e.target.classList.contains('questionbtn')) {
         const questionbtn = e.target;
-        const questionTitle = document.getElementById('questionTitle').value;
+        const questionTitle = document.getElementById('questionTitle').value || 'noTitle';
         const questionBody = document.getElementById('questionBody').value;
         const titlecheck = questionValidator.check(questionTitle, 'Title');
         const bodycheck = questionValidator.check(questionBody, 'Body');
-        if (titlecheck && bodycheck) {
+        if (bodycheck) {
           questionbtn.innerHTML = `<img src="img/6.gif" alt="Loading" title="Loading" />`;
           const meetupid = localStorage.getItem('meetupid');
           createQuestion(meetupid, questionTitle, questionBody);
@@ -307,13 +309,13 @@ function startQuestionForm() {
 }
 
 let commentForm;
-function setCommentForm() {
-  const commentF = document.forms['commentForm'];
-  commentForm = commentF;
+const setCommentForm = () => {
+  const commentFormField= document.forms['commentForm'];
+  commentForm = commentFormField;
   startCommentForm(commentForm);
 }
 
-function startCommentForm(commentform) {
+const startCommentForm = (commentForm) => {
   if (commentForm) {
     commentForm.addEventListener('click', (e) => {
       e.preventDefault();
@@ -333,9 +335,11 @@ const createRsvp = async (meetupid, rsvpResponse) => {
   const token = user.token;
   user = user.id;
   const rsvpCard = document.getElementById('rsvpCardFront');
+  const rsvpCard2 = document.getElementById('rsvpCardFront2');
   const restext = document.getElementById('rsvptext');
+  const restext2 = document.getElementById('rsvptext2');
   if (meetupid && rsvpResponse && user) {
-    const url = 'https://innocentsquestioner.herokuapp.com/api/v1/meetups/' +meetupid+ '/rsvp';
+    const url = 'https://innocentsquestioner.herokuapp.com/api/v1/meetups/' + meetupid + '/rsvp';
     const data = {
       meetup: Number(meetupid),
       user: user,
@@ -356,24 +360,46 @@ const createRsvp = async (meetupid, rsvpResponse) => {
       if (json.error) {
         console.log(json.error);
       } else {
-        if(json.msg) {
+        if (json.msg) {
           restext.textContent = `${json.msg}:`;
+          restext2.textContent = `${json.msg}:`;
         }
         rsvpCard.textContent = json.data[0].response;
+        rsvpCard2.textContent = json.data[0].response;
       }
     }
   }
 }
 
-function startRsvp() {
+const setRsvpCard = () => {
   const rsvpCard = document.getElementById('rsvpCard');
   rsvpCard.addEventListener('click', (e) => {
     e.preventDefault();
-  if (e.target.classList.contains('schedule-btn')){
-    const rsvpResponse = e.target.textContent;
-    const meetupid = e.target.nextElementSibling.value;
-    createRsvp(meetupid, rsvpResponse);
-  }
+    if (e.target.classList.contains('schedule-btn')) {
+      const rsvpResponse = e.target.textContent;
+      const meetupid = e.target.nextElementSibling.value;
+      createRsvp(meetupid, rsvpResponse);
+    }
+  })
+  rsvpCard2.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains('schedule-btn')) {
+      const rsvpResponse = e.target.textContent;
+      const meetupid = e.target.nextElementSibling.value;
+      createRsvp(meetupid, rsvpResponse);
+    }
+  })
+}
+
+const setTrending = () => {
+  const trending = document.getElementById('trendingMeetup');
+  trending.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(e.target.classList.contains('postbtn')) {
+      const meetup = e.target.nextElementSibling.value;
+      localStorage.setItem('meetupid', meetup);
+      window.location.href = 'post.html';
+    }
   })
 }
 
