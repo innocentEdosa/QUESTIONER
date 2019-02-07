@@ -27,6 +27,7 @@ a {
     background-color: #eeeeee;
 }
 
+
 .profile-info {
     table-layout: fixed;
     width: 100%;
@@ -1337,6 +1338,19 @@ border: 1px solid red;
     background-color: rgb(5, 196, 107) !important;
     color: #fff !important;
 }
+
+.question-name {
+padding-right: 2rem;
+color: rgb(124, 124, 128);
+text-align: right;
+font-style: italic;
+font-size: 1.3rem;
+font-weight: 600;
+}
+
+.question-emp {
+   color: rgb(87, 87, 88); 
+}
 /* section post styling */
 
 .section-post {
@@ -1416,6 +1430,8 @@ text-align: justify;
     font-size: 1.5rem;
     font-style: italic;
     border-radius: 50rem;
+    word-wrap: break-word;
+    position: relative;
 }
 
 .questions:not(:last-child) {
@@ -1427,11 +1443,15 @@ text-align: justify;
     font-size: 1.3rem;
     font-style: italic;
     color: rgb(5, 196, 107);
+    padding-right: 2rem;
+
+
 }
 
 .question-btnlistitem {
     list-style: none;
     display: inline-block;
+    padding-right: .3rem;
 }
 
 .question-btnlistitem:not(:last-child) {

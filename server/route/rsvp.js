@@ -14,6 +14,8 @@ const router = Router();
 /** This router handles request for the creation of a rsvp */
 router.post('/', isAuth, validator.validateRsvp(), rsvpController.createRsvp);
 
+router.get('/:userid/:meetupid', rsvpController.getRsvp);
+
 router.get('/:userid', rsvpController.findbyUser);
 
 export default router;
