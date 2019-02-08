@@ -54,4 +54,16 @@ export default class Rsvp {
       return err;
     }
   }
+
+  static async getRsvp(userid, meetupid) {
+    try {
+      const query = 'SELECT response FROM rsvps WHERE userid = $1 AND meetup = $2';
+      const value = [userid, meetupid];
+      const res = await databaseConnection.query(query, value)
+      return res;
+    }
+    catch (err) {
+      return err;
+    }
+  }
 }

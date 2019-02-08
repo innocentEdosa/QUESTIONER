@@ -31,6 +31,8 @@ router.get('/:meetupId', isAuth, meetupController.getMeetup);
 /** This router handles requests for deleting a specific meetup */
 router.delete('/:meetupId', isAuth, meetupController.deleteMeetup);
 
+router.put('/:meetupid', isAuth, validator.validateMeetup(), meetupController.updateMeetup);
+
 
 /**
  * @export router

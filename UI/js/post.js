@@ -1,3 +1,4 @@
+
 const postbody = document.getElementById('postbody');
 class questionValidator {
   static check(value, field) {
@@ -117,8 +118,10 @@ const initQuestionBtn = () => {
           .parentElement.parentElement
           .parentElement.nextElementSibling;
         const comment = commentform.nextElementSibling;
+        const questionid = commentform.firstElementChild.value;   
         if (commentform.classList.contains('form-comment')) {
           if (commentform.style.display === 'none') {
+            getComment(questionid, comment);
             commentform.style.display = 'block';
             return comment.style.display = 'block';
           }
@@ -179,6 +182,29 @@ const getComment = async (questionid, commentdiv) => {
   }
 }
 
+
+const getRsvp = async () => {
+  const rsvpCard = document.getElementById('rsvpCardFront');
+  const rsvpCard2 = document.getElementById('rsvpCardFront2');
+  const meetupid = localStorage.getItem('meetupid');
+  let user = JSON.parse(localStorage.getItem('user'));
+  const userid = user.id;
+
+
+  const response = await fetch(`https://innocentsquestioner.herokuapp.com/api/v1/rsvp/${userid}/${meetupid}`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'omit',
+  });
+  const json = await response.json();
+  if (json.error) {
+    console.log(json.error);
+  } else {
+    rsvpCard.innerHTML = `${json.data.response}`;
+    rsvpCard2.innerHTML = `${json.data.response}`;
+  }
+}
+
 const getpost = async (postid) => {
   const showcard = document.getElementById('showcard');
   showcard.innerHTML = `${loading(2)}`;
@@ -210,6 +236,7 @@ const postbodyObserver = new MutationObserver(function (mutations) {
       setRsvpCard();
       setTrending();
       getTrending();
+      getRsvp();
     }
   });
 })
@@ -218,7 +245,7 @@ postbodyObserver.observe(postbody, {
   childList: true,
 })
 
-const createQuestion = async (meetupid, questionTitle, questionBody) => {
+const createQuestion = async (meetupid, questionBody) => {
   let user = JSON.parse(localStorage.getItem('user'));
   const token = user.token;
   const url = `https://innocentsquestioner.herokuapp.com/api/v1/questions`;
@@ -278,13 +305,16 @@ const createComment = async (commentInput, questionid, commentdiv) => {
     }
   }
 }
-
+let check = false;
 let questionForm;
 const setquestionForm = () => {
-  const questionF = document.forms['questionForm'];
-  questionForm = questionF;
-  startQuestionForm();
-  setCommentForm();
+  if (!check) {
+    const questionF = document.forms['questionForm'];
+    questionForm = questionF;
+    startQuestionForm();
+    setCommentForm();
+    check = true;
+  }
 }
 
 const startQuestionForm = () => {
@@ -292,42 +322,32 @@ const startQuestionForm = () => {
     questionForm.addEventListener('click', (e) => {
       e.preventDefault();
       if (e.target.classList.contains('questionbtn')) {
+        e.stop
         const questionbtn = e.target;
-        const questionTitle = document.getElementById('questionTitle').value || 'noTitle';
         const questionBody = document.getElementById('questionBody').value;
-        const titlecheck = questionValidator.check(questionTitle, 'Title');
         const bodycheck = questionValidator.check(questionBody, 'Body');
         if (bodycheck) {
           questionbtn.innerHTML = `<img src="img/6.gif" alt="Loading" title="Loading" />`;
           const meetupid = localStorage.getItem('meetupid');
-          createQuestion(meetupid, questionTitle, questionBody);
+          createQuestion(meetupid, questionBody);
         }
-
       }
     })
   }
 }
 
-let commentForm;
 const setCommentForm = () => {
-  const commentFormField= document.forms['commentForm'];
-  commentForm = commentFormField;
-  startCommentForm(commentForm);
-}
-
-const startCommentForm = (commentForm) => {
-  if (commentForm) {
-    commentForm.addEventListener('click', (e) => {
+  postbody.addEventListener('click', (e)=> {
+    if (e.target.classList.contains('commentBtn')){
       e.preventDefault();
-      if (e.target.classList.contains('commentBtn')) {
-        const commentInputDiv = e.target.previousElementSibling;
-        const commentInput = commentInputDiv.value;
-        const questionid = commentInputDiv.previousElementSibling.value;
-        const commentdiv = commentForm.nextElementSibling;
-        createComment(commentInput, questionid, commentdiv);
-      }
-    })
-  }
+      const commentForm = e.target.parentElement;
+      const commentInputDiv = e.target.previousElementSibling;
+      const commentInput = commentInputDiv.value;
+      const questionid = commentInputDiv.previousElementSibling.value;
+     const commentdiv = commentForm.nextElementSibling;
+      createComment(commentInput, questionid, commentdiv)
+    }
+  })
 }
 
 const createRsvp = async (meetupid, rsvpResponse) => {

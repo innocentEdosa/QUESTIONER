@@ -16,7 +16,8 @@ export default class Question {
 
   static async findbyMeetup(meetup) {
     try {
-      const query = 'SELECT * FROM questions WHERE meetup = $1 ORDER BY id DESC';
+      // const query = 'SELECT * FROM questions WHERE meetup = $1 ORDER BY id ASC';
+      const query = 'SELECT users.username, questions."createdOn", questions.body, questions.id, questions.upvotes, questions.downvotes, questions.votes FROM meetups INNER JOIN questions ON meetups.id = questions.meetup JOIN users ON questions."createdBy" = users.id WHERE meetups.id = $1 ORDER BY questions.id ASC';
       const value = [meetup];
       const response = await databaseConnection.query(query, value);
       return response;

@@ -1,0 +1,836 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the questioner api.  You can find out more about     Questioner at [http://innocentedosa.github.io/QUESTIONER/UI](http://innocentedosa.github.io/QUESTIONER/UI)",
+    "version": "1.0.0",
+    "title": "Questioner",
+    "contact": {
+      "email": "ilegbinijieinnocent@gmail.com"
+    }
+  },
+  "host": "innocentsquestioner.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "",
+      "description": "Everything about your questioner",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "innocentedosa.github.io/QUESTIONER/UI"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Add a new user to the database",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to questioner",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usersignup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created successfully",
+            "schema": {
+              "$ref": "#/definitions/createduser"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "logs in in a new user",
+        "description": "",
+        "operationId": "loginUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "login request object that needs to be sent to questioner api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Userlogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login successfully",
+            "schema": {
+              "$ref": "#/definitions/createduser"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/meetups": {
+      "post": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "create meetup",
+        "description": "",
+        "operationId": "createMeetup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Meetup object request that needs to be sent to questioner",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/meetupparam"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Meetup created successfully",
+            "schema": {
+              "$ref": "#/definitions/meetup"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "Retrieves all meetup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/meetup"
+            }
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/meetups/upcoming": {
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "retrieves all upcoming meetup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/meetup"
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Meetup not found"
+          },
+          "500": {
+            "description": "Server error!!!"
+          }
+        }
+      }
+    },
+    "/meetups/{meetupid}": {
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "retrieves a specific meetup",
+        "operationId": "findMeetupById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetupid",
+            "in": "path",
+            "description": "id values for specific meetup",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/meetup"
+            }
+          },
+          "404": {
+            "description": "Meetup not found"
+          },
+          "500": {
+            "description": "Server error!!!"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "deletes specific meetup",
+        "operationId": "deleteMeetupByid",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetupid",
+            "in": "path",
+            "description": "id or meetup to be deleted",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Meetup not found"
+          },
+          "500": {
+            "description": "Server error!!!"
+          }
+        }
+      }
+    },
+    "/questions": {
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "create questions",
+        "description": "",
+        "operationId": "createQuestions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Question object request that needs to be sent to questioner",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/questionparam"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "question created successfully",
+            "schema": {
+              "$ref": "#/definitions/question"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/questions/{questionid}/upvote": {
+      "patch": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Upvotes a specific question",
+        "description": "",
+        "operationId": "upvoteQuestions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "questionid",
+            "in": "path",
+            "description": "id values for specific question",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successfull",
+            "schema": {
+              "$ref": "#/definitions/question"
+            }
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "404": {
+            "description": "Question not found"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/questions/{questionid}/downvote": {
+      "patch": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Downvotes a specific question",
+        "description": "",
+        "operationId": "downvoteQuestions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "questionid",
+            "in": "path",
+            "description": "id values for specific question",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successfull",
+            "schema": {
+              "$ref": "#/definitions/question"
+            }
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "404": {
+            "description": "Question not found"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/meetups/{meetupid}/rsvp": {
+      "post": {
+        "tags": [
+          "Rsvps"
+        ],
+        "summary": "create rsvps",
+        "description": "",
+        "operationId": "createRsvps",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meetupid",
+            "in": "path",
+            "description": "id values for specific meetup",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "rsvp object request that must be sent to questioner",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/rsvpparam"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "question created successfully",
+            "schema": {
+              "$ref": "#/definitions/rsvp"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "create comments on a specific question",
+        "description": "",
+        "operationId": "createComments",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "comment object request that must be sent to questioner",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/commentparam"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comment created successfully",
+            "schema": {
+              "$ref": "#/definitions/comment"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "500": {
+            "description": "Server error!!! Try again later"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Usersignup": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "othername": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "integer"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Userlogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "user@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secret"
+        }
+      }
+    },
+    "meetupparam": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "happeningOn": {
+          "type": "string",
+          "description": "The date meetup is to hold"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of what the meetup is about"
+        }
+      }
+    },
+    "rsvpparam": {
+      "type": "object",
+      "properties": {
+        "meetup": {
+          "type": "integer",
+          "description": "meetup to which the rsvp belongs"
+        },
+        "user": {
+          "type": "integer",
+          "description": "user creating the rsvp"
+        },
+        "response": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "No",
+            "maybe"
+          ]
+        }
+      }
+    },
+    "rsvp": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "meetup": {
+            "type": "integer"
+          },
+          "userid": {
+            "type": "integer"
+          },
+          "response": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "commentparam": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "integer",
+          "description": "question to which the comment belongs"
+        },
+        "comment": {
+          "type": "string",
+          "description": "body of the comment"
+        }
+      }
+    },
+    "comment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "integer",
+            "description": "The id of the question to which the comment belongs"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the question to which the comment belongs"
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the question to which the comment belongs"
+          },
+          "comment": {
+            "type": "string",
+            "description": "The body of the comment"
+          }
+        }
+      }
+    },
+    "questionparam": {
+      "type": "object",
+      "properties": {
+        "meetup": {
+          "type": "integer",
+          "description": "meetup to which the question belongs"
+        },
+        "title": {
+          "type": "string",
+          "description": "title of the question"
+        },
+        "body": {
+          "type": "string",
+          "description": "body of the question"
+        }
+      }
+    },
+    "question": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "meetup": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "upvotes": {
+            "type": "integer",
+            "description": "upvote on a particular question"
+          },
+          "downvotes": {
+            "type": "integer",
+            "description": "downvote of a particular question"
+          },
+          "votes": {
+            "type": "integer",
+            "description": "Total number of votes (downvote + upvote) of a particular question"
+          }
+        }
+      }
+    },
+    "meetup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdOn": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "happeningOn": {
+            "type": "string"
+          },
+          "images": {
+            "type": "string",
+            "description": "url of the meetup image"
+          },
+          "createdBy": {
+            "type": "integer",
+            "description": "created by which admin"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "createduser": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "othername": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "phonenumber": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "registered": {
+                "type": "string",
+                "description": "date when the user was created"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

@@ -16,7 +16,7 @@ export default class Comment {
 
   static async getComments(questionid) {
     try {
-      const query = 'SELECT * FROM comments WHERE question = $1 ORDER BY id DESC';
+      const query = 'SELECT users.username, comments.comment FROM comments INNER JOIN questions ON comments.question = questions.id JOIN users ON comments."createdBy" = users.id WHERE questions.id = $1 ORDER BY comments.id DESC';
       const value = [questionid];
       const response = await databaseConnection.query(query, value);
       return response;
