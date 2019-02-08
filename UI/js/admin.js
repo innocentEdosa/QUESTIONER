@@ -1,5 +1,7 @@
 const deletePopup = document.getElementById('deletePopup');
 const adminMeetups = document.getElementById('adminMeetups');
+const deleteTitle = document.getElementById('deleteTitle');
+let deletemeetupid;
 class Display {
   static open(elem) {
     const value = elem;
@@ -64,6 +66,16 @@ const checkCreatedStatus = () => {
   }
 }
 
+const checkUpdatedStatus = () => {
+  let updatedStatus = localStorage.getItem('updated');
+  if (updatedStatus == 2) {
+    responseDiv.innerHTML = `Your meetup has been Updated`;
+    responseDiv.classList.add('success');
+    fade(responseDiv);
+    localStorage.removeItem('updated');
+  }
+}
+
 const deleteMeetup = async (meetupid) => {
   let value = meetupid;
   let user = JSON.parse(localStorage.getItem('user'));
@@ -98,33 +110,39 @@ const deleteMeetup = async (meetupid) => {
 }
 
 
-
+deletePopup.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.preventDefault();
+  if (e.target.classList.contains('ok')) {
+    e.preventDefault();
+    e.stopPropagation();
+    const adminMeetups = document.getElementById('adminMeetups');
+    adminMeetups.innerHTML = `${loading()}`;
+    deleteMeetup(deletemeetupid);
+    Display.close(deletePopup);
+    deletemeetupid = undefined;
+  }
+  if (e.target.classList.contains('cancel')) {
+    Display.close(deletePopup);
+  }
+})
 
 const mainBody = document.querySelector('#mainBody');
 mainBody.addEventListener('click', (e) => {
   if (e.target.classList.contains('create')) {
     window.location.href ='create.html'
   }
+  if (e.target.classList.contains('edit')) {
+    const updateMeetupId = e.target.nextElementSibling.value;
+    localStorage.setItem('updateMeetupId', updateMeetupId);
+    window.location.href = 'update.html';
+  }
   if (e.target.classList.contains('delete')) {
     e.preventDefault();
-    const deleteTitle = document.getElementById('deleteTitle');
-    let meetupid = e.target.nextElementSibling.value;
+     deletemeetupid = e.target.nextElementSibling.value;
     let meetuptopic = e.target.nextElementSibling.nextElementSibling.value;
     deleteTitle.innerHTML = meetuptopic;
     Display.open(deletePopup);
-    deletePopup.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (e.target.classList.contains('ok')) {
-        const adminMeetups = document.getElementById('adminMeetups');
-        adminMeetups.innerHTML = `${loading()}`;
-        deleteMeetup(meetupid);
-        Display.close(deletePopup);
-        meetupid = undefined;
-      }
-      if (e.target.classList.contains('cancel')) {
-        Display.close(deletePopup);
-      }
-    })
   }
 });
 
@@ -141,4 +159,5 @@ adminMeetups.addEventListener('click', (e) => {
 window.onload  = () => {
   getMeetups();
   checkCreatedStatus();
+  checkUpdatedStatus();
 }

@@ -12,6 +12,7 @@ const showcasebtn1 = document.getElementById('showcasebtn1');
 const showcasebtn2 = document.getElementById('showcasebtn2');
 const headerSubText = document.getElementById('headerSubText');
 const createNav = document.getElementById('createNav');
+const profileNav = document.getElementById('profileNav');
  
 const setadminNav = () => {
   if (adminStatus === 'TRUE' && adminNav) {
@@ -28,6 +29,9 @@ const removeElement = (element) => {
 const auth = async () => {
   let user = JSON.parse(localStorage.getItem('user'));
   if (windowHref === `${pathHref}/index.html` || windowHref === `${pathHref}/`) {
+    if(!user) {
+      removeElement(profileNav);
+    }
     if (user) {
       if (user.status === 'TRUE') {
         adminNav.style.display = 'block';

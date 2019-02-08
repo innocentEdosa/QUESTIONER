@@ -103,7 +103,7 @@ export default class meetupController {
       }
       result = await Meetup.deleteMeetup(meetupId);
       if (result.rowCount === 1) {
-        return res.status(200).json({ data: ['delete successful'] });
+        return res.status(200).json({ data: ['Meetup was deleted successfully'] });
       }
     }
     catch (err) {
@@ -169,4 +169,44 @@ export default class meetupController {
      console.log(error);
    }
  }
+
+  static async updateMeetup(req, res) {
+    try {
+      let {
+        location, topic, happeningOn, tags, description, images
+      } = req.body;
+      const { meetupid } = req.params;
+      const error = validationResult(req);
+      const errormsg = await Util.errorCheck(error, res);
+      if (errormsg) {
+        return false;
+      }
+      let result = await Meetup.findbyId(meetupid);
+      if (!result.rows[0]) {
+        return res.status(404).json({ error: 'Meetup not found' })
+      }
+      if (req.isadmin === 'FALSE') {
+        return res.status(401).json({ error: 'Not authorised' });
+      }
+      if (!images) {
+        images = 'http://res.cloudinary.com/dqw7jnfgo/image/upload/v1549288478/q1pmfhfjkrgnchugokpf.jpg';
+      }
+      if (req.file) {
+        const file = dataUri(req).content;
+        const fileUpload = await uploader.upload(file);
+        if (fileUpload) {
+          images = fileUpload.url;
+        }
+        
+      }
+      const response = await Meetup.updateMeetup(location, images, topic, happeningOn, tags, description, meetupid);
+      console.log(response);
+      if (response.rows[0]) {
+        return res.status(200).json({ data: [response.rows[0]] });
+      }
+    }
+    catch (err) {
+      return res.status(500).json({ error: 'Server error!!! Try again later' });
+    }
+  }
 }

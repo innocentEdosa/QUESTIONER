@@ -52,4 +52,17 @@ export default class rsvpController {
       return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
     }
   }
+
+  static async getRsvp(req, res) {
+    try {
+      const {userid, meetupid} = req.params;
+      const response = await Rsvp.getRsvp(userid, meetupid);
+      if (!response.rows[0] || response.rows[0] === undefined) {
+        return res.status(404).json({ error: 'No Rsvp for this user' });
+      }
+      return res.status(200).json({ status: 200, data: response.rows[0]});
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: 'Server error!!! Try again later' });
+    }
+  }
 }

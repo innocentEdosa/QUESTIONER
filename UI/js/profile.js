@@ -13,7 +13,6 @@ const setUserDetails = async (userid) => {
     if (json.error) {
       console.log(json.error);
     } else {
-      console.log(json.number);
       userGreeting.innerHTML = `Welcome ${json.data[0].username}`;
       usernameField.innerHTML = `${json.data[0].username}`;
      emailField.innerHTML = `${json.data[0].email}`;
@@ -47,7 +46,6 @@ const getTrending = async () => {
     if (json.error) {
       console.log(json.error);
     } else {
-      console.log(json.data);
       schedule.innerHTML = `
  				${json.data.map(scheduledTemplate).join('')}`;
     }

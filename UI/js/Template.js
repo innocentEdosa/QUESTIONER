@@ -13,14 +13,11 @@ const createdWhen = (date) => {
 };
 
 const dateFormater = (date) => {
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+  const monthNames = ['Null', 'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
   ];
-  let formattedDate = new Date(date);
-  const day = formattedDate.getDay();
-  const month = monthNames[formattedDate.getMonth()];
-  const year = formattedDate.getFullYear();
-  formattedDate = `${day} / ${month} / ${year}`;
+  let formattedDate = date.split('-').reverse();
+  formattedDate = `${formattedDate[0]} / ${monthNames[Number(formattedDate[1])]} / ${formattedDate[2]}`;
   return `${formattedDate}`;
 };
 
@@ -53,7 +50,7 @@ const adminMeetupTemplate = meetup => `
           ${truncate(meetup.description, 80)}
         </p>
       </div>
-      <div class="card-description-btn">
+      <div class="card-description-btn ">
         <a href="#" class="card-btn edit">Edit</a>
         <input type="hidden" value="${meetup.id}">
         <a href="#" class="card-btn delete">Delete</a>
@@ -101,6 +98,7 @@ const adminMeetupTemplate = meetup => `
 
 const questionTemplate = question => `
 <div class="questions">
+  <div class="question-name"><span class="question-emp">${question.username}:</span>  ${createdWhen(question.createdOn)} </div>  
     <div class="question-text">
       ${question.body}
     </div>
@@ -123,7 +121,7 @@ const questionTemplate = question => `
       </li>
       <li class="question-btnlistitem">
         <a href="" class="question-btn" id="chatbox">
-          <span class="question-text"></span>
+          <span class="question-text">0</span>
           <ion-icon class="chatbtn" name="chatboxes"></ion-icon>
         </a>
       </li>
@@ -134,7 +132,6 @@ const questionTemplate = question => `
       <input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
       <input type="button" value="comment" class="form-comment-btn commentBtn">
     </form>
-
     <div class="commentContainer">
       ${loading(2)}
     </div>
@@ -149,7 +146,7 @@ const showcardTemplate = meetup => `
       ${meetup.topic}
     </h2>
     <div class="card-created u-marginBottom-sm">
-      created on ${dateFormater(meetup.createdOn)}
+      happening on ${dateFormater(meetup.happeningOn)}
     </div>
   </div>
   <div class="card-schedule">
@@ -172,6 +169,7 @@ const showcardTemplate = meetup => `
 const commentTemplate = comment => `
 <div class="post-comment" id="post-comment">
   <div class="comment">
+  <div class="question-name">${comment.username}</div>  
   <div class="comment-text">
     ${comment.comment}
   </div>
@@ -220,12 +218,7 @@ const postbodyTemplate = meetup => `
           <div class="questions">
             ${loading(2)}
           </div>
-          <div>
-            <div class="form-comment" id="form-comment">
-              <input type="text" class="form-comment-input" placeholder="write a comment..." id="commentInput" name="reply">
-              <input type="button" value="comment" class="form-comment-btn" id="commentBtn">
-            </div>
-          </div>
+
         </div>
         <div class="post-input u-marginTop-sm">
           <form action="#" id="questionForm">
@@ -314,7 +307,7 @@ const meetupTemplate = meetup => `
         </a>
         <input type='hidden' value=${meetup.id}>
         <div class="card-created">
-        <span class="created-when"> ${createdWhen(meetup.createdOn)}</span>
+        <span class="created-when"> ${dateFormater(meetup.happeningOn)}</span>
         </div>
       </div>
     </div>

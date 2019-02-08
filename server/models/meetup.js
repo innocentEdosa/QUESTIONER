@@ -64,4 +64,17 @@ export default class Meetup {
       return (err);
     }
   }
+
+  static async updateMeetup(location, images, topic, happeningOn, tags, description, meetup) {
+    try {
+      const query = 'UPDATE meetups SET location = $1, images = $2, topic = $3, "happeningOn" = $4, tags = $5, description = $6 WHERE id = $7 RETURNING *';
+      const value = [location, images || 'imagurl', topic, happeningOn, tags || [], description, meetup];
+      const response = await databaseConnection.query(query, value)
+      return response;
+    }
+    catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
 }
