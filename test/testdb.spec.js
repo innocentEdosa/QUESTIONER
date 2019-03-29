@@ -241,3 +241,11 @@ describe('POST /auth/login', () => {
 
 });
 
+
+
+import {mocha} from 'mocha';
+import {expect} from 'chai';
+
+it('it should return a user object', () => {
+  
+})

@@ -6,6 +6,9 @@ vote on asked questions and questions bubble to the top or bottom based on vote
 
 [![Build Status](https://travis-ci.org/innocentEdosa/QUESTIONER.svg?branch=develop)](https://travis-ci.org/innocentEdosa/QUESTIONER) [![Coverage Status](https://coveralls.io/repos/github/innocentEdosa/QUESTIONER/badge.png?branch=develop)](https://coveralls.io/github/innocentEdosa/QUESTIONER?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/d924ca34755d0f465fa7/maintainability)](https://codeclimate.com/github/innocentEdosa/QUESTIONER/maintainability)
 
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed%20by-HoundCI-green.svg)](https://houndci.com)
+
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Visit Questioner on https://innocentedosa.github.io/QUESTIONER/UI
 

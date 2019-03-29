@@ -27,6 +27,6 @@ app.use(multer({ storage: Upload.fileStorage(), fileFilter: Upload.filesFilter }
 app.use('/home', swaggerUi.serve, swaggerUi.setup(questionerDocument));
 app.use('/api/v1', router);
 
-app.listen(port);
+app.listen(port, console.log(port));
 
 export default app;
